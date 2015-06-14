@@ -9,7 +9,7 @@ public class DBHelper {
         Connection conn = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            DriverManager.getConnection("jdbc:sqlite:rmpersistencia.sqlite3");
+            conn = DriverManager.getConnection("jdbc:sqlite:rmpersistencia.sqlite3");
         } catch (Exception e) {
             System.out.println(e.getStackTrace());
         }
