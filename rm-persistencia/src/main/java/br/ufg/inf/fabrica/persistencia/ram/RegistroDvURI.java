@@ -1,5 +1,6 @@
 package br.ufg.inf.fabrica.persistencia.ram;
 
+import org.openehr.rm.datatypes.uri.DvEHRURI;
 import org.openehr.rm.datatypes.uri.DvURI;
 
 /**
