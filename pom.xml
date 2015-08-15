@@ -94,6 +94,7 @@
     <module>measure-serv</module>
     <module>mini-termserv</module>
     <module>rm-persistencia</module>
+    <module>mr-alternativo</module>
   </modules>
   <distributionManagement>
     <repository>
