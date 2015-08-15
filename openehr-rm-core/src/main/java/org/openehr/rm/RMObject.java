@@ -14,13 +14,15 @@
  */
 package org.openehr.rm;
 
+import org.openehr.rm.formatters.JsonObject;
+
 /**
  * Root class of all reference model classes
  *
  * @author Rong Chen
  * @version 1.0
  */
-public abstract class RMObject implements java.io.Serializable {
+public abstract class RMObject extends JsonObject implements java.io.Serializable {
     private static final long serialVersionUID = 1L;
 }
 
