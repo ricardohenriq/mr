@@ -1,5 +1,5 @@
 # mr
-Modelo de Referência do openEHR: 
+Modelo de Referência do openEHRModelo de Referência do openEHR: 
 Analisando Possibilidades de Persistência
 
 O presente projeto é derivado do conteúdo
@@ -8,6 +8,7 @@ TODOS OS CRÉDITOS DEVEM SER DEVIDAMENTE ATRIBUÍDOS
 AOS DEVIDOS AUTORES. 
 
 O presente "fork" inclui apenas parte do disponível na
+URL acima, denominada de Modelo de Referência do openEHR. 
 URL acima, denominada de Modelo de Referência do openEHR,
 doravante apenas MR.
 
