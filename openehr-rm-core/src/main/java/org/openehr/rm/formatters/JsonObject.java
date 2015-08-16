@@ -101,18 +101,40 @@ public class JsonObject implements ModeloDeReferencia{
     private String buildJson(int idNodoGrafo){
         String out = "";
         String template = "";
-        if(obtemTipo(idNodoGrafo) == 1){ //DvBoolean
-            template = "{'value': #value}";
-            template = template.replaceAll("#value", String.valueOf(obtemValorLogico(idNodoGrafo, 0)));
-            template = template.replaceAll("'","\"");
-        }
-        else if(obtemTipo(idNodoGrafo) == 2){ //DvIdentifier
-            template = "{'issuer': '#issuer', 'assigner': '#assigner', 'id': '#id', 'type': '#type'}";
-            template = template.replaceAll("#issuer", obtemTexto(idNodoGrafo, 0));
-            template = template.replaceAll("#assigner", obtemTexto(idNodoGrafo, 1));
-            template = template.replaceAll("#id", obtemTexto(idNodoGrafo,2));
-            template = template.replaceAll("#type", obtemTexto(idNodoGrafo, 3));
-            template = template.replaceAll("'","\"");
+        String list = "";
+        switch (obtemTipo(idNodoGrafo)){
+            case 1: //DvBoolean
+                template = "{'value': #value}";
+                template = template.replaceAll("#value", String.valueOf(obtemValorLogico(idNodoGrafo, 0)));
+                template = template.replaceAll("'","\"");
+                break;
+            case 2: //DvIdentifier
+                template = "{'issuer': '#issuer', 'assigner': '#assigner', 'id': '#id', 'type': '#type'}";
+                template = template.replaceAll("#issuer", obtemTexto(idNodoGrafo, 0));
+                template = template.replaceAll("#assigner", obtemTexto(idNodoGrafo, 1));
+                template = template.replaceAll("#id", obtemTexto(idNodoGrafo,2));
+                template = template.replaceAll("#type", obtemTexto(idNodoGrafo, 3));
+                template = template.replaceAll("'","\"");
+                break;
+            case 3: //DvParagraph -- Precisa validação
+                template = "{'items': [#listDvText]}";
+                for(int j=0; j<totalObjetos(); j++){
+                    list += buildJson(j); //chama em recursividade o buildJson para cada um dos elementos da lista<DvText>
+                    if(j<totalObjetos()-1){
+                        list += ", ";
+                    }
+                }
+                template = template.replaceAll("#listDvText", list);
+                template = template.replaceAll("'","\"");
+                list = ""; //clear list
+                break;
+            case 4: //TermMapping -- Precisa validação
+                template = "{'target': #callCodePhrase, 'match': #callMatch, 'purpose': #callDvCodedText}";
+                template = template.replaceAll("#callCodePhrase", buildJson(idNodoGrafo+1)); // próximo elemento no grafo montado
+                template = template.replaceAll("#callMatch", buildJson(idNodoGrafo+2)); // próximo elemento no grafo montado
+                template = template.replaceAll("#callDvCodedText", buildJson(idNodoGrafo+2)); // próximo elemento no grafo montado
+                template = template.replaceAll("'","\"");
+                break;
         }
         out += template;
         return out;
