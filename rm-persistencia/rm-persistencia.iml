@@ -16,5 +16,6 @@
     <orderEntry type="module" module-name="openehr-rm-core" />
     <orderEntry type="library" name="Maven: joda-time:joda-time:2.2" level="project" />
     <orderEntry type="module" module-name="measure-serv" />
+    <orderEntry type="module" module-name="mr-alternativo" />
   </component>
 </module>
