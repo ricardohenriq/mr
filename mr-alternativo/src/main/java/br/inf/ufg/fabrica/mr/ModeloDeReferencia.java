@@ -8,6 +8,11 @@ package br.inf.ufg.fabrica.mr;
  * criar um grafo de objetos em conformidade com o
  * Modelo de Referência do openEHR.</p>
  *
+ * <p>Uma implementação desta interface deve,
+ * NECESSARIAMENTE, estar em conformidade com as
+ * especificações (padrões) do Modelo de Referência
+ * do openEHR.</p>
+ *
  * <p>Um objeto baseado no Modelo de Referência do openEHR
  * é um objeto em conformidade com as especificações
  * desse Modelo de Referência. Tais especificações são
@@ -16,12 +21,11 @@ package br.inf.ufg.fabrica.mr;
  * <a href="https://github.com/openEHR/java-libs">aqui</a>.
  * </p>
  *
- * <p>Esta é uma implementação alternativa. Não é um <i>fork</i>,
+ * <p>A implementação desta interface é uma implementação
+ * alternativa. Não é um <i>fork</i>,
  * nem trabalho derivado da implementação (citada acima).
  * Trata-se de uma nova implementação, que emprega
- * estratégia distinta, para atender objetivos específicos,
- * dentre os quais, conformidade com as especificações
- * do openEHR.
+ * estratégia distinta.
  * </p>
  *
  * <p>Um dos principais objetivos dessa implementação
@@ -41,6 +45,25 @@ package br.inf.ufg.fabrica.mr;
  * (b) toBytes são armazenados em um vetor de bytes que
  * serializa um grafo típico baseado na implementação
  * de referência.</p>
+ *
+ * <h3>Visão geral da interface</h3>
+ *
+ * <p>As operações {@link #obtemTexto(int, int)},
+ * {@link #obtemVetorBytes(int, int)} e
+ * {@link #obtemValorLogico(int, int)}, dentre outras similares
+ * para os demais tipos primitivos, permitem recuperar um
+ * valor primitivo, ou seja, um membro de algum objeto. Em
+ * consequência, todos eles fazem uso de dois parâmetros. O
+ * primeiro identifica o objeto e o segundo identifica o campo
+ * que contém a informação desejada.</p>
+ *
+ * <p>As operações acima permitem recuperar valores presentes
+ * no grafo, enquanto as operações como
+ * {@link #adicionaDvBoolean(boolean)} e
+ * {@link #adicionaDvEhrUri(String)} permitem inserir tais
+ * valores. A inserção, contudo, ao contrário da recuperaçào,
+ * não ocorre por campo, mas por toda a coleção de valores
+ * que formam um objeto.</p>
  */
 public interface ModeloDeReferencia {
 
@@ -53,6 +76,8 @@ public interface ModeloDeReferencia {
      * Identificador do tipo DV_IDENTIFIER.
      */
     final int DV_IDENTIFIER = 1;
+
+    // TODO acrescente uma constante para todos os demais tipos
 
     /**
      * Dados propriamente ditos correspondentes a objetos
@@ -185,44 +210,6 @@ public interface ModeloDeReferencia {
     int obtemTipo(int id);
 
     /**
-     * Adiciona um valor lógico ({@code DV_BOOLEAN}).
-     *
-     * @param valor Valor lógico (DvBoolean) a ser adicionado.
-     * @return Identificador do valor lógico adicionado.
-     *
-     * @see #obtemDvBoolean(int)
-     */
-    int adicionaDvBoolean(boolean valor);
-
-    /**
-     * Recupera o valor lógico ({@code DV_BOOLEAN}) correspondente
-     * ao identificador.
-     *
-     * @param id O identificador único do valor lógico.
-     * @return O valor lógico.
-     *
-     * @see #adicionaDvBoolean(boolean)
-     */
-    boolean obtemDvBoolean(int id);
-
-    /**
-     * Adiciona um identificador ({@code DV_IDENTIFIER}).
-     *
-     * @param issuer Entidade que emite identificação.
-     * @param assigner Entidade que assina identificação.
-     * @param id Identificador propriamente dito.
-     * @param type Tipo da identificação.
-     *
-     * @return O identificador único deste identificador
-     * na estrutura.
-     */
-    int adicionaDvIdentifier(
-            String issuer,
-            String assigner,
-            String id,
-            String type);
-
-    /**
      * Recupera o valor lógico do objeto.
      *
      * @param id O identificador único do objeto.
@@ -230,9 +217,14 @@ public interface ModeloDeReferencia {
      *              campo cujo valor lógico é desejado.
      * @return Valor lógico do campo do objeto.
      *
-     * @throws IllegalArgumentException Nos seguintes casos:
-     * (a) o campo não é lógico; (b) o campo não existe;
+     * @throws IllegalArgumentException Se pelo menos uma das
+     * condições abaixo for verificada:
+     * (a) o campo não é do tipo lógico; (b) o campo não existe;
      * (c) o objeto não existe.
+     *
+     * @see #obtemTipo(int)
+     * @see #obtemTexto(int, int)
+     * @see #obtemVetorBytes(int, int)
      */
     boolean obtemValorLogico(int id, int campo);
 
@@ -263,8 +255,38 @@ public interface ModeloDeReferencia {
      * @throws IllegalArgumentException Nos seguintes casos:
      * (a) o campo não é texto; (b) o campo não existe;
      * (c) o objeto não existe.
+     *
+     * @see #obtemTexto(int, int)
+     * @see #obtemTipo(int)
      */
     byte[] obtemVetorBytes(int id, int campo);
+
+    /**
+     * Adiciona um valor lógico ({@code DV_BOOLEAN}).
+     *
+     * @param valor Valor lógico (DV_BOOLEAN) a ser adicionado.
+     * @return Identificador do valor lógico adicionado.
+     *
+     * @see #obtemValorLogico(int, int)
+     */
+    int adicionaDvBoolean(boolean valor);
+
+    /**
+     * Adiciona um identificador ({@code DV_IDENTIFIER}).
+     *
+     * @param issuer Entidade que emite identificação.
+     * @param assigner Entidade que assina identificação.
+     * @param id Identificador propriamente dito.
+     * @param type Tipo da identificação.
+     *
+     * @return O identificador único deste identificador
+     * na estrutura.
+     */
+    int adicionaDvIdentifier(
+            String issuer,
+            String assigner,
+            String id,
+            String type);
 
     /**
      * Adiciona um {@link java.net.URI} ({@code DV_URI}).
