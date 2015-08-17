@@ -41,5 +41,10 @@
 			<artifactId>measure-serv</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>openehr</groupId>
+			<artifactId>rm-alternativo</artifactId>
+			<version>${project.version}</version>
+		</dependency>
 	</dependencies>
 </project>

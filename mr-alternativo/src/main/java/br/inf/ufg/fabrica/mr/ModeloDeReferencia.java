@@ -234,7 +234,7 @@ public interface ModeloDeReferencia {
      * (a) o campo não é lógico; (b) o campo não existe;
      * (c) o objeto não existe.
      */
-    boolean botemValorLogico(int id, int campo);
+    boolean obtemValorLogico(int id, int campo);
 
     /**
      * Recupera texto do objeto.

@@ -14,6 +14,7 @@
     <orderEntry type="library" name="Maven: joda-time:joda-time:2.2" level="project" />
     <orderEntry type="module" module-name="measure-serv" />
     <orderEntry type="library" name="Maven: javax.measure:jsr-275:0.9.4" level="project" />
+    <orderEntry type="module" module-name="mr-alternativo" />
     <orderEntry type="module" module-name="mini-termserv" scope="TEST" />
     <orderEntry type="library" scope="TEST" name="Maven: jdom:jdom:1.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: log4j:log4j:1.2.8" level="project" />
