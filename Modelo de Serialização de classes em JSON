@@ -1,0 +1,348 @@
+UNIVERSIDADE FEDERAL DE GOIÁS
+ENGENHARIA DE SOFTWARE
+Prática em engenharia de software
+Fábio Nogueira de Lucena
+
+
+Modelo de serialização de dados em JSON de cada uma das classes do MR
+
+
+SUMÁRIO
+1.Classes
+1.1.DvBoolean
+1.2.DvIdentifier
+1.3.DvParagraph
+1.4.TermMapping
+1.5.DvCodedText
+1.6.DvText
+1.7.Archetyped
+1.8.FeederAudit
+1.9.FeederAuditDetails
+1.10.Link
+1.11.Locatable
+1.12.Pathable
+1.13.Contribution
+1.14.CodePhrase
+1.15.TermMapping
+
+2.Método toJSON()
+3.Método fromJSON()
+4.Observações
+
+
+------------------------------------------------------------------------------------------------------------------------
+
+
+1.Classes
+
+1.1.DvBoolean
+Parâmetros:
+
+{
+    “value”: boolean
+}
+
+
+1.2.DvIdentifier
+Parâmetros:
+
+{
+    “issuer”: String (required),
+    “assigner”: String (required),
+    “id”: String (required),
+    “type”: String (required)
+}
+
+
+1.3.DvParagraph
+Parâmetros:
+
+{
+    “items”: [
+        chama DvText
+]
+}
+
+
+1.4.TermMapping
+Parâmetros:
+
+{
+    “target”: {
+        chama CodePhrase    
+    },
+    “match”: {
+        chama Match
+    },
+    “purpose”: {
+        chama DvCodedText
+    }
+}
+
+
+1.5.DvCodedText
+Classe pai: DvText
+Parâmetros:     @param value (required)
+@param mapping
+@param formatting
+@param hyperlink
+@param language
+@param charset
+@param definingCode not null (required)
+@param terminologyService not null (interface)
+Fields: private CodePhrase definingCode;
+Construtor: super(value, mapping, formatting, hyperlink, language, charset, terminologyService);
+
+{
+    “value”: String (required),
+    “mappings”: [
+        chama TermMapping
+    ],
+    “formatting”: String,
+    “hyperlink”: {
+        chama DvUri
+    },
+    “language”: {
+        chama CodePhrase
+    },
+    “charset”: {
+        chama CodePhrase
+    }
+    “definingCode”: {
+        chama CodePhrase
+    }
+}
+
+
+1.6.DvText
+Parâmetros:
+
+{
+    “value”: String,
+    “mappings”: [ {
+        chama TermMapping
+    } ],
+    “formatting”: String,
+    “hyperlink”: {
+        chama DvUri
+    },
+    “language”: {
+        chama CodePhrase
+    },
+    “encoding”: {
+        chama CodePhrase
+    }
+}
+
+
+1.7.Archetyped
+Parâmetro:
+@param archetypeId    not null
+@param templateId     null if unspecified
+@param rmVersion     not null or empty
+Construtor: Archetyped(
+            @Attribute(name = "archetypeId", required = true) ArchetypeID archetypeId,
+            @Attribute(name = "templateId") TemplateID templateId,
+            @Attribute(name = "rmVersion", required = true) String rmVersion)
+
+{
+    “archetypeId”: {
+        chama ArchetypeID
+    },
+    “templateId”: {
+        chama TemplateID
+    },
+    “rmVersion”: String
+}
+
+
+1.8.FeederAudit
+Parâmetros:
+@param originatingSystemAudit    not null
+@param originatingSystemItemIds     null if not specified
+@param feederSystemAudit        null if not specified
+@param feederSystemItemIds        null if not specified
+@param originalContent        null if not specified
+Construtor: FeederAudit(FeederAuditDetails originatingSystemAudit,List<DvIdentifier> originatingSystemItemIDs,FeederAuditDetails feederSystemAudit,List<DvIdentifier> feederSystemItemIDs,DvEncapsulated originalContent)
+
+{
+    “originatingSystemAudit”: {
+        chama FeederAuditDetails
+    },
+    “originatingSystemItemIds”: [ {
+        chama DvIdentifier
+    } ],
+    “feederSystemAudit”: {
+        chama FeederAuditDetails
+    },
+    “feederSystemItemIds”: [ {
+        chama DvIdentifier
+    } ],
+    “originalContent”: {
+        chama DvEncapsulated
+    }
+}
+
+
+1.9.FeederAuditDetails
+Parâmetros:
+@param systemId               not null
+@param provider        null if not present
+@param timeCommitted          null if not present
+@param location        null if not present
+@param time            null if not present
+@param subject        null if not present
+@param versionId        null if not present
+Construtor: FeederAuditDetails(String systemID, PartyIdentified provider, PartyIdentified location, DvDateTime time, PartyProxy subject, String versionID)
+
+{
+    “systemId”: String,
+    “provider”: {
+        chama PartyIdentified
+    },
+    “location”: {
+        chama PartyIdentified
+    },
+    “time”: {
+        chama DvDateTime
+    },
+    “subject”: {
+        chama PartyProxy
+    }
+    “versionId”: String
+}
+
+
+1.10.Link
+Paramêtros:
+@param meaning      not null
+@param type          not null
+@param target        not null
+Construtor: Link(DvText meaning, DvText type, DvEHRURI target)
+
+{
+    “meaning”: {
+        chama DvText
+    },
+    “type”: {
+        chama DvText
+    },
+    “target”: {
+        chama DvEHRURI
+    }
+}
+
+
+1.11.Locatable
+Classe Pai: Pathable
+Parâmetros:
+@param uid                 null if not specified
+@param archetypeNodeId         not null
+@param name             not null
+@param archetypeDetails         null if not specified
+@param feederAudit             null if not specified
+@param links                 null if not specified
+@param parent             null if not specified
+Construtor: Locatable(UIDBasedID uid, String archetypeNodeId, DvText name, Archetyped archetypeDetails,FeederAudit feederAudit, Set<Link> links, Pathable parent)
+
+{
+    “PATH_SEPARATOR”: String,
+    “ROOT”: String,
+    “uid”: {
+        chama UIDBasedID
+    },
+    “originalArchetypeNodeId”: String,
+    “archetypeNodeId”: String,
+    “name”: {
+        chama DvText
+    },
+    “archetypeDetails”: {
+        chama Archetyped
+    },
+    “feederAudit”: {
+        chama FeederAudit
+    },
+    “links”: [ {
+        chama Link
+    } ]
+}
+
+
+1.12.Pathable
+Parâmetros:
+@param parent null if not present
+Construtor: Pathable(Pathable parent)
+
+{
+    “parent”: {
+        chama Pathable
+    }
+}
+
+
+1.13.Contribution
+Parâmetros:
+@param uid          not null
+@param versions     not null or empty
+@param audit        not null
+Construtor: Contribution(
+@Attribute(name = "uid", required = true)ObjectID uid,
+@Attribute(name = "versions", required = true)Set<ObjectRef> versions,
+@Attribute(name = "audit", required = true)AuditDetails audit)
+
+{
+    “uid”: chama ObjectID,
+    “versions”: [ {
+        chama ObjectRef
+    } ],
+    “audit”: chama AuditDetails
+}
+
+
+1.14.CodePhrase
+
+{
+    “terminologyId”: {
+        chama TerminologyID
+    },
+    “codeString”: String
+}
+
+
+1.15.TermMapping
+
+{
+    “target”: {
+        chama CodePhrase
+    },
+    “match”: {
+        chama Match
+    },
+    “purpose”: {
+        chama DvCodedText
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------
+
+2.Método toJSON()
+
+String toJSON(){
+    for(int i=0; i<totalObjetos(); i++){
+        if(obtemTipo(idObjeto) == 30){ // obtem tipo de um objeto
+            buildJson(30)
+            //...
+        }
+        // um caso contemplando cada uma das 150 e muitas classes
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------
+
+3.Método fromJSON()
+
+------------------------------------------------------------------------------------------------------------------------
+
+4.Observações
+
+(Thiago) - Deixei pronto tudo em /datatypes/text/ ou seja, todas as classes já tem o mapeamento pro json. Teve só um enum Match que não sabia como colocar no json, ele é usado na classe TermMapping, depois vou pensar direito
