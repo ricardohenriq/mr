@@ -409,7 +409,27 @@ Construtor: Version(ObjectVersionID uid, ObjectVersionID precedingVersionID,
 		chama DvCodedText
 	},
 	“signature”: String
-}          
+}
+
+1.19.VersionedObject<T>
+Classe Pai: RMObject
+Construtor: VersionedObject(HierObjectID uid, ObjectRef ownerID,
+            DvDateTime timeCreated, ObjectVersionID versionID, T data,
+            DvCodedText lifecycleState, AuditDetails commitAudit,
+            ObjectRef contribution, String signature,
+            TerminologyService terminologyService)
+
+{
+	“id”: Long,
+	“uid”: chama HierObjectID,
+	“ownerID”: chama ObjectRef,
+	“timeCreated”: chama DvDateTime,
+	“timeVersionMap”: chama SortedMap<DvDateTime, Version<T>>, 
+	“idVersionMap”: chama HashMap<ObjectVersionID, Version<T>>,
+	“trunkCounter”: int,
+	“latestTrunkUid”: chama ObjectVersionID
+}
+
 ------------------------------------------------------------------------------------------------------------------------
 
 2.Método toJSON()
