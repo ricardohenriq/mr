@@ -136,6 +136,7 @@ Parâmetros:
     }
 }
 
+>> INICIO org.openehr.rm.common.archetyped
 
 1.7.Archetyped
 Parâmetro:
@@ -281,6 +282,7 @@ Construtor: Pathable(Pathable parent)
     }
 }
 
+>> FIM org.openehr.rm.common.archetyped
 
 1.13.Contribution
 Parâmetros:
@@ -339,6 +341,44 @@ Cosntrutor: ImportedVersion(OriginalVersion<T> original, AuditDetails commitAudi
     } ]
 }
 
+1.17.OriginalVersion<T>
+Classe Pai: Version<T>
+Parâmetros:
+    @param uid
+	@param precedingVersionID
+	@param data
+	@param attestations
+	@param commitAudit
+	@param contribution
+	@param lifecycleState
+	@param terminologyService
+Cosntrutor: 
+@FullConstructor
+public OriginalVersion(
+		@Attribute(name = "uid", required = true)ObjectVersionID uid, 
+		@Attribute(name = "precedingVersionUid")ObjectVersionID precedingVersionUid,
+		@Attribute(name = "data")T data, 
+		@Attribute(name = "lifecycleState", required = true)DvCodedText lifecycleState, 
+		@Attribute(name = "commitAudit", required = true)AuditDetails commitAudit, 
+		@Attribute(name = "contribution", required = true)ObjectRef contribution, 
+		@Attribute(name = "signature")String signature, 
+		@Attribute(name = "otherInputVersionUids")Set<ObjectVersionID> otherInputVersionUids, 
+		@Attribute(name = "attestations")List<Attestation> attestations,
+		// @Attribute(name = "isMerged") boolean isMerged, // This should not be an attribute, just internally calculated from existence of otherInputVersionUids
+		@Attribute(name = "terminologyService", system = true)TerminologyService terminologyService) {
+        
+        super(uid, precedingVersionUid, data, lifecycleState, commitAudit, 
+                contribution, signature, terminologyService)
+{
+    “isMerged”: boolean,
+    “attestations”: [ {
+        chama ObjectVersionID
+    } ],
+    “otherInputVersionUids”: [ {
+        chama Attestation
+    } ]
+}
+                    
 ------------------------------------------------------------------------------------------------------------------------
 
 2.Método toJSON()
