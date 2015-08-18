@@ -24,6 +24,12 @@ SUMÁRIO
 1.13.Contribution
 1.14.CodePhrase
 1.15.TermMapping
+1.16.ImportedVersion
+1.17.OriginalVersion<T>
+1.18.Version<T>
+1.19.VersionedObject<T>
+1.20.Folder
+1.21.VersionedFolder
 
 2.Método toJSON()
 
@@ -429,6 +435,93 @@ Construtor: VersionedObject(HierObjectID uid, ObjectRef ownerID,
 	“trunkCounter”: int,
 	“latestTrunkUid”: chama ObjectVersionID
 }
+
+>> INICIO org.openehr.rm.common.directory
+
+1.20.Folder
+Classe Pai: Locatable
+Parâmetros: 
+	@param uid              null if not specified
+     	@param archetypeNodeId  not null
+     	@param name             not null
+     	@param archetypeDetails null if not specified
+     	@param feederAudit      null if not specified
+     	@param links            null if not specified
+     	@param folders			 null if not specified
+     	@param items			 null if not specified
+Construtor:Folder(UIDBasedID uid, String archetypeNodeId, DvText name,
+            Archetyped archetypeDetails, FeederAudit feederAudit, Set<Link> links,
+            Pathable parent, List<Folder> folders, List<ObjectRef> items)
+{
+	“PATH_SEPARATOR”: String,
+	“ROOT”: String,
+	“folders”: [{
+		chama Folder
+	}],
+	“items”: [{
+		chama ObjectRef
+	}]
+}
+
+1.21.VersionedFolder
+Classe Pai: VersionedObject<Folder>
+Cosntrutores (3, ambos chamam super): VersionedFolder(HierObjectID uid, ObjectRef ownerID, 
+                    DvDateTime timeCreated, ObjectVersionID versionID, Folder folder, 
+                    DvCodedText lifecycleState, AuditDetails commitAudit,  
+                    ObjectRef contribution, String signature, 
+                    TerminologyService terminologyService)
+
+VersionedFolder(HierObjectID uid, ObjectRef ownerID, 
+                    DvDateTime timeCreated, OriginalVersion<Folder> item, 
+                    AuditDetails commitAudit, ObjectRef contribution, 
+                    String signature)
+
+VersionedFolder(HierObjectID uid, ObjectRef ownerID, 
+                    DvDateTime timeCreated, OriginalVersion<Folder> item, 
+                    AuditDetails commitAudit, ObjectRef contribution, 
+                    String signature)
+                    
+{
+	“uid”: chama HierObjectID, 
+	“ownerID”: chama ObjectRef, 
+	“timeCreated”: chama DvDateTime, 
+	“versionID”: chama ObjectVersionID, 
+	“folder”: chama Folder, 
+	“lifecycleState”: chama DvCodedText, 
+	“commitAudit”: chama AuditDetails, 
+       	“contribution”: chama ObjectRef, 
+       	“signature”: String, 
+       	“terminologyService”: chama TerminologyService
+}
+
+{
+	“uid”: chama HierObjectID, 
+	“ownerID”: chama ObjectRef, 
+	“timeCreated”: chama DvDateTime, 
+	“item”: chama OriginalVersion<Folder>, 
+	“commitAudit”: chama AuditDetails, 
+       	“contribution”: chama ObjectRef, 
+       	“signature”: String
+}
+
+{
+	“uid”: chama HierObjectID, 
+	“ownerID”: chama ObjectRef, 
+	“timeCreated”: chama DvDateTime, 
+	“versionID”: chama ObjectVersionID, 
+	“precedingVersionID”: chama ObjectVersionID, 
+	“folder”: chama Folder, 
+	“lifecycleState”: chama DvCodedText, 
+	“commitAudit”: chama AuditDetails, 
+       	“contribution”: chama ObjectRef, 
+       	“otherInputVersionUids”: [{
+       		chama ObjectVersionID
+       	}], 
+       	“signature”: String, 
+       	“terminologyService”: chama TerminologyService
+}
+
+>> FIM org.openehr.rm.common.directory
 
 ------------------------------------------------------------------------------------------------------------------------
 
