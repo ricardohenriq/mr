@@ -378,7 +378,38 @@ public OriginalVersion(
         chama Attestation
     } ]
 }
-                    
+       
+1.18.Version<T>
+Classe Pai: RMObject
+Parâmetros:
+	@param versionID           not null or empty
+     	@param precedingVersionUid  not null or empty
+Construtor: Version(ObjectVersionID uid, ObjectVersionID precedingVersionID,
+                   T data, DvCodedText lifeCycleState, AuditDetails commitAudit, 
+                   ObjectRef contribution, String signature,
+                   TerminologyService terminologyService)
+                   
+{
+	“commitAudit”: {
+		chama AuditDetails
+	},
+	“uid”: {
+		chama ObjectVersionID
+	},
+	“precedingVersionUid”: {
+		chama ObjectVersionID
+	},
+	“contribution”: {
+		chama ObjectRef
+	},
+	“data”: {
+		chama T
+	},
+	“lifecycleState”: {
+		chama DvCodedText
+	},
+	“signature”: String
+}          
 ------------------------------------------------------------------------------------------------------------------------
 
 2.Método toJSON()
