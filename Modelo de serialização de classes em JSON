@@ -325,6 +325,20 @@ Construtor: Contribution(
     }
 }
 
+1.16.ImportedVersion
+Classe Pai: Version<T>
+Parâmetros:
+    @param commitAudit
+    @param contribution
+    @param originalVersion
+Cosntrutor: ImportedVersion(OriginalVersion<T> original, AuditDetails commitAudit,
+            ObjectRef contribution, String signature)
+{
+    “item”: [ {
+        chama OriginalVersion<T>
+    } ]
+}
+
 ------------------------------------------------------------------------------------------------------------------------
 
 2.Método toJSON()
