@@ -30,6 +30,7 @@ SUMÁRIO
 1.19.VersionedObject<T>
 1.20.Folder
 1.21.VersionedFolder
+1.22.Participation
 
 2.Método toJSON()
 
@@ -522,6 +523,33 @@ VersionedFolder(HierObjectID uid, ObjectRef ownerID,
 }
 
 >> FIM org.openehr.rm.common.directory
+
+>> INICIO org.openehr.rm.common.generic
+
+1.22.Participation
+Classe Pai: RMObject
+Parâmetros:
+	@param performer          not null
+     	@param function           not null
+      	@param mode               not null and exists
+     	@param time
+     	@param terminologyService not null
+Construtor: Participation(
+    		@Attribute(name = "performer", required = true)PartyProxy performer,
+    		@Attribute(name = "function", required = true)DvText function,
+    		@Attribute(name = "mode", required = true)DvCodedText mode, 
+    		@Attribute(name = "time")DvInterval<DvDateTime> time,
+    		@Attribute(name = "terminologyService", system = true)TerminologyService terminologyService)
+
+{
+	“performer”: chama PartyProxy,
+	“function”: chama DvText,
+	“mode”: chama DvCodedText,
+	“time”: chama DvInterval<DvDateTime>
+}
+
+
+
 
 ------------------------------------------------------------------------------------------------------------------------
 
