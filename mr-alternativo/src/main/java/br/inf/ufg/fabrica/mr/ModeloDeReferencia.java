@@ -219,7 +219,7 @@ public interface ModeloDeReferencia {
      *
      * @throws IllegalArgumentException Se pelo menos uma das
      * condições abaixo for verificada:
-     * (a) o campo não é do tipo lógico; (b) o campo não existe;
+     * (a) o campo não é do tipo byte; (b) o campo não existe;
      * (c) o objeto não existe.
      *
      * @see #obtemTipo(int)
@@ -238,7 +238,7 @@ public interface ModeloDeReferencia {
      *
      * @throws IllegalArgumentException Se pelo menos uma das
      * condições abaixo for verificada:
-     * (a) o campo não é do tipo lógico; (b) o campo não existe;
+     * (a) o campo não é do tipo caractere; (b) o campo não existe;
      * (c) o objeto não existe.
      *
      * @see #obtemTipo(int)
@@ -276,7 +276,7 @@ public interface ModeloDeReferencia {
      *
      * @throws IllegalArgumentException Se pelo menos uma das
      * condições abaixo for verificada:
-     * (a) o campo não é do tipo lógico; (b) o campo não existe;
+     * (a) o campo não é do tipo inteiro; (b) o campo não existe;
      * (c) o objeto não existe.
      *
      * @see #obtemTipo(int)
@@ -296,7 +296,7 @@ public interface ModeloDeReferencia {
      *
      * @throws IllegalArgumentException Se pelo menos uma das
      * condições abaixo for verificada:
-     * (a) o campo não é do tipo lógico; (b) o campo não existe;
+     * (a) o campo não é do tipo float; (b) o campo não existe;
      * (c) o objeto não existe.
      *
      * @see #obtemTipo(int)
@@ -315,7 +315,7 @@ public interface ModeloDeReferencia {
      *
      * @throws IllegalArgumentException Se pelo menos uma das
      * condições abaixo for verificada:
-     * (a) o campo não é do tipo lógico; (b) o campo não existe;
+     * (a) o campo não é do tipo double; (b) o campo não existe;
      * (c) o objeto não existe.
      *
      * @see #obtemTipo(int)
@@ -349,7 +349,7 @@ public interface ModeloDeReferencia {
      * @return Valor do campo do objeto.
      *
      * @throws IllegalArgumentException Nos seguintes casos:
-     * (a) o campo não é texto; (b) o campo não existe;
+     * (a) o campo não é um vetor de bytes; (b) o campo não existe;
      * (c) o objeto não existe.
      *
      * @see #obtemTexto(int, int)
@@ -359,6 +359,12 @@ public interface ModeloDeReferencia {
 
     /**
      * Cria uma lista de objetos.
+     * Note que na montagem do grafo de objetos todos os
+     * objetos "filhos" devem ser adicionados antes de se
+     * adicionar o "pai" ao grafo. Logo, o tamanho da lista
+     * é fixo porque todos seus objetos são previamente
+     * conhecidos/adicionados.
+     * 
      * @param quantidade Quantidade de objetos da lista.
      * @return Identificador único da lista.
      */
@@ -371,6 +377,9 @@ public interface ModeloDeReferencia {
      * @param item Identificador do objeto a ser
      *             inserido na lista.
      * @return Identificador único do item na lista.
+     *
+     * @throws IllegalArgumentException Nos seguintes casos:
+     * (a) a lista não existe; (b) o item não existe.
      */
     int adicionaItem(int lista, int item);
 
@@ -386,6 +395,9 @@ public interface ModeloDeReferencia {
      * @return Ordem na lista onde o objeto se
      * encontra, ou o valor -1, caso o objeto não
      * esteja presente na lista.
+     * 
+     * @throws IllegalArgumentException a lista não existe.
+     * 
      */
     int buscaEmLista(int lista, int objeto);
 
@@ -405,16 +417,21 @@ public interface ModeloDeReferencia {
     /**
      * Cria um dicionário (<i>hash table</i>).
      *
-     * <p>Uma dicionário é tratado como uma combinação
-     * de duas listas. Onde a ordem de um item da
-     * lista de chaves corresponde à mesma ordem do
-     * item da lista de valores.</p>
+     * <p>Um dicionário é tratado como uma combinação
+     * de duas listas. Assim, para um par (Chave, Valor)
+     * qualquer, se Chave se encontra na posição i
+     * da lista de chaves, então Valor se encontra
+     * na posição i da lista de valores.</p>
      *
      * @param chaves Identificador único da lista
      *               de chaves.
      * @param valores Identificador único da lista de
      *                valores.
      * @return Identificador único do dicionário.
+     * @throws IllegalArgumentException Nos seguintes casos:
+     * (a) a lista de chaves não existe;
+     * (b) a lista de valores não existe;
+     * (c) a lista de chaves é incompatível (contém elementos repetidos).
      */
     int adicionaHash(int chaves, int valores);
 
