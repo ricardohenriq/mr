@@ -174,7 +174,39 @@ public interface ModeloDeReferencia {
      *             openEHR.
      */
     void fromJSON(String json);
-
+    
+    /** 
+     * Define a raiz do presente objeto.
+     * 
+     * <p>Uma instância desta interface é um grafo com uma
+     * raiz única. Após todos os objetos serem adicionados
+     * ao grafo, partindo dos objetos "primitivos" até o objeto 
+     * de mais "alto nível" (raiz), este método deve ser chamado
+     * a fim de guardar a identificação da raiz. Isso possibilita
+     * que seja estabelecido um ponto de acesso único ao grafo 
+     * para uma posterior remontagem.</p>
+     * 
+     * @see #obtemRaiz()
+     * 
+     * @param O identificador único da raiz.
+     * 
+     * @throws IllegalArgumentException O objeto raiz não existe.
+     */
+    void defineRaiz(int raiz);
+    
+    /** 
+     * Obtém o identificador da raiz do presente objeto.
+     * 
+     * <p>Este método retorna o identificador que determina
+     * o ponto inicial para remontagem do grafo de objetos,
+     * conforme a especificação do Modelo de Referência.</p>
+     * 
+     * @see #defineRaiz(int)
+     * 
+     * @return O identificador único da raiz.
+     */
+    int obtemRaiz();
+    
     /**
      * Obtém o total de objetos, instâncias de elementos
      * do Modelo de Referência, ocupados pelo presente
@@ -229,23 +261,23 @@ public interface ModeloDeReferencia {
     byte obtemByte(int id, int campo);
 
     /**
-     * Recupera o caractere do campo do objeto.
+     * Recupera a String do campo do objeto.
      *
      * @param id O identificador único do objeto.
      * @param campo A ordem do campo, iniciada por 0, para o
-     *              campo cujo valor é um caractere.
-     * @return Caractere do campo do objeto.
+     *              campo cujo valor é uma String.
+     * @return String do campo do objeto.
      *
      * @throws IllegalArgumentException Se pelo menos uma das
      * condições abaixo for verificada:
-     * (a) o campo não é do tipo caractere; (b) o campo não existe;
+     * (a) o campo não é do tipo String; (b) o campo não existe;
      * (c) o objeto não existe.
      *
      * @see #obtemTipo(int)
      * @see #obtemTexto(int, int)
      * @see #obtemVetorBytes(int, int)
      */
-    char obtemCaractere(int id, int campo);
+    String obtemString(int id, int campo);
 
     /**
      * Recupera o valor lógico do objeto.
@@ -434,7 +466,7 @@ public interface ModeloDeReferencia {
      * (c) a lista de chaves é incompatível (contém elementos repetidos).
      */
     int adicionaHash(int chaves, int valores);
-
+    
     /**
      * Adiciona um valor lógico ({@code DV_BOOLEAN}).
      *
@@ -582,4 +614,91 @@ public interface ModeloDeReferencia {
             int hDvMultimediaThumbnail,
             String dvUri,
             byte[] dado);
+    
+    /**
+     * Adiciona um Identificador de Objeto da
+     * ISO/IEC 8824) ({@code ISO_OID}).
+     *
+     * @param valor Sequência de caracteres que é uma
+     *              serialização de um ISO_OID.
+     * @return O identificador único na estrutura deste
+     *          identificador de objeto da ISO.
+     */
+    int adicionaIsoOid(String valor);
+    
+    /**
+     * Adiciona um Identificador Único Universal DCE 
+     * ({@code UUID}).
+     *
+     * @param valor Sequência de caracteres que é uma
+     *              serialização de um UUID.
+     * @return O identificador único na estrutura do UUID.
+     */
+    int adicionaUuid(String valor);
+    
+    /**
+     * Adiciona um identificador de domínio
+     * da internet invertido ({@code INTERNET_ID}).
+     *
+     * @param valor Sequência de caracteres que é uma
+     *              serialização de um identificador de domínio.
+     * @return O identificador único na estrutura 
+     *          do identificador de internet.
+     */
+    int adicionaInternetId(String valor);
+
+    /**
+     * Adiciona um identificador de hierarquia
+     * ({@code HIER_OBJECT_ID}).
+     *
+     * @param valor Sequência de caracteres que é uma
+     *              serialização de um identificador de
+     *              hierarquia ({HIER_OBJECT_ID}).
+     * @return O identificador único na estrutura deste
+     *         identificador de hierarquia.
+     */
+    int adicionaHierObjectId(String valor);
+    
+    /**
+     * Adiciona um identificador de hierarquia
+     * ({@code HIER_OBJECT_ID}).
+     *
+     * @param raiz identificador único permanente de 
+     *          entidade (@code UID).
+     * @param extensão identificador local do objeto.
+     * @return O identificador único na estrutura do 
+     * identificador de hierarquia.
+     */
+    int adicionaHierObjectId(String raiz, String extensao);
+
+    /**
+     * Adiciona um identificador único global para uma
+     * versão de um objeto ({@code OBJECT_VERSION_ID}).
+     *
+     * @param valor Sequência de caracteres que é uma
+     *              serialização de um identificador de uma
+     *              versão de um objeto ({OBJECT_VERSION_ID}).
+     * @return O identificador único na estrutura deste
+     *          identificador de versão de objeto.
+     */
+    int adicionaObjectVersionId(String valor);
+    
+    /**
+     * Adiciona um identificador único global para uma
+     * versão de um objeto ({@code OBJECT_VERSION_ID}).
+     *
+     * @param objectId identificador único para
+     *                  objeto lógico (@code UID).
+     * @param versionTreeId identificador da versão
+     *                      com relação aos outros de sua 
+     *                      árvore (@code VERSION_TREE_ID).
+     * @param creatingSystemId identificador do sistema
+     *                      criador da versão (@code UID).
+     * @return O identificador único na estrutura do 
+     *          identificador de versão de objeto.
+     */
+    int adicionaObjectVersionId(String objectId,
+            String versionTreeId,
+            String creatingSystemId);
+
 }
