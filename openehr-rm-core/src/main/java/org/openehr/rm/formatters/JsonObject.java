@@ -22,6 +22,7 @@ public class JsonObject implements ModeloDeReferencia{
     }
 
     public String toJSON() {
+        //TODO chamar o metodo getRaiz (que sera adicionado pelo professor na interface ModeloDeReferencia) e retirar o laço for pois será gerado a partir de um objeto raiz
         for(int i=0; i<totalObjetos(); i++){ //itera sobre cada nodo possível do grafo gerado e cria o json
             buildJson(i);
         }
@@ -99,6 +100,7 @@ public class JsonObject implements ModeloDeReferencia{
 
     /* ÍNICIO MÉTODOS AUXILIARES */
     private String buildJson(int idNodoGrafo){
+        //TODO Ajusar à nova configuração do método toJson()
         String out = "";
         String template = "";
         String list = "";
