@@ -2,7 +2,7 @@ package org.openehr.rm.formatters;
 
 import br.inf.ufg.fabrica.mr.ModeloDeReferencia;
 
-public class JsonObject implements ModeloDeReferencia{
+public class JsonObject implements ModeloDeReferencia {
 
     /* ÍNICIO MÉTODOS INTERFACE */
     public byte[] toBytes() {
@@ -22,7 +22,7 @@ public class JsonObject implements ModeloDeReferencia{
     }
 
     public String toJSON() {
-        for(int i=0; i<totalObjetos(); i++){ //itera sobre cada nodo possível do grafo gerado e cria o json
+        for (int i = 0; i < totalObjetos(); i++) { //itera sobre cada nodo possível do grafo gerado e cria o json
             buildJson(i);
         }
         return null;
@@ -98,42 +98,48 @@ public class JsonObject implements ModeloDeReferencia{
     /* FIM MÉTODOS INTERFACE */
 
     /* ÍNICIO MÉTODOS AUXILIARES */
-    private String buildJson(int idNodoGrafo){
+    private String buildJson(int idNodoGrafo) {
         String out = "";
         String template = "";
         String list = "";
-        switch (obtemTipo(idNodoGrafo)){
+        switch (obtemTipo(idNodoGrafo)) {
             case 1: //DvBoolean
-                template = "{'value': #value}";
+                template = "'dvBoolean' : {'value': #value}";
                 template = template.replaceAll("#value", String.valueOf(obtemValorLogico(idNodoGrafo, 0)));
-                template = template.replaceAll("'","\"");
+                template = template.replaceAll("'", "\"");
                 break;
             case 2: //DvIdentifier
-                template = "{'issuer': '#issuer', 'assigner': '#assigner', 'id': '#id', 'type': '#type'}";
+                template = "'dvIdentifier' : {'issuer': '#issuer', 'assigner': '#assigner', 'id': '#id', 'type': '#type'}";
                 template = template.replaceAll("#issuer", obtemTexto(idNodoGrafo, 0));
                 template = template.replaceAll("#assigner", obtemTexto(idNodoGrafo, 1));
-                template = template.replaceAll("#id", obtemTexto(idNodoGrafo,2));
+                template = template.replaceAll("#id", obtemTexto(idNodoGrafo, 2));
                 template = template.replaceAll("#type", obtemTexto(idNodoGrafo, 3));
-                template = template.replaceAll("'","\"");
+                template = template.replaceAll("'", "\"");
                 break;
             case 3: //DvParagraph -- Precisa validação
                 template = "{'items': [#listDvText]}";
-                for(int j=0; j<totalObjetos(); j++){
+                for (int j = 0; j < totalObjetos(); j++) {
                     list += buildJson(j); //chama em recursividade o buildJson para cada um dos elementos da lista<DvText>
-                    if(j<totalObjetos()-1){
+                    if (j < totalObjetos() - 1) {
                         list += ", ";
                     }
                 }
                 template = template.replaceAll("#listDvText", list);
-                template = template.replaceAll("'","\"");
+                template = template.replaceAll("'", "\"");
                 list = ""; //clear list
                 break;
             case 4: //TermMapping -- Precisa validação
                 template = "{'target': #callCodePhrase, 'match': #callMatch, 'purpose': #callDvCodedText}";
-                template = template.replaceAll("#callCodePhrase", buildJson(idNodoGrafo+1)); // próximo elemento no grafo montado
-                template = template.replaceAll("#callMatch", buildJson(idNodoGrafo+2)); // próximo elemento no grafo montado
-                template = template.replaceAll("#callDvCodedText", buildJson(idNodoGrafo+2)); // próximo elemento no grafo montado
-                template = template.replaceAll("'","\"");
+                template = template.replaceAll("#callCodePhrase", buildJson(idNodoGrafo + 1)); // próximo elemento no grafo montado
+                template = template.replaceAll("#callMatch", buildJson(idNodoGrafo + 2)); // próximo elemento no grafo montado
+                template = template.replaceAll("#callDvCodedText", buildJson(idNodoGrafo + 2)); // próximo elemento no grafo montado
+                template = template.replaceAll("'", "\"");
+                break;
+            case 5:
+                template = "'codePhrase' : {'terminologyId' : #terminologyId, 'codeString' : '#codeString'}";
+                template = template.replaceAll("#terminologyId", buildJson(obtemInteiro(idNodoGrafo, 0)));
+                template = template.replaceAll("#codeString", obtemString(idNodoGrafo, 1));
+                template = template.replaceAll("'", "\"");
                 break;
         }
         out += template;
@@ -141,4 +147,3 @@ public class JsonObject implements ModeloDeReferencia{
     }
     /* FIM MÉTODOS AUXILIARES */
 }
-
