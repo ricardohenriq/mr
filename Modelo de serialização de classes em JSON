@@ -31,6 +31,7 @@ SUMÁRIO
 1.20.Folder
 1.21.VersionedFolder
 1.22.Participation
+1.23. PartyIdentified
 
 2.Método toJSON()
 
@@ -548,7 +549,24 @@ Construtor: Participation(
 	“time”: chama DvInterval<DvDateTime>
 }
 
-
+1.23. PartyIdentified
+Classe Pai: PartyProxy
+Parâmetros:
+ 	@param externalRef
+	@param name
+	@param identifiers
+Construtor: PartyIdentified(
+	@Attribute(name = "externalRef")PartyRef externalRef, 
+	@Attribute(name = "name")String name,
+	@Attribute(name = "identifiers")List<DvIdentifier> identifiers)
+	super(externalRef);
+	
+{
+	“name”: String,
+	“identifiers”: [{
+		chama DvIdentifier
+	}]
+}
 
 
 ------------------------------------------------------------------------------------------------------------------------
