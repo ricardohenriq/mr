@@ -31,7 +31,8 @@ SUMÁRIO
 1.20.Folder
 1.21.VersionedFolder
 1.22.Participation
-1.23. PartyIdentified
+1.23.PartyIdentified
+1.24.PartyProxy
 
 2.Método toJSON()
 
@@ -568,6 +569,18 @@ Construtor: PartyIdentified(
 	}]
 }
 
+1.24. PartyProxy
+Classe Pai: RMObject
+Parâmetros:
+	@param externalRef null if not specified
+Construtor: @FullConstructor
+	public PartyProxy(@Attribute(name = "externalRef") PartyRef externalRef) { 
+    		this.externalRef = externalRef;	
+	}
+
+{
+	“externalRef”: chama PartyRef
+}
 
 ------------------------------------------------------------------------------------------------------------------------
 
