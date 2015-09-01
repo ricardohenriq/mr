@@ -1,5 +1,8 @@
 package br.inf.ufg.fabrica.mr;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+
 /**
  * Fábrica de objetos baseados no Modelo de Referência
  * do openEHR.
@@ -80,6 +83,54 @@ public interface ModeloDeReferencia {
     // TODO acrescente uma constante para todos os demais tipos
 
     /**
+     * Retorna o tamanho, em bytes, de um campo em um objeto.
+     * 
+     * @param id O identificador único do objeto.
+     * @param campo A ordem do campo, iniciada por 0.
+     *
+     * @return Quantidade de bytes do campo do objeto.
+     *
+     * @throws IllegalArgumentException Nos seguintes casos:
+     * (a) o objeto não existe;
+     * (b) o campo não existe.
+     */
+    int obtemQtdeBytes(int id, int campo);
+    
+    /**
+     * Recupera parte do campo do objeto,
+     * conforme a capacidade de memória suportada.
+     *  
+     * @param id O identificador único do objeto.
+     * @param campo A ordem do campo, iniciada por 0.
+     * @param ini A posição do byte inicial.
+     * @param fim A posição do byte final.
+     *
+     * @return Parte do campo do objeto.
+     *
+     * @throws IllegalArgumentException Nos seguintes casos:
+     * (a) o objeto não existe;
+     * (b) o campo não existe;
+     * (c) ini negativo; (d) ini maior do que fim;
+     * (e) fim maior do que o tamanho total do campo.
+     */
+    byte[] obtemBytes(int id, int campo, int ini, int fim);
+
+    /**
+     * Recupera o campo completo do objeto.
+     *  
+     * @param id O identificador único do objeto.
+     * @param campo A ordem do campo, iniciada por 0.
+     *
+     * @return Campo completo do objeto.
+     *
+     * @throws IllegalArgumentException Nos seguintes casos:
+     * (a) o objeto não existe;
+     * (b) o campo não existe;
+     */
+    byte[] obtemBytes(int id, int campo);
+
+    
+    /**
      * Dados propriamente ditos correspondentes a objetos
      * compatíveis com o Modelo de Referência.
      *
@@ -99,26 +150,26 @@ public interface ModeloDeReferencia {
      * <p>O retorno deste método, em geral, é persistido.
      * Quando uma consulta aos dados correspondentes
      * for necessária, será "consumido" pelo
-     * método {@link #fromBytes(byte[])}.</p>
+     * método {@link #fromBytes(InputStream)}.</p>
      *
-     * @return Vetor de bytes contendo uma instância
+     * @return Stream de bytes contendo uma instância
      * do Modelo de Referência (MR) devidamente serializada.
      *
      * @see #fromBytes(byte[])
      * @see #toJSON()
      * @see #toXML()
      */
-    byte[] toBytes();
+    OutputStream toBytes();
 
     /**
      * Realiza processo inverso à serialização, geralmente
      * empregado para permitir busca sobre os dados em
      * conformidade com o Modelo de Referência.
      *
-     * @param bytes Vetor de bytes serializados por meio
+     * @param bytes Stream de bytes serializados por meio
      *              do método {@link #toBytes()}.
      */
-    void fromBytes(byte[] bytes);
+    void fromBytes(InputStream bytes);
 
     /**
      * Serializa as informações do presente objeto, baseado
@@ -240,7 +291,7 @@ public interface ModeloDeReferencia {
      * objeto.
      */
     int obtemTipo(int id);
-
+    
     /**
      * Recupera o byte do campo do objeto.
      *
@@ -415,6 +466,14 @@ public interface ModeloDeReferencia {
      */
     int adicionaItem(int lista, int item);
 
+    /** 
+     * Retorna o tamanho da lista de objetos.
+     * 
+     * @param lista Identificador da lista.
+     * @throws IllegalArgumentException a lista não existe.
+     */
+    int obtemTamanhoLista(int lista);
+    
     /**
      * Procura pelo objeto na lista.
      *
