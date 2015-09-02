@@ -102,6 +102,7 @@ public interface ModeloDeReferencia {
     final int DV_MULTIMEDIA = 22;
     final int DV_PERIODIC_TIME_SPECIFICATION = 23;
     final int DV_GENERAL_TIME_SPECIFICATION = 24;
+    final int DV_INTERVAL = 25;
 
     // TODO acrescente uma constante para todos os demais tipos
 
