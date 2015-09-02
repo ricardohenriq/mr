@@ -22,14 +22,9 @@ public class JsonObject implements ModeloDeReferencia {
     }
 
     public String toJSON() {
-        int idRaiz;
+        int idRaiz = obtemRaiz();
         String jsonFinal = "";
-        // -- talvez precise { } envolvendo o retorno do json, validar
-        idRaiz = obtemRaiz();
-        jsonFinal += "{";
-        jsonFinal += buildJson(idRaiz);
-        jsonFinal += "}";
-        return jsonFinal;
+        return jsonFinal += "{" + buildJson(idRaiz) + "}";
     }
 
     public void fromJSON(String json) {
