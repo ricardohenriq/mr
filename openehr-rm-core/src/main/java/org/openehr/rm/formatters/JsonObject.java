@@ -2,14 +2,34 @@ package org.openehr.rm.formatters;
 
 import br.inf.ufg.fabrica.mr.ModeloDeReferencia;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+
 public class JsonObject implements ModeloDeReferencia {
 
     /* ÍNICIO MÉTODOS INTERFACE */
-    public byte[] toBytes() {
+
+    public void fromBytes(byte[] bytes) {
+
+    }
+
+    public int obtemQtdeBytes(int id, int campo) {
+        return 0;
+    }
+
+    public byte[] obtemBytes(int id, int campo, int ini, int fim) {
         return new byte[0];
     }
 
-    public void fromBytes(byte[] bytes) {
+    public byte[] obtemBytes(int id, int campo) {
+        return new byte[0];
+    }
+
+    public OutputStream toBytes() {
+        return null;
+    }
+
+    public void fromBytes(InputStream bytes) {
 
     }
 
@@ -32,11 +52,43 @@ public class JsonObject implements ModeloDeReferencia {
 
     }
 
+    public void defineRaiz(int raiz) {
+
+    }
+
+    public int obtemRaiz() {
+        return 0;
+    }
+
     public int totalObjetos() {
         return 0;
     }
 
     public int obtemTipo(int id) {
+        return 0;
+    }
+
+    public byte obtemByte(int id, int campo) {
+        return 0;
+    }
+
+    public String obtemString(int id, int campo) {
+        return null;
+    }
+
+    public boolean obtemLogico(int id, int campo) {
+        return false;
+    }
+
+    public int obtemInteiro(int id, int campo) {
+        return 0;
+    }
+
+    public float obtemFloat(int id, int campo) {
+        return 0;
+    }
+
+    public double obtemDouble(int id, int campo) {
         return 0;
     }
 
@@ -62,6 +114,30 @@ public class JsonObject implements ModeloDeReferencia {
 
     public byte[] obtemVetorBytes(int id, int campo) {
         return new byte[0];
+    }
+
+    public int adicionaLista(int quantidade) {
+        return 0;
+    }
+
+    public int adicionaItem(int lista, int item) {
+        return 0;
+    }
+
+    public int obtemTamanhoLista(int lista) {
+        return 0;
+    }
+
+    public int buscaEmLista(int lista, int objeto) {
+        return 0;
+    }
+
+    public void elimineObjeto(int objeto) {
+
+    }
+
+    public int adicionaHash(int chaves, int valores) {
+        return 0;
     }
 
     public int adicionaDvUri(String uri) {
@@ -93,6 +169,34 @@ public class JsonObject implements ModeloDeReferencia {
     }
 
     public int adicionaDvMultimedia(String codePhraseCharSet, String codePhraseLinguagem, String textoAlternativo, String codePhraseTipoMidia, String codePhraseAlgoritmoCompressao, byte[] integridade, String codePhraseAlgoritmoIntegridade, int hDvMultimediaThumbnail, String dvUri, byte[] dado) {
+        return 0;
+    }
+
+    public int adicionaIsoOid(String valor) {
+        return 0;
+    }
+
+    public int adicionaUuid(String valor) {
+        return 0;
+    }
+
+    public int adicionaInternetId(String valor) {
+        return 0;
+    }
+
+    public int adicionaHierObjectId(String valor) {
+        return 0;
+    }
+
+    public int adicionaHierObjectId(String raiz, String extensao) {
+        return 0;
+    }
+
+    public int adicionaObjectVersionId(String valor) {
+        return 0;
+    }
+
+    public int adicionaObjectVersionId(String objectId, String versionTreeId, String creatingSystemId) {
         return 0;
     }
     /* FIM MÉTODOS INTERFACE */
