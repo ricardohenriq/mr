@@ -2,34 +2,14 @@ package org.openehr.rm.formatters;
 
 import br.inf.ufg.fabrica.mr.ModeloDeReferencia;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-
 public class JsonObject implements ModeloDeReferencia {
 
     /* ÍNICIO MÉTODOS INTERFACE */
+    public byte[] toBytes() {
+        return new byte[0];
+    }
 
     public void fromBytes(byte[] bytes) {
-
-    }
-
-    public int obtemQtdeBytes(int id, int campo) {
-        return 0;
-    }
-
-    public byte[] obtemBytes(int id, int campo, int ini, int fim) {
-        return new byte[0];
-    }
-
-    public byte[] obtemBytes(int id, int campo) {
-        return new byte[0];
-    }
-
-    public OutputStream toBytes() {
-        return null;
-    }
-
-    public void fromBytes(InputStream bytes) {
 
     }
 
@@ -42,10 +22,9 @@ public class JsonObject implements ModeloDeReferencia {
     }
 
     public String toJSON() {
-        for (int i = 0; i < totalObjetos(); i++) { //itera sobre cada nodo possível do grafo gerado e cria o json
-            buildJson(i);
-        }
-        return null;
+        int idRaiz = obtemRaiz();
+        String jsonFinal = "";
+        return jsonFinal += "{" + buildJson(idRaiz) + "}";
     }
 
     public void fromJSON(String json) {
@@ -121,10 +100,6 @@ public class JsonObject implements ModeloDeReferencia {
     }
 
     public int adicionaItem(int lista, int item) {
-        return 0;
-    }
-
-    public int obtemTamanhoLista(int lista) {
         return 0;
     }
 
@@ -208,40 +183,56 @@ public class JsonObject implements ModeloDeReferencia {
         String list = "";
         switch (obtemTipo(idNodoGrafo)) {
             case 1: //DvBoolean
-                template = "'dvBoolean' : {'value': #value}";
+                template = "'DvBoolean': {'value': #value}";
                 template = template.replaceAll("#value", String.valueOf(obtemValorLogico(idNodoGrafo, 0)));
                 template = template.replaceAll("'", "\"");
                 break;
             case 2: //DvIdentifier
-                template = "'dvIdentifier' : {'issuer': '#issuer', 'assigner': '#assigner', 'id': '#id', 'type': '#type'}";
-                template = template.replaceAll("#issuer", obtemTexto(idNodoGrafo, 0));
-                template = template.replaceAll("#assigner", obtemTexto(idNodoGrafo, 1));
-                template = template.replaceAll("#id", obtemTexto(idNodoGrafo, 2));
-                template = template.replaceAll("#type", obtemTexto(idNodoGrafo, 3));
+                template = "'DvIdentifier': {'issuer': '#issuer', 'assigner': '#assigner', 'id': '#id', 'type': '#type'}";
+                template = template.replaceAll("#issuer", obtemString(idNodoGrafo, 0));
+                template = template.replaceAll("#assigner", obtemString(idNodoGrafo, 1));
+                template = template.replaceAll("#id", obtemString(idNodoGrafo, 2));
+                template = template.replaceAll("#type", obtemString(idNodoGrafo, 3));
                 template = template.replaceAll("'", "\"");
                 break;
-            case 3: //DvParagraph -- Precisa validação
-                template = "{'items': [#listDvText]}";
-                for (int j = 0; j < totalObjetos(); j++) {
-                    list += buildJson(j); //chama em recursividade o buildJson para cada um dos elementos da lista<DvText>
-                    if (j < totalObjetos() - 1) {
-                        list += ", ";
+            case 3: //DvParagraph
+                template = "'DvParagraph': {'items': [#listDvText]}";
+                int idLista = obtemInteiro(idNodoGrafo,0); // método vai ser trocado pelo obtemChave segundo orientações do Fábio
+                int k = 0;
+                // Utilizamos a exception como condição de parada. O Fábio disse que apesar de funcionar não é o jeito correto e que vamos precisar mudar isso
+                // Segundo ele, vai ser disponibilizado um método na interface que retorna o tamanho da lista
+                // Assim que tivermos o método, precisamos atualizar o laço (condição de parada)
+                while(true){
+                    try{
+                        int idObjetoLista = obtemInteiro(idLista,k); // obtem o id ou a chave do nodo do grafo
+                        list = list + buildJson(idObjetoLista);
+                    }catch(IllegalArgumentException e){
+                        break;
                     }
+                    k++;
                 }
-                template = template.replaceAll("#listDvText", list);
+                template = template.replaceAll("#listDvText",list);
                 template = template.replaceAll("'", "\"");
                 list = ""; //clear list
                 break;
-            case 4: //TermMapping -- Precisa validação
-                template = "{'target': #callCodePhrase, 'match': #callMatch, 'purpose': #callDvCodedText}";
-                template = template.replaceAll("#callCodePhrase", buildJson(idNodoGrafo + 1)); // próximo elemento no grafo montado
-                template = template.replaceAll("#callMatch", buildJson(idNodoGrafo + 2)); // próximo elemento no grafo montado
-                template = template.replaceAll("#callDvCodedText", buildJson(idNodoGrafo + 2)); // próximo elemento no grafo montado
+            case 4: //TermMapping
+                template = "'TermMapping': {'target': #callCodePhrase, 'match': #callMatch, 'purpose': #callDvCodedText}";
+                template = template.replaceAll("#callCodePhrase", buildJson(obtemInteiro(idNodoGrafo,0)));
+                template = template.replaceAll("#callMatch", buildJson(obtemInteiro(idNodoGrafo,1)));
+                template = template.replaceAll("#callDvCodedText", buildJson(obtemInteiro(idNodoGrafo,2)));
                 template = template.replaceAll("'", "\"");
                 break;
-            case 5:
-                template = "'codePhrase' : {'terminologyId' : #terminologyId, 'codeString' : '#codeString'}";
-                template = template.replaceAll("#terminologyId", buildJson(obtemInteiro(idNodoGrafo, 0)));
+            case 5: //DvParsable -- recebe parâmetros que vão para o super -- Validar
+                template = "'DvParsable': {'charset': #callCodePhrase1, 'language': #callCodePhrase2, 'value': '#value', 'formalism': '#formalism'}";
+                template = template.replaceAll("#callCodePhrase1", buildJson(obtemInteiro(idNodoGrafo,0)));
+                template = template.replaceAll("#callCodePhrase2", buildJson(obtemInteiro(idNodoGrafo,1)));
+                template = template.replaceAll("#value", obtemString(idNodoGrafo, 2));
+                template = template.replaceAll("#formalism", obtemString(idNodoGrafo,3));
+                template = template.replaceAll("'", "\"");
+                break;
+            case 6: //CodePhrase
+                template = "'CodePhrase': {'terminologyId': #callTerminologyId, 'codeString': '#codeString'}";
+                template = template.replaceAll("#callTerminologyId", buildJson(obtemInteiro(idNodoGrafo, 0)));
                 template = template.replaceAll("#codeString", obtemString(idNodoGrafo, 1));
                 template = template.replaceAll("'", "\"");
                 break;
@@ -251,3 +242,4 @@ public class JsonObject implements ModeloDeReferencia {
     }
     /* FIM MÉTODOS AUXILIARES */
 }
+
