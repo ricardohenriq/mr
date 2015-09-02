@@ -79,6 +79,29 @@ public interface ModeloDeReferencia {
      * Identificador do tipo DV_IDENTIFIER.
      */
     final int DV_IDENTIFIER = 1;
+    final int DV_DATE = 2;
+    final int DV_DATE_TIME = 3;
+    final int DV_TEMPORAL = 4;
+    final int DV_ABSOLUTE_QUANTITY = 5;
+    final int DV_QUANTIFIED = 6;
+    final int DV_ORDINAL = 7;
+    final int DV_AMOUNT = 8;
+    final int DV_DURATION = 9;
+    final int DV_QUANTITY = 10;
+    final int DV_PROPORTION = 11;
+    final int DV_COUNT = 12;
+    final int DV_TIME = 13;
+    final int DV_CODED_TEXT = 14;
+    final int DV_EHR_URI = 15;
+    final int DV_ORDERED = 16;
+    final int DV_TEXT = 17;
+    final int DV_URI = 18;
+    final int DV_PARAGRAPH = 19;
+    final int DV_ENCAPSULATED = 20;
+    final int DV_PARSABLE = 21;
+    final int DV_MULTIMEDIA = 22;
+    final int DV_PERIODIC_TIME_SPECIFICATION = 23;
+    final int DV_GENERAL_TIME_SPECIFICATION = 24;
 
     // TODO acrescente uma constante para todos os demais tipos
 
