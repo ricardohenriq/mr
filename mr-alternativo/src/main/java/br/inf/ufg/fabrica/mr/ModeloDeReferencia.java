@@ -68,7 +68,7 @@ import java.io.OutputStream;
  * não ocorre por campo, mas por toda a coleção de valores
  * que formam um objeto.</p>
  */
-public interface ModeloDeReferencia {
+public interface ModeloDeReferencia extends Serializacao {
 
     /**
      * Identificador do tipo DV_BOOLEAN.
@@ -116,12 +116,12 @@ public interface ModeloDeReferencia {
     byte[] obtemBytes(int id, int campo, int ini, int fim);
 
     /**
-     * Recupera o campo completo do objeto.
+     * Recupera o campo do objeto.
      *  
      * @param id O identificador único do objeto.
      * @param campo A ordem do campo, iniciada por 0.
      *
-     * @return Campo completo do objeto.
+     * @return Sequência de bytes correspondente ao campo.
      *
      * @throws IllegalArgumentException Nos seguintes casos:
      * (a) o objeto não existe;
@@ -129,104 +129,7 @@ public interface ModeloDeReferencia {
      */
     byte[] obtemBytes(int id, int campo);
 
-    
     /**
-     * Dados propriamente ditos correspondentes a objetos
-     * compatíveis com o Modelo de Referência.
-     *
-     * <p>Este vetor de bytes mantém os dados correspondentes
-     * a um grafo de objetos, baseados no Modelo de Referência,
-     * conforme o modelo de dados estabelecido pela
-     * implementação da presente interface.</p>
-     *
-     * <p>Um acréscimo de um elemento de dado é
-     * serializado neste vetor. Metainformações
-     * correspondentes devem ser registradas em
-     * outra estrutura.</p>
-     *
-     * <p>A estrutura desta sequência de bytes é
-     * obtida por {@code #estrutura}.</p>
-     *
-     * <p>O retorno deste método, em geral, é persistido.
-     * Quando uma consulta aos dados correspondentes
-     * for necessária, será "consumido" pelo
-     * método {@link #fromBytes(InputStream)}.</p>
-     *
-     * @return Stream de bytes contendo uma instância
-     * do Modelo de Referência (MR) devidamente serializada.
-     *
-     * @see #fromBytes(byte[])
-     * @see #toJSON()
-     * @see #toXML()
-     */
-    OutputStream toBytes();
-
-    /**
-     * Realiza processo inverso à serialização, geralmente
-     * empregado para permitir busca sobre os dados em
-     * conformidade com o Modelo de Referência.
-     *
-     * @param bytes Stream de bytes serializados por meio
-     *              do método {@link #toBytes()}.
-     */
-    void fromBytes(InputStream bytes);
-
-    /**
-     * Serializa as informações do presente objeto, baseado
-     * no MR, em um documento XML.
-     *
-     * <p>O documento XML produzido pelo presente método,
-     * sequência de caracteres, deve estar em conformidade
-     * com os esquemas adotados pelo openEHR.</p>
-     *
-     * @return Documento XML correspondente ao grafo
-     * de objetos.
-     */
-    String toXML();
-
-    /**
-     * Cria um grafo de objetos, em conformidade com o
-     * Modelo de Referência, correspondente ao documento
-     * XML fornecido.
-     *
-     * @param xml Documento XML contendo grafo de objetos
-     *            baseados no Modelo de Referência.
-     */
-    void fromXML(String xml);
-
-    /**
-     * Serializa a instância em uma sequência de caracteres
-     * no formato JSON.
-     *
-     * @see #fromJSON(String)
-     * @see #toBytes()
-     * @see #toXML()
-     *
-     * @return Sequência de caracteres, no formato JSON,
-     * correspondente à serialização do presente objeto.
-     */
-    String toJSON();
-
-    /**
-     * Cria o grafo de objetos, representado pelo presente
-     * objeto, em conformidade com o Modelo de Referência e
-     * serializado em JSON.
-     *
-     * <p>Este método faz o processo inverso ao do método
-     * {@see #toJSON}.</p>
-     *
-     * @see #toJSON()
-     * @see #fromXML(String)
-     * @see #fromBytes(byte[])
-     *
-     * @param json Sequência de caracteres, no formato JSON,
-     *             correspondentes a um grafo de objetos
-     *             serializado do Modelo de Referência do
-     *             openEHR.
-     */
-    void fromJSON(String json);
-    
-    /** 
      * Define a raiz do presente objeto.
      * 
      * <p>Uma instância desta interface é um grafo com uma
