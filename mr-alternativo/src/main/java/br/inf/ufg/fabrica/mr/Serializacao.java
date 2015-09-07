@@ -33,40 +33,39 @@ import java.io.OutputStream;
 public interface Serializacao {
 
     /**
-     * Produz um vetor de bytes correspondente ao
-     * grafo mantido pela instância.
+     * Serializa o grafo de objetos em um vetor de bytes.
      *
-     * <p>O conteúdo do grafo pode ser suficientemente
-     * extenso e, em consequência, inviável de ser depositado
-     * em um único vetor. Nesses casos, use o método
-     * @see #toBytes(OutputStream).
-     * </p>
-     *
-     * @return Serialização em um vetor de bytes do
-     * grafo de objetos.
+     * @return Vetor de bytes contendo uma sequência de
+     * bytes correspondente ao grafo de objetos.
      *
      * @see #toBytes(OutputStream)
+     * @see #fromBytes(byte[])
+     * @see #toJson()
+     * @see #toXml()
      */
     byte[] toBytes();
 
     /**
-     * O grafo de objetos mantidos pela presente instância
-     * é enviado para o {@code OutputStream}.
+     * Deposita no destino o grafo de
+     * objetos como uma sequência de bytes.
      *
      * <p>Este método permite que a serialização do grafo
      * seja enviada para um arquivo, serviço web ou outro
      * destino.</p>
      *
-     * @see #fromBytes(byte[])
+     * @throws IllegalArgumentException Caso ocorra falha
+     * na tentativa de depositar as informações no destino.
+     *
+     * @see #fromBytes(InputStream)
      * @see #toJson()
      * @see #toXml()
      * @see #toBytes()
      */
-    void toBytes(OutputStream stream);
+    void toBytes(OutputStream destino);
 
     /**
      * Carrega o grafo de objetos a partir do vetor
-     * de bytes correspondente.
+     * de bytes.
      *
      * <p>Uma cópia do vetor é realizada de tal forma que
      * posterior alteração no vetor fornecido não altera
@@ -82,6 +81,10 @@ public interface Serializacao {
      *
      * @throws IllegalArgumentException Caso o vetor fornecido
      * não contenha um grafo "válido".
+     *
+     * @see #fromBytes(InputStream)
+     * @see #fromJson(String)
+     * @see #fromXml(String)
      */
     void fromBytes(byte[] bytes);
 
@@ -89,14 +92,17 @@ public interface Serializacao {
      * Carrega um grafo de objetos baseados no Modelo de
      * Referência do openEHR a partir do <i>stream</i>.
      *
-     * @param bytes Stream de bytes que é uma serialização
-     *              de grafo de objetos baseados no Modelo
-     *              de Referência do openEHR.
+     * @param entrada Origem da qual bytes correspondentes
+     *                a um grafo de objetos serão recuperados.
      *
      * @throws IllegalArgumentException Caso a tentativa
      * de criar o grafo de objetos tenha falhado.
+     *
+     * @see #fromBytes(byte[])
+     * @see #fromJson(String)
+     * @see #fromXml(String)
      */
-    void fromBytes(InputStream bytes);
+    void fromBytes(InputStream entrada);
 
     /**
      * Serializa as informações do presente objeto, baseado
@@ -113,6 +119,10 @@ public interface Serializacao {
      *
      * @return Documento XML correspondente ao grafo
      * de objetos.
+     *
+     * @see #toXml(OutputStream)
+     * @see #toBytes()
+     * @see #toJson()
      */
     String toXml();
 
@@ -122,6 +132,10 @@ public interface Serializacao {
      *
      * @param stream Destino do documento XML correspondente
      *               ao grafo de objetos.
+     *
+     * @see #toXml()
+     * @see #toJson()
+     * @see #toBytes()
      */
     void toXml(OutputStream stream);
 
@@ -132,6 +146,10 @@ public interface Serializacao {
      *
      * @param xml Documento XML contendo grafo de objetos
      *            baseados no Modelo de Referência.
+     *
+     * @see #fromXml(InputStream)
+     * @see #fromJson(String)
+     * @see #fromBytes(byte[])
      */
     void fromXml(String xml);
 
@@ -142,6 +160,10 @@ public interface Serializacao {
      * @param stream Origem de documento XML a partir do qual
      *               o grafo de objetos correspondente será
      *               carregado.
+     *
+     * @see #fromXml(String)
+     * @see #fromJson(String)
+     * @see #fromBytes(byte[])
      */
     void fromXml(InputStream stream);
 
@@ -155,6 +177,10 @@ public interface Serializacao {
      *
      * @return Sequência de caracteres, no formato JSON,
      * correspondente à serialização do presente objeto.
+     *
+     * @see #toJson(OutputStream)
+     * @see #toXml()
+     * @see #toJson()
      */
     String toJson();
 
@@ -164,6 +190,10 @@ public interface Serializacao {
      *
      * @param stream Saída na qual a serialização JSON do
      *               grafo de objetos será depositada.
+     *
+     * @see #toJson()
+     * @see #toXml()
+     * @see #toBytes()
      */
     void toJson(OutputStream stream);
 
@@ -192,6 +222,10 @@ public interface Serializacao {
      * @param entrada Origem da qual um grafo de objetos
      *                serializado no formato JSON será
      *                recuperado.
+     *
+     * @see #fromJson(String)
+     * @see #fromBytes(byte[])
+     * @see #fromXml(String)
      */
     void fromJson(InputStream entrada);
 }
