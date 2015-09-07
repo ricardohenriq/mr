@@ -68,7 +68,7 @@ import java.io.OutputStream;
  * não ocorre por campo, mas por toda a coleção de valores
  * que formam um objeto.</p>
  */
-public interface ModeloDeReferencia extends Serializacao {
+public interface ModeloDeReferencia extends Serializacao, Campo {
 
     /**
      * Identificador do tipo DV_BOOLEAN.
@@ -83,7 +83,7 @@ public interface ModeloDeReferencia extends Serializacao {
     // TODO acrescente uma constante para todos os demais tipos
 
     /**
-     * Retorna o tamanho, em bytes, de um campo em um objeto.
+     * Retorna o tamanho, em bytes, de um campo de um objeto.
      * 
      * @param id O identificador único do objeto.
      * @param campo A ordem do campo, iniciada por 0.
@@ -194,154 +194,6 @@ public interface ModeloDeReferencia extends Serializacao {
      * objeto.
      */
     int obtemTipo(int id);
-    
-    /**
-     * Recupera o byte do campo do objeto.
-     *
-     * @param id O identificador único do objeto.
-     * @param campo A ordem do campo, iniciada por 0, para o
-     *              campo cujo valor é um byte.
-     * @return Valor do byte (campo do objeto).
-     *
-     * @throws IllegalArgumentException Se pelo menos uma das
-     * condições abaixo for verificada:
-     * (a) o campo não é do tipo byte; (b) o campo não existe;
-     * (c) o objeto não existe.
-     *
-     * @see #obtemTipo(int)
-     * @see #obtemTexto(int, int)
-     * @see #obtemVetorBytes(int, int)
-     */
-    byte obtemByte(int id, int campo);
-
-    /**
-     * Recupera a String do campo do objeto.
-     *
-     * @param id O identificador único do objeto.
-     * @param campo A ordem do campo, iniciada por 0, para o
-     *              campo cujo valor é uma String.
-     * @return String do campo do objeto.
-     *
-     * @throws IllegalArgumentException Se pelo menos uma das
-     * condições abaixo for verificada:
-     * (a) o campo não é do tipo String; (b) o campo não existe;
-     * (c) o objeto não existe.
-     *
-     * @see #obtemTipo(int)
-     * @see #obtemTexto(int, int)
-     * @see #obtemVetorBytes(int, int)
-     */
-    String obtemString(int id, int campo);
-
-    /**
-     * Recupera o valor lógico do objeto.
-     *
-     * @param id O identificador único do objeto.
-     * @param campo A ordem do campo, iniciada por 0, para o
-     *              campo cujo valor lógico é desejado.
-     * @return Valor lógico do campo do objeto.
-     *
-     * @throws IllegalArgumentException Se pelo menos uma das
-     * condições abaixo for verificada:
-     * (a) o campo não é do tipo lógico; (b) o campo não existe;
-     * (c) o objeto não existe.
-     *
-     * @see #obtemTipo(int)
-     * @see #obtemTexto(int, int)
-     * @see #obtemVetorBytes(int, int)
-     */
-    boolean obtemLogico(int id, int campo);
-
-    /**
-     * Recupera inteiro.
-     *
-     * @param id O identificador único do objeto.
-     * @param campo A ordem do campo, iniciada por 0, para o
-     *              campo cujo valor inteiro é desejado.
-     * @return Valor inteiro (campo do objeto).
-     *
-     * @throws IllegalArgumentException Se pelo menos uma das
-     * condições abaixo for verificada:
-     * (a) o campo não é do tipo inteiro; (b) o campo não existe;
-     * (c) o objeto não existe.
-     *
-     * @see #obtemTipo(int)
-     * @see #obtemTexto(int, int)
-     * @see #obtemVetorBytes(int, int)
-     */
-    int obtemInteiro(int id, int campo);
-
-    /**
-     * Recupera o valor de precisão simples (ponto
-     * flutuante).
-     *
-     * @param id O identificador único do objeto.
-     * @param campo A ordem do campo, iniciada por 0, para o
-     *              campo cujo valor {@code float} é desejado.
-     * @return Valor {@code float} do campo do objeto.
-     *
-     * @throws IllegalArgumentException Se pelo menos uma das
-     * condições abaixo for verificada:
-     * (a) o campo não é do tipo float; (b) o campo não existe;
-     * (c) o objeto não existe.
-     *
-     * @see #obtemTipo(int)
-     * @see #obtemTexto(int, int)
-     * @see #obtemVetorBytes(int, int)
-     */
-    float obtemFloat(int id, int campo);
-
-    /**
-     * Recupera valor de precisão dupla (ponto flutuante).
-     *
-     * @param id O identificador único do objeto.
-     * @param campo A ordem do campo, iniciada por 0, para o
-     *              campo cujo valor é um {@code double}.
-     * @return Valor {@code double} do campo do objeto.
-     *
-     * @throws IllegalArgumentException Se pelo menos uma das
-     * condições abaixo for verificada:
-     * (a) o campo não é do tipo double; (b) o campo não existe;
-     * (c) o objeto não existe.
-     *
-     * @see #obtemTipo(int)
-     * @see #obtemTexto(int, int)
-     * @see #obtemVetorBytes(int, int)
-     */
-    double obtemDouble(int id, int campo);
-
-    /**
-     * Recupera texto do objeto.
-     *
-     * @param id O identificador único do objeto.
-     * @param campo A ordem do campo, iniciada por 0, para o
-     *              campo cuja sequência de caracteres
-     *              correspondente é desejada.
-     * @return Sequência de caracteres correspondente ao
-     * campo do objeto.
-     *
-     * @throws IllegalArgumentException Nos seguintes casos:
-     * (a) o campo não é texto; (b) o campo não existe;
-     * (c) o objeto não existe.
-     */
-    String obtemTexto(int id, int campo);
-
-    /**
-     * Recupera vetor de bytes (valor do campo do objeto).
-     *
-     * @param id O identificador único do objeto.
-     * @param campo A ordem do campo, iniciada por 0, cujo
-     *              valor, um vetor de bytes, é desejado.
-     * @return Valor do campo do objeto.
-     *
-     * @throws IllegalArgumentException Nos seguintes casos:
-     * (a) o campo não é um vetor de bytes; (b) o campo não existe;
-     * (c) o objeto não existe.
-     *
-     * @see #obtemTexto(int, int)
-     * @see #obtemTipo(int)
-     */
-    byte[] obtemVetorBytes(int id, int campo);
 
     /**
      * Cria uma lista de objetos.
