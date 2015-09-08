@@ -68,7 +68,7 @@ import java.io.OutputStream;
  * não ocorre por campo, mas por toda a coleção de valores
  * que formam um objeto.</p>
  */
-public interface ModeloDeReferencia {
+public interface ModeloDeReferencia extends Serializacao, Campo {
 
     /**
      * Identificador do tipo DV_BOOLEAN.
@@ -104,10 +104,86 @@ public interface ModeloDeReferencia {
     final int DV_GENERAL_TIME_SPECIFICATION = 24;
     final int DV_INTERVAL = 25;
 
+    final int AUTHORED_RESOURCE = 100;
+    final int REVISION_HISTORY_ITEM = 101;
+    final int REVISION_HISTORY = 102;
+    final int AUDITY_DETAILS = 103;
+    final int ATTESTATION = 104;
+    final int TEMPLATE_ID = 105;
+    final int TERMINOLOGY_ID = 106;
+    final int LINK = 107;
+    final int GENERIC_ID = 108;
+    final int OBJECT_ID = 109;
+    final int ARCHETYPE_ID = 110;
+    final int UID_BASED_ID = 111;
+    final int HIER_OBJECT_ID = 112;
+    final int OBJECT_VERSION_ID = 113;
+    final int ISM_TRANSITION = 114;
+    final int OBJECT_REF = 115;
+    final int ACCESS_GROUP_REF = 116;
+    final int PARTY_REF = 117;
+    final int LOCATABLE_REF = 118;
+    final int TRANSLATIONDETAILS = 119;
+    final int VERSION = 120;
+    final int ORIGINALVERSION = 121;
+    final int IMPORTED_VERSION = 122;
+    final int PATHABLE = 123;
+    final int LOCATABLE = 124;
+    final int DATA_STRUCTURE = 125;
+    final int HISTORY = 126;
+    final int ITEM_STRUCTURE = 127;
+    final int ITEM_TREE = 128;
+    final int ITEM_LIST = 129;
+    final int ITEM_TABLE = 130;
+    final int ITEM_SINGLE = 131;
+    final int ITEM = 132;
+    final int ELEMENT = 133;
+    final int CLUSTER = 134;
+    final int FOLDER = 135;
+    final int PARTY_RELATIONSHIP = 136;
+    final int XFOLDER = 137;
+    final int COMPOSITION = 138;
+    final int ADDRESS = 139;
+    final int PARTY = 140;
+    final int ROLE = 141;
+    final int ACTOR = 142;
+    final int AGENT = 143;
+    final int PERSON = 144;
+    final int GROUP = 145;
+    final int ORGANISATION = 146;
+    final int EHR_STATUS = 147;
+    final int ACTIVITY = 148;
+    final int EVENT = 149;
+    final int INTERVAL_EVENT = 150;
+    final int POINT_EVENT = 151;
+    final int MESSAGE_CONTENT = 152;
+    final int EHR_ACCESS = 153;
+    final int PARTY_IDENTITY = 154;
+    final int CONTENT_ITEM = 155;
+    final int ENTRY = 156;
+    final int ADMIN_ENTRY = 157;
+    final int CARE_ENTRY = 158;
+    final int OBSERVATION = 159;
+    final int INSTRUCTION = 160;
+    final int ACTION = 161;
+    final int EVALUTATION = 162;
+    final int SECTION = 163;
+    final int GENERIC_ENTRY = 164;
+    final int CAPABILITY = 165;
+    final int CONTACT = 166;
+    final int PARTY_IDENTIFIED = 167;
+    final int PARTY_RELATED = 168;
+    final int PART_PROXY = 169;
+    final int PARTY_SELF = 170;
+    final int RESOURCE_DESCRIPTION_ITEM = 171;
+    final int FEEDER_AUDIT = 172;
+    final int EHR = 173;
+    final int VERSION_TREE_ID = 174;
+
     // TODO acrescente uma constante para todos os demais tipos
 
     /**
-     * Retorna o tamanho, em bytes, de um campo em um objeto.
+     * Retorna o tamanho, em bytes, de um campo de um objeto.
      * 
      * @param id O identificador único do objeto.
      * @param campo A ordem do campo, iniciada por 0.
@@ -140,12 +216,12 @@ public interface ModeloDeReferencia {
     byte[] obtemBytes(int id, int campo, int ini, int fim);
 
     /**
-     * Recupera o campo completo do objeto.
+     * Recupera o campo do objeto.
      *  
      * @param id O identificador único do objeto.
      * @param campo A ordem do campo, iniciada por 0.
      *
-     * @return Campo completo do objeto.
+     * @return Sequência de bytes correspondente ao campo.
      *
      * @throws IllegalArgumentException Nos seguintes casos:
      * (a) o objeto não existe;
@@ -153,104 +229,7 @@ public interface ModeloDeReferencia {
      */
     byte[] obtemBytes(int id, int campo);
 
-    
     /**
-     * Dados propriamente ditos correspondentes a objetos
-     * compatíveis com o Modelo de Referência.
-     *
-     * <p>Este vetor de bytes mantém os dados correspondentes
-     * a um grafo de objetos, baseados no Modelo de Referência,
-     * conforme o modelo de dados estabelecido pela
-     * implementação da presente interface.</p>
-     *
-     * <p>Um acréscimo de um elemento de dado é
-     * serializado neste vetor. Metainformações
-     * correspondentes devem ser registradas em
-     * outra estrutura.</p>
-     *
-     * <p>A estrutura desta sequência de bytes é
-     * obtida por {@code #estrutura}.</p>
-     *
-     * <p>O retorno deste método, em geral, é persistido.
-     * Quando uma consulta aos dados correspondentes
-     * for necessária, será "consumido" pelo
-     * método {@link #fromBytes(InputStream)}.</p>
-     *
-     * @return Stream de bytes contendo uma instância
-     * do Modelo de Referência (MR) devidamente serializada.
-     *
-     * @see #fromBytes(byte[])
-     * @see #toJSON()
-     * @see #toXML()
-     */
-    OutputStream toBytes();
-
-    /**
-     * Realiza processo inverso à serialização, geralmente
-     * empregado para permitir busca sobre os dados em
-     * conformidade com o Modelo de Referência.
-     *
-     * @param bytes Stream de bytes serializados por meio
-     *              do método {@link #toBytes()}.
-     */
-    void fromBytes(InputStream bytes);
-
-    /**
-     * Serializa as informações do presente objeto, baseado
-     * no MR, em um documento XML.
-     *
-     * <p>O documento XML produzido pelo presente método,
-     * sequência de caracteres, deve estar em conformidade
-     * com os esquemas adotados pelo openEHR.</p>
-     *
-     * @return Documento XML correspondente ao grafo
-     * de objetos.
-     */
-    String toXML();
-
-    /**
-     * Cria um grafo de objetos, em conformidade com o
-     * Modelo de Referência, correspondente ao documento
-     * XML fornecido.
-     *
-     * @param xml Documento XML contendo grafo de objetos
-     *            baseados no Modelo de Referência.
-     */
-    void fromXML(String xml);
-
-    /**
-     * Serializa a instância em uma sequência de caracteres
-     * no formato JSON.
-     *
-     * @see #fromJSON(String)
-     * @see #toBytes()
-     * @see #toXML()
-     *
-     * @return Sequência de caracteres, no formato JSON,
-     * correspondente à serialização do presente objeto.
-     */
-    String toJSON();
-
-    /**
-     * Cria o grafo de objetos, representado pelo presente
-     * objeto, em conformidade com o Modelo de Referência e
-     * serializado em JSON.
-     *
-     * <p>Este método faz o processo inverso ao do método
-     * {@see #toJSON}.</p>
-     *
-     * @see #toJSON()
-     * @see #fromXML(String)
-     * @see #fromBytes(byte[])
-     *
-     * @param json Sequência de caracteres, no formato JSON,
-     *             correspondentes a um grafo de objetos
-     *             serializado do Modelo de Referência do
-     *             openEHR.
-     */
-    void fromJSON(String json);
-    
-    /** 
      * Define a raiz do presente objeto.
      * 
      * <p>Uma instância desta interface é um grafo com uma
@@ -315,154 +294,6 @@ public interface ModeloDeReferencia {
      * objeto.
      */
     int obtemTipo(int id);
-    
-    /**
-     * Recupera o byte do campo do objeto.
-     *
-     * @param id O identificador único do objeto.
-     * @param campo A ordem do campo, iniciada por 0, para o
-     *              campo cujo valor é um byte.
-     * @return Valor do byte (campo do objeto).
-     *
-     * @throws IllegalArgumentException Se pelo menos uma das
-     * condições abaixo for verificada:
-     * (a) o campo não é do tipo byte; (b) o campo não existe;
-     * (c) o objeto não existe.
-     *
-     * @see #obtemTipo(int)
-     * @see #obtemTexto(int, int)
-     * @see #obtemVetorBytes(int, int)
-     */
-    byte obtemByte(int id, int campo);
-
-    /**
-     * Recupera a String do campo do objeto.
-     *
-     * @param id O identificador único do objeto.
-     * @param campo A ordem do campo, iniciada por 0, para o
-     *              campo cujo valor é uma String.
-     * @return String do campo do objeto.
-     *
-     * @throws IllegalArgumentException Se pelo menos uma das
-     * condições abaixo for verificada:
-     * (a) o campo não é do tipo String; (b) o campo não existe;
-     * (c) o objeto não existe.
-     *
-     * @see #obtemTipo(int)
-     * @see #obtemTexto(int, int)
-     * @see #obtemVetorBytes(int, int)
-     */
-    String obtemString(int id, int campo);
-
-    /**
-     * Recupera o valor lógico do objeto.
-     *
-     * @param id O identificador único do objeto.
-     * @param campo A ordem do campo, iniciada por 0, para o
-     *              campo cujo valor lógico é desejado.
-     * @return Valor lógico do campo do objeto.
-     *
-     * @throws IllegalArgumentException Se pelo menos uma das
-     * condições abaixo for verificada:
-     * (a) o campo não é do tipo lógico; (b) o campo não existe;
-     * (c) o objeto não existe.
-     *
-     * @see #obtemTipo(int)
-     * @see #obtemTexto(int, int)
-     * @see #obtemVetorBytes(int, int)
-     */
-    boolean obtemLogico(int id, int campo);
-
-    /**
-     * Recupera inteiro.
-     *
-     * @param id O identificador único do objeto.
-     * @param campo A ordem do campo, iniciada por 0, para o
-     *              campo cujo valor inteiro é desejado.
-     * @return Valor inteiro (campo do objeto).
-     *
-     * @throws IllegalArgumentException Se pelo menos uma das
-     * condições abaixo for verificada:
-     * (a) o campo não é do tipo inteiro; (b) o campo não existe;
-     * (c) o objeto não existe.
-     *
-     * @see #obtemTipo(int)
-     * @see #obtemTexto(int, int)
-     * @see #obtemVetorBytes(int, int)
-     */
-    int obtemInteiro(int id, int campo);
-
-    /**
-     * Recupera o valor de precisão simples (ponto
-     * flutuante).
-     *
-     * @param id O identificador único do objeto.
-     * @param campo A ordem do campo, iniciada por 0, para o
-     *              campo cujo valor {@code float} é desejado.
-     * @return Valor {@code float} do campo do objeto.
-     *
-     * @throws IllegalArgumentException Se pelo menos uma das
-     * condições abaixo for verificada:
-     * (a) o campo não é do tipo float; (b) o campo não existe;
-     * (c) o objeto não existe.
-     *
-     * @see #obtemTipo(int)
-     * @see #obtemTexto(int, int)
-     * @see #obtemVetorBytes(int, int)
-     */
-    float obtemFloat(int id, int campo);
-
-    /**
-     * Recupera valor de precisão dupla (ponto flutuante).
-     *
-     * @param id O identificador único do objeto.
-     * @param campo A ordem do campo, iniciada por 0, para o
-     *              campo cujo valor é um {@code double}.
-     * @return Valor {@code double} do campo do objeto.
-     *
-     * @throws IllegalArgumentException Se pelo menos uma das
-     * condições abaixo for verificada:
-     * (a) o campo não é do tipo double; (b) o campo não existe;
-     * (c) o objeto não existe.
-     *
-     * @see #obtemTipo(int)
-     * @see #obtemTexto(int, int)
-     * @see #obtemVetorBytes(int, int)
-     */
-    double obtemDouble(int id, int campo);
-
-    /**
-     * Recupera texto do objeto.
-     *
-     * @param id O identificador único do objeto.
-     * @param campo A ordem do campo, iniciada por 0, para o
-     *              campo cuja sequência de caracteres
-     *              correspondente é desejada.
-     * @return Sequência de caracteres correspondente ao
-     * campo do objeto.
-     *
-     * @throws IllegalArgumentException Nos seguintes casos:
-     * (a) o campo não é texto; (b) o campo não existe;
-     * (c) o objeto não existe.
-     */
-    String obtemTexto(int id, int campo);
-
-    /**
-     * Recupera vetor de bytes (valor do campo do objeto).
-     *
-     * @param id O identificador único do objeto.
-     * @param campo A ordem do campo, iniciada por 0, cujo
-     *              valor, um vetor de bytes, é desejado.
-     * @return Valor do campo do objeto.
-     *
-     * @throws IllegalArgumentException Nos seguintes casos:
-     * (a) o campo não é um vetor de bytes; (b) o campo não existe;
-     * (c) o objeto não existe.
-     *
-     * @see #obtemTexto(int, int)
-     * @see #obtemTipo(int)
-     */
-    byte[] obtemVetorBytes(int id, int campo);
 
     /**
      * Cria uma lista de objetos.
