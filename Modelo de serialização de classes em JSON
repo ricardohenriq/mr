@@ -33,6 +33,7 @@ SUMÁRIO
 1.22.Participation
 1.23.PartyIdentified
 1.24.PartyProxy
+1.25.PartySelf
 
 2.Método toJSON()
 
@@ -580,6 +581,30 @@ Construtor: @FullConstructor
 
 {
 	“externalRef”: chama PartyRef
+}
+
+1.25.PartySelf
+Classe pai: PartyProxy
+Parâmetros: 
+	@param externalRef null if unspecified
+Construtores: @FullConstructor
+    public PartySelf(
+    		@Attribute(name = "externalRef") PartyRef externalRef) {
+        super(externalRef);
+    }
+    
+    public PartySelf() {
+    	this(null);
+    }
+
+{
+	“externalRef”: chama PartyRef
+}
+
+ou
+
+{
+	Vazio
 }
 
 ------------------------------------------------------------------------------------------------------------------------
