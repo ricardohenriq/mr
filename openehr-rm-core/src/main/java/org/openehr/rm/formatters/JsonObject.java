@@ -2,6 +2,9 @@ package org.openehr.rm.formatters;
 
 import br.inf.ufg.fabrica.mr.ModeloDeReferencia;
 
+import java.io.InputStream;
+import java.io.OutputStream;
+
 public class JsonObject implements ModeloDeReferencia {
 
     public String toJSON() {
@@ -147,6 +150,62 @@ public class JsonObject implements ModeloDeReferencia {
                 template = template.replaceAll("#creatingSystemID",buildJson(obtemInteiro(idNodoGrafo, 3)));
                 template = template.replaceAll("'", "\"");
                 break;
+            case DV_IDENTIFIER:
+                template = "DvIdentifier: { 'issuer' : '#issuer', 'assigner': '#assigner', 'id' : '#id', 'type': '#type'}";
+                template = template.replaceAll("#issuer",obtemString(idNodoGrafo,0));
+                template = template.replaceAll("#assigner",obtemString(idNodoGrafo,1));
+                template = template.replaceAll("#id",obtemString(idNodoGrafo,2));
+                template = template.replaceAll("#type",obtemString(idNodoGrafo,3));
+                template = template.replaceAll("'", "\"");
+                break;
+            case DV_TEXT:
+                template = "DvText: { 'value': '#value', 'mappings': [#mappings], 'formatting': '#formatting', 'hyperlink': #hyperlink, 'language': #language, 'encoding': #encoding}";
+                template = template.replaceAll("#value",obtemString(idNodoGrafo,0));
+
+                int idListaMappings_DvText = obtemInteiro(idNodoGrafo, 1);
+                int tamanhoListaMappings_DvText = obtemTamanhoLista(idListaMappings_DvText);
+                String listaMappings_DvText = "";
+                for(int k=0; k<tamanhoListaMappings_DvText; k++){
+                    int idObjetoLista = obtemInteiro(idListaMappings_DvText, k);
+                    listaMappings_DvText = (k == tamanhoListaMappings_DvText - 1) ? buildJson(idObjetoLista) + ", " : buildJson(idObjetoLista);
+                }
+                template = template.replaceAll("#mappings",listaMappings_DvText);
+
+                template = template.replaceAll("#formatting",buildJson(obtemInteiro(idNodoGrafo, 2)));
+                template = template.replaceAll("#hyperlink",buildJson(obtemInteiro(idNodoGrafo,3)));
+                template = template.replaceAll("#language",buildJson(obtemInteiro(idNodoGrafo,4)));
+                template = template.replaceAll("#language",buildJson(obtemInteiro(idNodoGrafo,5)));
+                break;
+            case DV_CODED_TEXT:
+                template = "DvCodedText: { 'value': '#value', 'mappings': [#mappings], 'formatting': '#formatting', 'hyperlink': #hyperlink, 'language': #language, 'charset': #charset, 'definingCode': #definingCode}";
+                template = template.replaceAll("#value",obtemString(idNodoGrafo,0));
+
+                int idListaMappings_DvCodedText = obtemInteiro(idNodoGrafo, 1);
+                int tamanhoListaMappings_DvCodedText = obtemTamanhoLista(idListaMappings_DvCodedText);
+                String listaMappings_DvCodedText = "";
+                for(int k=0; k<tamanhoListaMappings_DvCodedText; k++){
+                    int idObjetoLista = obtemInteiro(idListaMappings_DvCodedText, k);
+                    listaMappings_DvCodedText = (k == tamanhoListaMappings_DvCodedText - 1) ? buildJson(idObjetoLista) + ", " : buildJson(idObjetoLista);
+                }
+                template = template.replaceAll("#mappings",listaMappings_DvCodedText);
+
+                template = template.replaceAll("#formatting",obtemString(idNodoGrafo,2));
+                template = template.replaceAll("#hyperlink",buildJson(obtemInteiro(idNodoGrafo, 3)));
+                template = template.replaceAll("#language",buildJson(obtemInteiro(idNodoGrafo,4)));
+                template = template.replaceAll("#charset",buildJson(obtemInteiro(idNodoGrafo,5)));
+                template = template.replaceAll("#definingCode",buildJson(obtemInteiro(idNodoGrafo,6)));
+                break;
+            case DV_PARAGRAPH:
+                template = "DvParagraph: { 'items' : [#items]}";
+                int idListaItems_DvParagraph = obtemInteiro(idNodoGrafo,0);
+                int tamanhoListaItems_DvParagraph = obtemTamanhoLista(idListaItems_DvParagraph);
+                String listaItems_DvParagraph = "";
+                for(int k=0; k<tamanhoListaItems_DvParagraph; k++){
+                    int idObjetoLista = obtemInteiro(idListaItems_DvParagraph,k);
+                    listaItems_DvParagraph = (k == tamanhoListaItems_DvParagraph - 1) ? buildJson(idObjetoLista) + ", " : buildJson(idObjetoLista);
+                }
+                template = template.replaceAll("#items",listaItems_DvParagraph);
+                break;
         }
         out += template;
         return out;
@@ -156,7 +215,47 @@ public class JsonObject implements ModeloDeReferencia {
         return new byte[0];
     }
 
+    public void toBytes(OutputStream destino) {
+
+    }
+
     public void fromBytes(byte[] bytes) {
+
+    }
+
+    public void fromBytes(InputStream entrada) {
+
+    }
+
+    public String toXml() {
+        return null;
+    }
+
+    public void toXml(OutputStream stream) {
+
+    }
+
+    public void fromXml(String xml) {
+
+    }
+
+    public void fromXml(InputStream stream) {
+
+    }
+
+    public String toJson() {
+        return null;
+    }
+
+    public void toJson(OutputStream stream) {
+
+    }
+
+    public void fromJson(String json) {
+
+    }
+
+    public void fromJson(InputStream entrada) {
 
     }
 
@@ -168,6 +267,18 @@ public class JsonObject implements ModeloDeReferencia {
 
     }
 
+
+    public int obtemQtdeBytes(int id, int campo) {
+        return 0;
+    }
+
+    public byte[] obtemBytes(int id, int campo, int ini, int fim) {
+        return new byte[0];
+    }
+
+    public byte[] obtemBytes(int id, int campo) {
+        return new byte[0];
+    }
 
     public void defineRaiz(int raiz) {
 
@@ -185,6 +296,10 @@ public class JsonObject implements ModeloDeReferencia {
         return 0;
     }
 
+    public int obtemTipo(int id, int campo) {
+        return 0;
+    }
+
     public byte obtemByte(int id, int campo) {
         return 0;
     }
@@ -195,6 +310,10 @@ public class JsonObject implements ModeloDeReferencia {
 
     public boolean obtemLogico(int id, int campo) {
         return false;
+    }
+
+    public int obtemChave(int id, int campo) {
+        return 0;
     }
 
     public int obtemInteiro(int id, int campo) {
@@ -233,11 +352,23 @@ public class JsonObject implements ModeloDeReferencia {
         return new byte[0];
     }
 
+    public int obtemTamanhoVetorBytes(int id, int campo) {
+        return 0;
+    }
+
+    public InputStream obtemStreamVetorBytes(int id, int campo) {
+        return null;
+    }
+
     public int adicionaLista(int quantidade) {
         return 0;
     }
 
     public int adicionaItem(int lista, int item) {
+        return 0;
+    }
+
+    public int obtemTamanhoLista(int lista) {
         return 0;
     }
 
