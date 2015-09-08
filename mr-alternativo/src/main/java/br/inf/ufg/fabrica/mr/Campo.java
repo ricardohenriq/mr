@@ -59,7 +59,7 @@ public interface Campo {
      * (a) o campo não é do tipo String; (b) o campo não existe;
      * (c) o objeto não existe.
      *
-     * @see #obtemTipo(int)
+     * @see #obtemTipo(int, int)
      * @see #obtemTexto(int, int)
      * @see #obtemVetorBytes(int, int)
      */
@@ -78,11 +78,38 @@ public interface Campo {
      * (a) o campo não é do tipo lógico; (b) o campo não existe;
      * (c) o objeto não existe.
      *
-     * @see #obtemTipo(int)
+     * @see #obtemTipo(int, int)
      * @see #obtemTexto(int, int)
      * @see #obtemVetorBytes(int, int)
      */
     boolean obtemLogico(int id, int campo);
+
+    /**
+     * Recupera uma chave ("endereço" para um objeto).
+     *
+     * <p>O tipo de uma chave é {@code int}, ou seja,
+     * o método @see #obtemInteiro poderia ser empregado
+     * para essa finalidade. O presente método, contudo,
+     * é obrigatório para este tipo de informação e
+     * permite verificação de "tipo" do campo.</p>
+     *
+     * @param id O identificador único do objeto que contém
+     *           uma chave.
+     * @param campo A ordem do campo, iniciada por 0, para o
+     *              campo cuja chave nele depositada é desejada.
+     * @return Valor inteiro (campo do objeto).
+     *
+     * @throws IllegalArgumentException Se pelo menos uma das
+     * condições abaixo for verificada:
+     * (a) o campo não é do tipo inteiro; (b) o campo não existe;
+     * (c) o objeto não existe.
+     *
+     * @see #obtemTipo(int, int)
+     * @see #obtemTexto(int, int)
+     * @see #obtemInteiro(int, int)
+     * @see #obtemVetorBytes(int, int)
+     */
+    int obtemChave(int id, int campo);
 
     /**
      * Recupera inteiro.
@@ -97,7 +124,7 @@ public interface Campo {
      * (a) o campo não é do tipo inteiro; (b) o campo não existe;
      * (c) o objeto não existe.
      *
-     * @see #obtemTipo(int)
+     * @see #obtemTipo(int, int)
      * @see #obtemTexto(int, int)
      * @see #obtemVetorBytes(int, int)
      */
@@ -117,7 +144,7 @@ public interface Campo {
      * (a) o campo não é do tipo float; (b) o campo não existe;
      * (c) o objeto não existe.
      *
-     * @see #obtemTipo(int)
+     * @see #obtemTipo(int, int)
      * @see #obtemTexto(int, int)
      * @see #obtemVetorBytes(int, int)
      */
@@ -136,7 +163,7 @@ public interface Campo {
      * (a) o campo não é do tipo {@code double}; (b) o campo não existe;
      * (c) o objeto não existe.
      *
-     * @see #obtemTipo(int)
+     * @see #obtemTipo(int, int)
      * @see #obtemTexto(int, int)
      * @see #obtemVetorBytes(int, int)
      */
