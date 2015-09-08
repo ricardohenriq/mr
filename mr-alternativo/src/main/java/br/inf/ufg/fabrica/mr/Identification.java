@@ -10,7 +10,7 @@ package br.inf.ufg.fabrica.mr;
 public interface Identification {
     /**
      * Adiciona um Identificador de Objeto da
-     * ISO/IEC 8824) ({@code ISO_OID}).
+     * ISO/IEC 8824 ({@code ISO_OID}).
      *
      * @param valor Sequência de caracteres que é uma
      *              serialização de um ISO_OID.
@@ -80,4 +80,41 @@ public interface Identification {
      * @return O identificador único do objeto criado.
      */
     int adicionaTemplateId(String valor);
+
+    /**
+     * Adiciona um identificador de terminologia ({@code TERMINOLOGY_ID}).
+     * @param valor Identificador de terminologia.
+     * @return O identificador único do objeto criado.
+     */
+    int adicionaTerminologyId(String valor);
+
+    /**
+     * Adiciona um identificador de versão ({@code VERSION_TREE_ID}).
+     *
+     * <p>O formato desse identificador é:<b>trunk-version</b> seguido,
+     * opcionalmente, de <b>.branch-number.branch-version</b>.
+     * @param valor Sequência de caracteres de um identificador de versão,
+     *              conforme o formato esperado.
+     * @return Identificador único do objeto criado.
+     */
+    int adicionaVersionTreeId(String valor);
+
+    /**
+     * Adiciona um identificador de arquétipo ({@code ARCHETYPE_ID}).
+     *
+     * @param valor O identificador de arquétipo.
+     * @return O identificador único do objeto adicionado.
+     */
+    int adicionaArchetypeId(String valor);
+
+    /**
+     * Adiciona um identificador genérico ({@code GENERIC_ID}), desconhecido
+     * do openEHR.
+     *
+     * @param valor O identificador "genérico".
+     * @param scheme O esquema, possivelmente local, empregado pelo
+     *               identificador desconhecido do openEHR.
+     * @return O identificador único do objeto adicionado.
+     */
+    int adicionaGenericId(String valor, String scheme);
 }
