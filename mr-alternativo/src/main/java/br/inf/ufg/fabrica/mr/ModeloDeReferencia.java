@@ -1,8 +1,5 @@
 package br.inf.ufg.fabrica.mr;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-
 /**
  * Fábrica de objetos baseados no Modelo de Referência
  * do openEHR.
@@ -68,7 +65,7 @@ import java.io.OutputStream;
  * não ocorre por campo, mas por toda a coleção de valores
  * que formam um objeto.</p>
  */
-public interface ModeloDeReferencia extends Serializacao, Campo {
+public interface ModeloDeReferencia extends Serializacao, Campo, Identification {
 
     /**
      * Identificador do tipo DV_BOOLEAN.
@@ -428,91 +425,5 @@ public interface ModeloDeReferencia extends Serializacao, Campo {
             int hDvMultimediaThumbnail,
             String dvUri,
             byte[] dado);
-    
-    /**
-     * Adiciona um Identificador de Objeto da
-     * ISO/IEC 8824) ({@code ISO_OID}).
-     *
-     * @param valor Sequência de caracteres que é uma
-     *              serialização de um ISO_OID.
-     * @return O identificador único na estrutura deste
-     *          identificador de objeto da ISO.
-     */
-    int adicionaIsoOid(String valor);
-    
-    /**
-     * Adiciona um Identificador Único Universal DCE 
-     * ({@code UUID}).
-     *
-     * @param valor Sequência de caracteres que é uma
-     *              serialização de um UUID.
-     * @return O identificador único na estrutura do UUID.
-     */
-    int adicionaUuid(String valor);
-    
-    /**
-     * Adiciona um identificador de domínio
-     * da internet invertido ({@code INTERNET_ID}).
-     *
-     * @param valor Sequência de caracteres que é uma
-     *              serialização de um identificador de domínio.
-     * @return O identificador único na estrutura 
-     *          do identificador de internet.
-     */
-    int adicionaInternetId(String valor);
-
-    /**
-     * Adiciona um identificador de hierarquia
-     * ({@code HIER_OBJECT_ID}).
-     *
-     * @param valor Sequência de caracteres que é uma
-     *              serialização de um identificador de
-     *              hierarquia ({HIER_OBJECT_ID}).
-     * @return O identificador único na estrutura deste
-     *         identificador de hierarquia.
-     */
-    int adicionaHierObjectId(String valor);
-    
-    /**
-     * Adiciona um identificador de hierarquia
-     * ({@code HIER_OBJECT_ID}).
-     *
-     * @param raiz identificador único permanente de 
-     *          entidade (@code UID).
-     * @param extensão identificador local do objeto.
-     * @return O identificador único na estrutura do 
-     * identificador de hierarquia.
-     */
-    int adicionaHierObjectId(String raiz, String extensao);
-
-    /**
-     * Adiciona um identificador único global para uma
-     * versão de um objeto ({@code OBJECT_VERSION_ID}).
-     *
-     * @param valor Sequência de caracteres que é uma
-     *              serialização de um identificador de uma
-     *              versão de um objeto ({OBJECT_VERSION_ID}).
-     * @return O identificador único na estrutura deste
-     *          identificador de versão de objeto.
-     */
-    int adicionaObjectVersionId(String valor);
-    
-    /**
-     * Adiciona um identificador único global para uma
-     * versão de um objeto ({@code OBJECT_VERSION_ID}).
-     *
-     * @param objectId identificador único para
-     *                  objeto lógico (@code UID).
-     * @param versionTreeId identificador da versão
-     *                      com relação aos outros de sua 
-     *                      árvore (@code VERSION_TREE_ID).
-     * @param creatingSystemId identificador do sistema
-     *                      criador da versão (@code UID).
-     * @return O identificador único na estrutura do 
-     *          identificador de versão de objeto.
-     */
-    int adicionaObjectVersionId(String objectId,
-            String versionTreeId,
-            String creatingSystemId);
 
 }
