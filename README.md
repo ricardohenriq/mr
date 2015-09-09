@@ -2,6 +2,8 @@
 Modelo de Referência do openEHRModelo de Referência do openEHR: 
 Analisando Possibilidades de Persistência
 
+[<img src="https://api.travis-ci.org/kyriosdata/mr.svg?branch=master">](https://travis-ci.org/kyriosdata/mr)
+
 O presente projeto é derivado do conteúdo
 disponível em https://github.com/openehr/java-libs.git.
 TODOS OS CRÉDITOS DEVEM SER DEVIDAMENTE ATRIBUÍDOS
