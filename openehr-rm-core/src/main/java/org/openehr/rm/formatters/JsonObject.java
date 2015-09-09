@@ -151,7 +151,7 @@ public class JsonObject implements ModeloDeReferencia {
                 template = template.replaceAll("'", "\"");
                 break;
             case DV_IDENTIFIER:
-                template = "DvIdentifier: { 'issuer' : '#issuer', 'assigner': '#assigner', 'id' : '#id', 'type': '#type'}";
+                template = "{ 'issuer' : '#issuer', 'assigner': '#assigner', 'id' : '#id', 'type': '#type'}";
                 template = template.replaceAll("#issuer",obtemString(idNodoGrafo,0));
                 template = template.replaceAll("#assigner",obtemString(idNodoGrafo,1));
                 template = template.replaceAll("#id",obtemString(idNodoGrafo,2));
@@ -159,7 +159,7 @@ public class JsonObject implements ModeloDeReferencia {
                 template = template.replaceAll("'", "\"");
                 break;
             case DV_TEXT:
-                template = "DvText: { 'value': '#value', 'mappings': [#mappings], 'formatting': '#formatting', 'hyperlink': #hyperlink, 'language': #language, 'encoding': #encoding}";
+                template = "{ 'value': '#value', 'mappings': [#mappings], 'formatting': '#formatting', 'hyperlink': #hyperlink, 'language': #language, 'encoding': #encoding}";
                 template = template.replaceAll("#value",obtemString(idNodoGrafo,0));
 
                 int idListaMappings_DvText = obtemInteiro(idNodoGrafo, 1);
@@ -177,7 +177,7 @@ public class JsonObject implements ModeloDeReferencia {
                 template = template.replaceAll("#language",buildJson(obtemInteiro(idNodoGrafo,5)));
                 break;
             case DV_CODED_TEXT:
-                template = "DvCodedText: { 'value': '#value', 'mappings': [#mappings], 'formatting': '#formatting', 'hyperlink': #hyperlink, 'language': #language, 'charset': #charset, 'definingCode': #definingCode}";
+                template = "{ 'value': '#value', 'mappings': [#mappings], 'formatting': '#formatting', 'hyperlink': #hyperlink, 'language': #language, 'charset': #charset, 'definingCode': #definingCode}";
                 template = template.replaceAll("#value",obtemString(idNodoGrafo,0));
 
                 int idListaMappings_DvCodedText = obtemInteiro(idNodoGrafo, 1);
@@ -196,7 +196,7 @@ public class JsonObject implements ModeloDeReferencia {
                 template = template.replaceAll("#definingCode",buildJson(obtemInteiro(idNodoGrafo,6)));
                 break;
             case DV_PARAGRAPH:
-                template = "DvParagraph: { 'items' : [#items]}";
+                template = "{ 'items' : [#items]}";
                 int idListaItems_DvParagraph = obtemInteiro(idNodoGrafo,0);
                 int tamanhoListaItems_DvParagraph = obtemTamanhoLista(idListaItems_DvParagraph);
                 String listaItems_DvParagraph = "";
@@ -400,6 +400,18 @@ public class JsonObject implements ModeloDeReferencia {
         return 0;
     }
 
+    public int adicionaVersionTreeId(String valor) {
+        return 0;
+    }
+
+    public int adicionaArchetypeId(String valor) {
+        return 0;
+    }
+
+    public int adicionaGenericId(String valor, String scheme) {
+        return 0;
+    }
+
     public int adicionaCodePhrase(String terminologyId, String codeString) {
         return 0;
     }
@@ -420,6 +432,22 @@ public class JsonObject implements ModeloDeReferencia {
         return 0;
     }
 
+    public int adicionaLocatableRef(String namespace, String type, String path, int object_id, int uid_based_id) {
+        return 0;
+    }
+
+    public int adicionaObjectRef(String namespace, String type, int object_id) {
+        return 0;
+    }
+
+    public int adicionaPartyRef(String namespace, String type, int object_id) {
+        return 0;
+    }
+
+    public int adicionaAccessGroupRef(String namespace, String type, int object_id) {
+        return 0;
+    }
+
     public int adicionaUuid(String valor) {
         return 0;
     }
@@ -437,6 +465,10 @@ public class JsonObject implements ModeloDeReferencia {
     }
 
     public int adicionaObjectVersionId(String valor) {
+        return 0;
+    }
+
+    public int adicionaTemplateId(String valor) {
         return 0;
     }
 
