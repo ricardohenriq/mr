@@ -175,6 +175,7 @@ public class JsonObject implements ModeloDeReferencia {
                 template = template.replaceAll("#hyperlink",buildJson(obtemInteiro(idNodoGrafo,3)));
                 template = template.replaceAll("#language",buildJson(obtemInteiro(idNodoGrafo,4)));
                 template = template.replaceAll("#language",buildJson(obtemInteiro(idNodoGrafo,5)));
+                template = template.replaceAll("'", "\"");
                 break;
             case DV_CODED_TEXT:
                 template = "{ 'value': '#value', 'mappings': [#mappings], 'formatting': '#formatting', 'hyperlink': #hyperlink, 'language': #language, 'charset': #charset, 'definingCode': #definingCode}";
@@ -194,6 +195,7 @@ public class JsonObject implements ModeloDeReferencia {
                 template = template.replaceAll("#language",buildJson(obtemInteiro(idNodoGrafo,4)));
                 template = template.replaceAll("#charset",buildJson(obtemInteiro(idNodoGrafo,5)));
                 template = template.replaceAll("#definingCode",buildJson(obtemInteiro(idNodoGrafo,6)));
+                template = template.replaceAll("'", "\"");
                 break;
             case DV_PARAGRAPH:
                 template = "{ 'items' : [#items]}";
@@ -205,6 +207,17 @@ public class JsonObject implements ModeloDeReferencia {
                     listaItems_DvParagraph = (k == tamanhoListaItems_DvParagraph - 1) ? buildJson(idObjetoLista) + ", " : buildJson(idObjetoLista);
                 }
                 template = template.replaceAll("#items",listaItems_DvParagraph);
+                template = template.replaceAll("'", "\"");
+                break;
+            case DV_URI:
+                template = "{ 'value' : '#value'}";
+                template = template.replaceAll("#value",obtemString(idNodoGrafo,0));
+                template = template.replaceAll("'", "\"");
+                break;
+            case DV_EHR_URI:
+                template = "{ 'value' : '#value'}";
+                template = template.replaceAll("#value",obtemString(idNodoGrafo,0));
+                template = template.replaceAll("'", "\"");
                 break;
         }
         out += template;
