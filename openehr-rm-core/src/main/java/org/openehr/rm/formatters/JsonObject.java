@@ -147,6 +147,23 @@ public class JsonObject implements ModeloDeReferencia {
                 template = template.replaceAll("#creatingSystemID",buildJson(obtemInteiro(idNodoGrafo, 3)));
                 template = template.replaceAll("'", "\"");
                 break;
+            case VERSION:
+                //classe abstrata
+                break;
+            case ORIGINALVERSION:
+                template = "{'commitAudit': '#commitAudit', 'uid':'#uid', 'precedingVersionID':'#precedingVersionID', 'contribution':'#contribution', 'data':'#data', 'lifecycleState':'#lifecycleState', signature:'#signature', 'otherInputVersionUids':'#otherInputVersionUids', 'attestations':'#attestations', 'isMerged':'#isMerged'}";
+                template = template.replaceAll("#commitAudit",buildJson(obtemInteiro(idNodoGrafo, 0)));
+                template = template.replaceAll("#uid",buildJson(obtemInteiro(idNodoGrafo,1)));
+                template = template.replaceAll("#precedingVersionID",buildJson(obtemInteiro(idNodoGrafo,2)));
+                template = template.replaceAll("#contribution",buildJson(obtemInteiro(idNodoGrafo,3)));
+                template = template.replaceAll("#data",buildJson(obtemInteiro(idNodoGrafo,4)));
+                template = template.replaceAll("#lifecycleState",buildJson(obtemInteiro(idNodoGrafo,5)));
+                template = template.replaceAll("#signature",buildJson(obtemInteiro(idNodoGrafo,6)));
+                template = template.replaceAll("#otherInputVersionUids",buildJson(obtemInteiro(idNodoGrafo,7)));
+                template = template.replaceAll("#otherInputVersionUids",buildJson(obtemInteiro(idNodoGrafo,7)));
+                template = template.replaceAll("#attestations",buildJson(obtemInteiro(idNodoGrafo,8)));
+                template = template.replaceAll("#isMerged",obtemBoolean(idNodoGrafo,9));//CRIAR METODO obtemBoolean(idNodoGrafo, posicao);
+
         }
         out += template;
         return out;
