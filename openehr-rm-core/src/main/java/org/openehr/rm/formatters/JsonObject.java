@@ -133,7 +133,8 @@ public class JsonObject implements ModeloDeReferencia {
                 // Classe Abstrata
                 break;
             case HIER_OBJECT_ID:
-                template = "{ 'value' : '#value','root':#root,'extesion' : '#extension'}";
+                template = "{ 'classType' : '#type', 'value' : '#value','root':#root,'extesion' : '#extension'}";
+                template = template.replaceAll("#classType",String.valueOf(HIER_OBJECT_ID));
                 template = template.replaceAll("#value",obtemString(idNodoGrafo,0));
                 template = template.replaceAll("#root",buildJson(obtemInteiro(idNodoGrafo,1)));
                 template = template.replaceAll("#extesion",obtemString(idNodoGrafo,2));
