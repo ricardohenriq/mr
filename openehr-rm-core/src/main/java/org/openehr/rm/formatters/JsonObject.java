@@ -1,6 +1,8 @@
 package org.openehr.rm.formatters;
 
 import br.inf.ufg.fabrica.mr.ModeloDeReferencia;
+import org.openehr.rm.RMObject;
+import org.openehr.rm.support.identification.TerminologyID;
 
 public class JsonObject implements ModeloDeReferencia {
 
@@ -10,7 +12,21 @@ public class JsonObject implements ModeloDeReferencia {
         return jsonFinal += "{" + buildJson(idRaiz) + "}";
     }
 
-    public void fromJSON(String json) {
+    public int fromJSON(String json) {
+        int idRaizGrafo = buildGraph(json);
+        return idRaizGrafo;
+    }
+
+    public int buildGraph(JsonObject jsonObject){
+        int tipo = jsonObject["globalTypeIdn"];
+
+        if(tipo == TERMINOLOGY_ID){
+            return adicionaTerminologyId(jsonObject["name"],jsonObject["value"]);
+        }else if(tipo == CODE_PHRASE){
+            int idTerminologyID = buildGraph(jsonObject["terminologyId"]);
+            return adicionaCodePhrase(idTerminologyID,jsonObject["codeString"]);
+        }
+
 
     }
 
@@ -19,41 +35,53 @@ public class JsonObject implements ModeloDeReferencia {
         String template = "";
         switch (obtemTipo(idNodoGrafo)) {
             case AUTHORED_RESOURCE:
-                template = "{ 'originalLanguage' : #originalLanguage, 'translations' : #translations, 'description' : #description, 'revisionHistory' : #revisionHistory, 'isControlled' : #isControlled }";
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'originalLanguage' : #originalLanguage, 'translations' : [#translations], 'description' : #description, 'revisionHistory' : #revisionHistory, 'isControlled' : #isControlled }";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(AUTHORED_RESOURCE));
                 template = template.replaceAll("#originalLanguage",buildJson(obtemByte(idNodoGrafo,0)));
-                //template = template.replaceAll("#translations",buildJson(obtemByte(idNodoGrafo,1))); // Translations é um map(String,TranslationDetails) checar como proceder.
+                int idMapaTranslations = obtemInteiro(idNodoGrafo,1);
+                int tamanhoMapaTranslations = obtemTamanhoLista(idMapaTranslations);
+                String mapaTranslations = "";
+                for(int k = 0; k < tamanhoMapaTranslations; k++){
+                    int idObjetoMapa = obtemInteiro(idMapaTranslations,k);
+                    mapaTranslations = mapaTranslations + ((k == tamanhoMapaTranslations - 1) ? "{'" + obtemString(idObjetoMapa,0) + "' : {"  + buildJson(obtemInteiro(idObjetoMapa,1)) + "}}," : "{'" + obtemString(idObjetoMapa,0) + "' : {"  + buildJson(obtemInteiro(idObjetoMapa, 1)) + "}}");
+                }
+                template = template.replaceAll("#author",mapaTranslations);
+
                 template = template.replaceAll("#description",buildJson(obtemByte(idNodoGrafo,2)));
                 template = template.replaceAll("#revisionHistory",buildJson(obtemByte(idNodoGrafo,3)));
                 template = template.replaceAll("#isControlled",String.valueOf(obtemValorLogico(idNodoGrafo,4)));
                 template = template.replaceAll("'", "\"");
                 break;
             case REVISION_HISTORY_ITEM:
-                template = "{ 'audits' : [#audits], 'versionId' : #versionId }";
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'audits' : [#audits], 'versionId' : #versionId }";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(REVISION_HISTORY_ITEM));
                 int idListaAudits = obtemInteiro(idNodoGrafo,0);
                 int tamanhoListaAudits = obtemTamanhoLista(idListaAudits);
                 String listaAudits = "";
                 for(int k = 0; k < tamanhoListaAudits; k++){
                     int idObjetoLista = obtemInteiro(idListaAudits,k);
-                    listaAudits = (k == tamanhoListaAudits - 1) ? buildJson(idObjetoLista) + "," : buildJson(idObjetoLista);
+                    listaAudits = (k == tamanhoListaAudits - 1) ? '{' + buildJson(idObjetoLista) + "}," : '{' + buildJson(idObjetoLista) + '}';
                 }
                 template = template.replaceAll("#audits",listaAudits);
                 template = template.replaceAll("#originalLanguage",buildJson(obtemByte(idNodoGrafo,1)));
                 template = template.replaceAll("'", "\"");
                 break;
             case REVISION_HISTORY:
-                template = "{ 'items' : [#items]}";
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'items' : [#items]}";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(REVISION_HISTORY));
                 int idListaItems = obtemInteiro(idNodoGrafo,0);
                 int tamanhoListaItems = obtemTamanhoLista(idListaItems);
                 String listaItems = "";
                 for(int k = 0; k < tamanhoListaItems; k++){
                     int idObjetoLista = obtemInteiro(idListaItems,k);
-                    listaItems = (k == tamanhoListaItems - 1) ? buildJson(idObjetoLista) + "," : buildJson(idObjetoLista);
+                    listaItems = (k == tamanhoListaItems - 1) ? '{' + buildJson(idObjetoLista) + "}," : '{' + buildJson(idObjetoLista) + '}';
                 }
                 template = template.replaceAll("#audits",listaItems);
                 template = template.replaceAll("'", "\"");
                 break;
             case AUDITY_DETAILS:
-                template = "{ 'systemId' : '#systemId', 'committer' : #committer, 'timeCommitted' : #timeCommitted, 'changeType' : #changeType, 'description' : #description }";
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'systemId' : '#systemId', 'committer' : #committer, 'timeCommitted' : #timeCommitted, 'changeType' : #changeType, 'description' : #description }";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(AUDITY_DETAILS));
                 template = template.replaceAll("#systemId",obtemString(idNodoGrafo,0));
                 template = template.replaceAll("#committer",buildJson(obtemInteiro(idNodoGrafo, 1)));
                 template = template.replaceAll("#timeCommitted",buildJson(obtemInteiro(idNodoGrafo, 2)));
@@ -62,8 +90,9 @@ public class JsonObject implements ModeloDeReferencia {
                 template = template.replaceAll("'", "\"");
                 break;
             case ATTESTATION:
-                template = "{ 'systemId' : '#systemId', 'committer' : #committer, 'timeCommitted' : #timeCommitted, 'changeType' : #changeType," +
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'systemId' : '#systemId', 'committer' : #committer, 'timeCommitted' : #timeCommitted, 'changeType' : #changeType," +
                         "'description' : #description, 'attestedView' : attestedView#, 'proof' : '#proof', 'items' : items#, 'reason' : reason#, 'isPending' : isPending# }";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(ATTESTATION));
                 template = template.replaceAll("#systemId",obtemString(idNodoGrafo,0));
                 template = template.replaceAll("#committer",buildJson(obtemInteiro(idNodoGrafo, 1)));
                 template = template.replaceAll("#timeCommitted",buildJson(obtemInteiro(idNodoGrafo, 2)));
@@ -72,44 +101,50 @@ public class JsonObject implements ModeloDeReferencia {
 
                 template = template.replaceAll("#attestedView",buildJson(obtemInteiro(idNodoGrafo, 5)));
                 template = template.replaceAll("#proof",obtemString(idNodoGrafo,6));
-                //template = template.replaceAll("#items",buildJson(obtemInteiro(idNodoGrafo, 7))); Items é um SET(DvEHRURI) checar como proceder.
+                //template = template.replaceAll("#items",buildJson(obtemInteiro(idNodoGrafo, 7))); Items é um SET (DvEHRURI) checar como proceder.
                 template = template.replaceAll("#reason",buildJson(obtemInteiro(idNodoGrafo, 8)));
                 template = template.replaceAll("#isPending",String.valueOf(obtemValorLogico(idNodoGrafo,9)));
                 template = template.replaceAll("'", "\"");
                 break;
             case LINK:
-                template = "{ 'meaning' : #meaning, 'type' : #type, 'target' : #target}";
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'meaning' : #meaning, 'type' : #type, 'target' : #target}";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(LINK));
                 template = template.replaceAll("#meaning",buildJson(obtemInteiro(idNodoGrafo, 1)));
                 template = template.replaceAll("#type",buildJson(obtemInteiro(idNodoGrafo, 1)));
                 template = template.replaceAll("#target",buildJson(obtemInteiro(idNodoGrafo, 2)));
                 template = template.replaceAll("'", "\"");
                 break;
             case OBJECT_ID:
-                template = "{ 'value' : '#value'}";
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'value' : '#value'}";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(OBJECT_ID));
                 template = template.replaceAll("#value",obtemString(idNodoGrafo,0));
                 template = template.replaceAll("'", "\"");
                 break;
             case TEMPLATE_ID:
-                template = "{ 'value' : '#value'}";
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'value' : '#value'}";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(TEMPLATE_ID));
                 template = template.replaceAll("#value",obtemString(idNodoGrafo,0));
                 template = template.replaceAll("'", "\"");
                 break;
             case TERMINOLOGY_ID:
-                template = "{ 'value' : '#value','name' : '#name','version' : '#version'}";
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'value' : '#value','name' : '#name','version' : '#version'}";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(TERMINOLOGY_ID));
                 template = template.replaceAll("#value",obtemString(idNodoGrafo,0));
                 template = template.replaceAll("#name",obtemString(idNodoGrafo,1));
                 template = template.replaceAll("#version",obtemString(idNodoGrafo,2));
                 template = template.replaceAll("'", "\"");
                 break;
             case GENERIC_ID:
-                template = "{'value' : '#value','scheme' : '#scheme'}";
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'value' : '#value','scheme' : '#scheme'}";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(GENERIC_ID));
                 template = template.replaceAll("#value",obtemString(idNodoGrafo,0));
                 template = template.replaceAll("#scheme",obtemString(idNodoGrafo,1));
                 template = template.replaceAll("'", "\"");
                 break;
             case ARCHETYPE_ID:
-                template = "{ 'value' : '#value', 'rmOriginator' : '#rmOriginator', 'rmName' : '#rmName', 'rmEntity' : '#rmEntity'," +
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'value' : '#value', 'rmOriginator' : '#rmOriginator', 'rmName' : '#rmName', 'rmEntity' : '#rmEntity'," +
                         "'domainConcept' : '#domainConcept', 'conceptName' : '#conceptName', 'specialisation' : [#specialisation], 'versionID' : '#versionID', }";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(ARCHETYPE_ID));
                 template = template.replaceAll("#value",obtemString(idNodoGrafo,0));
                 template = template.replaceAll("#rmOriginator",obtemString(idNodoGrafo,1));
                 template = template.replaceAll("#rmName",obtemString(idNodoGrafo,2));
@@ -122,7 +157,7 @@ public class JsonObject implements ModeloDeReferencia {
                 String listaSpecisialisation = "";
                 for(int k = 0; k < tamanhoListaSpecialisation; k++){
                     int idObjetoLista = obtemInteiro(idListaSpecialisation,k);
-                    listaSpecisialisation = (k == tamanhoListaSpecialisation - 1) ? buildJson(idObjetoLista) + "," : buildJson(idObjetoLista);
+                    listaSpecisialisation = (k == tamanhoListaSpecialisation - 1) ? '{' + buildJson(idObjetoLista) + "}," : '{' + buildJson(idObjetoLista) + '}';
                 }
 
                 template = template.replaceAll("#specialisation",listaSpecisialisation);
@@ -133,21 +168,94 @@ public class JsonObject implements ModeloDeReferencia {
                 // Classe Abstrata
                 break;
             case HIER_OBJECT_ID:
-                template = "{ 'classType' : '#type', 'value' : '#value','root':#root,'extesion' : '#extension'}";
-                template = template.replaceAll("#classType",String.valueOf(HIER_OBJECT_ID));
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'classType' : '#type', 'value' : '#value','root':#root,'extesion' : '#extension'}";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(HIER_OBJECT_ID));
                 template = template.replaceAll("#value",obtemString(idNodoGrafo,0));
                 template = template.replaceAll("#root",buildJson(obtemInteiro(idNodoGrafo,1)));
                 template = template.replaceAll("#extesion",obtemString(idNodoGrafo,2));
                 template = template.replaceAll("'", "\"");
                 break;
             case OBJECT_VERSION_ID:
-                template = "{ 'value' : '#value','objectID':objectID#,'versionTreeID':versionTreeID#,'creatingSystemID':creatingSystemID#}";
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'value' : '#value','objectID': #objectID, 'versionTreeID':#versionTreeID, 'creatingSystemID': #creatingSystemID}";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(OBJECT_VERSION_ID));
                 template = template.replaceAll("#value",obtemString(idNodoGrafo,0));
                 template = template.replaceAll("#objectID",buildJson(obtemInteiro(idNodoGrafo, 1)));
                 template = template.replaceAll("#versionTreeID",buildJson(obtemInteiro(idNodoGrafo, 2)));
                 template = template.replaceAll("#creatingSystemID",buildJson(obtemInteiro(idNodoGrafo, 3)));
                 template = template.replaceAll("'", "\"");
                 break;
+            case ISM_TRANSITION:
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'currentState' : #currentState, 'transition': #transition, 'careflowStep':#careflowStep}";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(ISM_TRANSITION));
+                template = template.replaceAll("#currentState",buildJson(obtemInteiro(idNodoGrafo,0)));
+                template = template.replaceAll("#transition",buildJson(obtemInteiro(idNodoGrafo, 1)));
+                template = template.replaceAll("#careflowStep",buildJson(obtemInteiro(idNodoGrafo, 2)));
+                template = template.replaceAll("'", "\"");
+                break;
+            case OBJECT_REF:
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'id' : #id, 'namespace': '#namespace', 'type': '#type'}";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(OBJECT_REF));
+                template = template.replaceAll("#id",buildJson(obtemInteiro(idNodoGrafo,0)));
+                template = template.replaceAll("#namespace",obtemString(idNodoGrafo,1));
+                template = template.replaceAll("#type",obtemString(idNodoGrafo,2));
+                template = template.replaceAll("'", "\"");
+                break;
+            case ACCESS_GROUP_REF:
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'id' : #id}";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(ACCESS_GROUP_REF));
+                // super classe
+                template = template.replaceAll("#id",buildJson(obtemInteiro(idNodoGrafo,0)));
+                // Classe não tem atributos próprios
+                template = template.replaceAll("'", "\"");
+                break;
+            case PARTY_REF:
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'id' : #id, 'type': '#type'}";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(PARTY_REF));
+                // super classe
+                template = template.replaceAll("#id",buildJson(obtemInteiro(idNodoGrafo,0)));
+                template = template.replaceAll("#type",obtemString(idNodoGrafo,2));
+                // Classe não tem atributos próprios
+                template = template.replaceAll("'", "\"");
+                break;
+            case LOCATABLE_REF:
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'id' : #id, 'namespace': '#namespace', 'type': '#type', 'path': '#path'}";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(LOCATABLE_REF));
+                // super classe
+                template = template.replaceAll("#id",buildJson(obtemInteiro(idNodoGrafo,0)));
+                template = template.replaceAll("#namespace",obtemString(idNodoGrafo,1));
+                template = template.replaceAll("#type",obtemString(idNodoGrafo,2));
+
+                // Classe LOCATABLE_REF
+                template = template.replaceAll("#path",obtemString(idNodoGrafo,3));
+                template = template.replaceAll("'", "\"");
+                break;
+            case TRANSLATIONDETAILS:
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'language' : #language, 'author': [#author], 'accreditation': '#accreditation', 'otherDetails': [#otherDetails]}";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(TRANSLATIONDETAILS));
+
+                template = template.replaceAll("#language",buildJson(obtemInteiro(idNodoGrafo,0)));
+                template = template.replaceAll("#accreditation",obtemString(idNodoGrafo,2));
+
+                int idMapaAuthor = obtemInteiro(idNodoGrafo,1);
+                int tamanhoMapa = obtemTamanhoLista(idMapaAuthor);
+                String mapa = "";
+                for(int k = 0; k < tamanhoMapa; k++){
+                    int idObjetoMapa = obtemInteiro(idMapaAuthor,k);
+                    mapa = mapa + ((k == tamanhoMapa - 1) ? "{'" + obtemString(idObjetoMapa,0) + "' : '"  + obtemString(idObjetoMapa,1)+ "'}," : "{'" + obtemString(idObjetoMapa,0) + "' : '"  + obtemString(idObjetoMapa,1)+ "}'");
+                }
+                template = template.replaceAll("#author",mapa);
+
+                idMapaAuthor = obtemInteiro(idNodoGrafo,3);
+                tamanhoMapa = obtemTamanhoLista(idMapaAuthor);
+                mapa = "";
+                for(int k = 0; k < tamanhoMapa; k++){
+                    int idObjetoMapa = obtemInteiro(idMapaAuthor,k);
+                    mapa = mapa + ((k == tamanhoMapa - 1) ? "{'" + obtemString(idObjetoMapa,0) + "' : '"  + obtemString(idObjetoMapa,1)+ "'}," : "{'" + obtemString(idObjetoMapa,0) + "' : '"  + obtemString(idObjetoMapa,1)+ "}'");
+                }
+                template = template.replaceAll("#otherDetails",mapa);
+                template = template.replaceAll("'", "\"");
+                break;
+
         }
         out += template;
         return out;

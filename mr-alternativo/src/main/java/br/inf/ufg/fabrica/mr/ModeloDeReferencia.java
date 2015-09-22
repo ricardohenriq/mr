@@ -100,6 +100,7 @@ public interface ModeloDeReferencia extends Serializacao, Campo, Identification 
     final int DV_PERIODIC_TIME_SPECIFICATION = 23;
     final int DV_GENERAL_TIME_SPECIFICATION = 24;
     final int DV_INTERVAL = 25;
+    final int CODE_PHRASE = 26;
 
     final int AUTHORED_RESOURCE = 100;
     final int REVISION_HISTORY_ITEM = 101;
