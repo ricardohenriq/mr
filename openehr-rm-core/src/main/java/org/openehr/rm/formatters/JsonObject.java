@@ -178,7 +178,8 @@ public class JsonObject implements ModeloDeReferencia {
                 template = template.replaceAll("'", "\"");
                 break;
             case DV_CODED_TEXT:
-                template = "{ 'value': '#value', 'mappings': [#mappings], 'formatting': '#formatting', 'hyperlink': #hyperlink, 'language': #language, 'charset': #charset, 'definingCode': #definingCode}";
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'value': '#value', 'mappings': [#mappings], 'formatting': '#formatting', 'hyperlink': #hyperlink, 'language': #language, 'charset': #charset, 'definingCode': #definingCode}";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(DV_CODED_TEXT));
                 template = template.replaceAll("#value",obtemString(idNodoGrafo,0));
 
                 int idListaMappings_DvCodedText = obtemInteiro(idNodoGrafo, 1);
@@ -198,7 +199,8 @@ public class JsonObject implements ModeloDeReferencia {
                 template = template.replaceAll("'", "\"");
                 break;
             case DV_PARAGRAPH:
-                template = "{ 'items' : [#items]}";
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'items' : [#items]}";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(DV_PARAGRAPH));
                 int idListaItems_DvParagraph = obtemInteiro(idNodoGrafo,0);
                 int tamanhoListaItems_DvParagraph = obtemTamanhoLista(idListaItems_DvParagraph);
                 String listaItems_DvParagraph = "";
@@ -210,12 +212,14 @@ public class JsonObject implements ModeloDeReferencia {
                 template = template.replaceAll("'", "\"");
                 break;
             case DV_URI:
-                template = "{ 'value' : '#value'}";
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'value' : '#value'}";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(DV_URI));
                 template = template.replaceAll("#value",obtemString(idNodoGrafo,0));
                 template = template.replaceAll("'", "\"");
                 break;
             case DV_EHR_URI:
-                template = "{ 'value' : '#value'}";
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'value' : '#value'}";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(DV_EHR_URI));
                 template = template.replaceAll("#value",obtemString(idNodoGrafo,0));
                 template = template.replaceAll("'", "\"");
                 break;
