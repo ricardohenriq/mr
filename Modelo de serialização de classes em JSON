@@ -621,6 +621,18 @@ String toJSON(){
     }
 }
 
+>> Como foi implementado a criação do JSON
+
+case AUDITY_DETAILS:
+template = "{ 'systemId' : '#systemId', 'committer' : #committer, 'timeCommitted' : #timeCommitted, 'changeType' : #changeType, 'description' : #description }";
+template = template.replaceAll("#systemId",obtemString(idNodoGrafo,0));
+template = template.replaceAll("#committer",buildJson(obtemInteiro(idNodoGrafo, 1)));
+template = template.replaceAll("#timeCommitted",buildJson(obtemInteiro(idNodoGrafo, 2)));
+template = template.replaceAll("#changeType",buildJson(obtemInteiro(idNodoGrafo, 3)));
+template = template.replaceAll("#description",String.valueOf(obtemValorLogico(idNodoGrafo,4)));
+template = template.replaceAll("'", "\"");
+break;
+
 ------------------------------------------------------------------------------------------------------------------------
 
 3.Método fromJSON()
