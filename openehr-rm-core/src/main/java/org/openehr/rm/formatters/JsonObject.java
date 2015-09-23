@@ -22,13 +22,15 @@ public class JsonObject implements ModeloDeReferencia {
         String template = "";
         switch (obtemTipo(idNodoGrafo)) {
             case DV_TEMPORAL:
-                template = "{ 'dateTime' : #dateTime, 'value' : #value }";
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'dateTime' : #dateTime, 'value' : #value }";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(DV_TEMPORAL));
                 template = template.replaceAll("#dateTime",buildJson(obtemByte(idNodoGrafo, 0)));
                 template = template.replaceAll("#value",obtemString(idNodoGrafo, 1));
                 template = template.replaceAll("'", "\"");
                 break;
             case DV_PARSABLE:
-                template = "{ 'charset' : #charset, 'language' : #language, 'value' : #value, 'formalism' : #formalism, 'terminologyService' : #terminologyService }";
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'charset' : #charset, 'language' : #language, 'value' : #value, 'formalism' : #formalism, 'terminologyService' : #terminologyService }";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(DV_PARSABLE));
                 template = template.replaceAll("#charset",buildJson(obtemByte(idNodoGrafo, 0)));
                 template = template.replaceAll("#language",buildJson(obtemByte(idNodoGrafo, 1)));
                 template = template.replaceAll("#value",obtemString(idNodoGrafo, 2));
@@ -37,18 +39,21 @@ public class JsonObject implements ModeloDeReferencia {
                 template = template.replaceAll("'", "\"");
                 break;
             case DV_PERIODIC_TIME_SPECIFICATION:
-                template = "{ 'value' : #value }";
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'value' : #value }";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(DV_PERIODIC_TIME_SPECIFICATION));
                 template = template.replaceAll("#value",buildJson(obtemByte(idNodoGrafo, 0)));
                 template = template.replaceAll("'", "\"");
                 break;
             case DV_GENERAL_TIME_SPECIFICATION:
-                template = "{ 'value' : #value }";
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'value' : #value }";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(DV_GENERAL_TIME_SPECIFICATION));
                 template = template.replaceAll("#value",buildJson(obtemByte(idNodoGrafo, 0)));
                 template = template.replaceAll("'", "\"");
                 break;
             case LOCATABLE:
-                template = "{ 'uid' : #uid, 'archetypeNodeId' : #archetypeNodeId, 'originalArchetypeNodeId' : #originalArchetypeNodeId, 'name' : #name, 'archetypeDetails' : #archetypeDetails, " +
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'uid' : #uid, 'archetypeNodeId' : #archetypeNodeId, 'originalArchetypeNodeId' : #originalArchetypeNodeId, 'name' : #name, 'archetypeDetails' : #archetypeDetails, " +
                         "'feederAudit' : #feederAudit, 'links' : #links, 'parent' : #parent }";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(LOCATABLE));
                 template = template.replaceAll("#uid",buildJson(obtemByte(idNodoGrafo, 0)));
                 template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo, 1));
                 template = template.replaceAll("#originalArchetypeNodeId", obtemString(idNodoGrafo, 2));
@@ -70,7 +75,8 @@ public class JsonObject implements ModeloDeReferencia {
                 // verificar se deve ser feito ou não pois possui os mesmos atributos de Locatable (também extende ela)
                 break;
             case GROUP:
-                template = "{ 'name' : #name }";
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'name' : #name }";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(GROUP));
                 template = template.replaceAll("#name",obtemString(idNodoGrafo, 0));
                 int idListaConcepts = obtemInteiro(idNodoGrafo, 1);
                 int tamanhoListaConcepts = obtemTamanhoLista(idListaConcepts);
@@ -83,8 +89,9 @@ public class JsonObject implements ModeloDeReferencia {
                 template = template.replaceAll("'", "\"");
                 break;
             case ENTRY:
-                template = "{ 'uid' : #uid, 'archetypeNodeId' : #archetypeNodeId, 'name' : #name, 'archetypeDetails' : #archetypeDetails, 'feederAudit' : #feederAudit, 'links' : #links, 'parent' : #parent," +
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'uid' : #uid, 'archetypeNodeId' : #archetypeNodeId, 'name' : #name, 'archetypeDetails' : #archetypeDetails, 'feederAudit' : #feederAudit, 'links' : #links, 'parent' : #parent," +
                         "'language' : #language, 'encoding' : #encoding, 'subject' : #subject, 'provider' : #provider, 'workflowId' : #workflowId, 'otherParticipations' : #otherParticipations, 'terminologyService' : #terminologyService }";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(ENTRY));
                 template = template.replaceAll("#uid",buildJson(obtemByte(idNodoGrafo, 0)));
                 template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo, 1));
                 template = template.replaceAll("#name", buildJson(obtemByte(idNodoGrafo, 2)));
@@ -116,8 +123,9 @@ public class JsonObject implements ModeloDeReferencia {
                 template = template.replaceAll("'", "\"");
                 break;
             case CONTACT:
-                template = "{ 'uid' : #uid, 'archetypeNodeId' : #archetypeNodeId, 'name' : #name, 'archetypeDetails' : #archetypeDetails, " +
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'uid' : #uid, 'archetypeNodeId' : #archetypeNodeId, 'name' : #name, 'archetypeDetails' : #archetypeDetails, " +
                         "'feederAudit' : #feederAudit, 'links' : #links, 'parent' : #parent, 'timeValidity' : #timeValidity, 'addresses' : #addresses }";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(CONTACT));
                 template = template.replaceAll("#uid",buildJson(obtemByte(idNodoGrafo, 0)));
                 template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo, 1));
                 template = template.replaceAll("#name", buildJson(obtemByte(idNodoGrafo, 2)));
