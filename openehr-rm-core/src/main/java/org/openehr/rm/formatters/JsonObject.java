@@ -1253,6 +1253,48 @@ public class JsonObject implements ModeloDeReferencia {
                 template = template.replaceAll("#parent", buildJson(obtemInteiro(idNodoGrafo, 7)));
                 template = template.replaceAll("'", "\"");
                 break;
+			case EHR_ACCESS:
+				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'settings':#settings}";
+				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
+				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
+				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
+				template = template.replaceAll("#archetypeDetails", buildJson(obtemInteiro(idNodoGrafo,3)));
+				template = template.replaceAll("#feederAudit", buildJson(obtemInteiro(idNodoGrafo,4)));
+				
+				int idListaLinks = obtemInteiro(idNodoGrafo,5);
+				int tamanhoListaLinks = obtemTamanhoLista(idListaLinks);
+				String listaLinks = "";
+				for(int k = 0; k < tamanhoListaLinks; k++){
+                    int idObjetoLista = obtemInteiro(idListaLinks,k);
+                    listaLinks = (k == tamanhoListaLinks - 1) ? buildJson(idObjetoLista) + "," : buildJson(idObjetoLista);
+                }
+				
+				template = template.replaceAll("#links", listaLinks);
+				template = template.replaceAll("#parent", buildJson(obtemInteiro(idNodoGrafo,6)));
+				template = template.replaceAll("#settings", buildJson(obtemInteiro(idNodoGrafo,7)));
+				template = template.replaceAll("'", "\"");
+                break;
+			case PARTY_IDENTITY:
+				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'details':#details}";
+				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
+				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
+				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
+				template = template.replaceAll("#archetypeDetails", buildJson(obtemInteiro(idNodoGrafo,3)));
+				template = template.replaceAll("#feederAudit", buildJson(obtemInteiro(idNodoGrafo,4)));
+				
+				int idListaLinks = obtemInteiro(idNodoGrafo,5);
+				int tamanhoListaLinks = obtemTamanhoLista(idListaLinks);
+				String listaLinks = "";
+				for(int k = 0; k < tamanhoListaLinks; k++){
+                    int idObjetoLista = obtemInteiro(idListaLinks,k);
+                    listaLinks = (k == tamanhoListaLinks - 1) ? buildJson(idObjetoLista) + "," : buildJson(idObjetoLista);
+                }
+				
+				template = template.replaceAll("#links", listaLinks);
+				template = template.replaceAll("#parent", buildJson(obtemInteiro(idNodoGrafo,6)));
+				template = template.replaceAll("#details", buildJson(obtemInteiro(idNodoGrafo,7)));
+				template = template.replaceAll("'", "\"");
+                break;
         }
         out += template;
         return out;
