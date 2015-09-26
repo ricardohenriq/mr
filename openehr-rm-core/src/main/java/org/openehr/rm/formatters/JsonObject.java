@@ -1233,6 +1233,26 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("#state", buildJson(obtemInteiro(idNodoGrafo,9)));
 				template = template.replaceAll("'", "\"");
 				break;
+			case MESSAGE_CONTENT:
+				template = "{ 'uid' : #uid, 'archetypeNodeId' : #archetypeNodeId, 'originalArchetypeNodeId' : #originalArchetypeNodeId, 'name' : #name, 'archetypeDetails' : #archetypeDetails, " +
+                        "'feederAudit' : #feederAudit, 'links' : #links, 'parent' : #parent }";
+                template = template.replaceAll("#uid",buildJson(obtemInteiro(idNodoGrafo, 0)));
+                template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo, 1));
+                template = template.replaceAll("#originalArchetypeNodeId", obtemString(idNodoGrafo, 2));
+                template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo, 3)));
+                template = template.replaceAll("#archetypeDetails", buildJson(obtemInteiro(idNodoGrafo, 4)));
+                template = template.replaceAll("#feederAudit",buildJson(obtemInteiro(idNodoGrafo, 5)));
+                int idListaLinks = obtemInteiro(idNodoGrafo, 6);
+                int tamanhoListaLinks = obtemTamanhoLista(idListaLinks);
+                String listaLinks = "";
+                for(int k = 0; k < tamanhoListaLinks; k++){
+                    int idObjetoLista = obtemInteiro(idListaLinks,k);
+                    listaLinks = (k == tamanhoListaLinks - 1) ? buildJson(idObjetoLista) + "," : buildJson(idObjetoLista);
+                }
+                template = template.replaceAll("#links", listaLinks);
+                template = template.replaceAll("#parent", buildJson(obtemInteiro(idNodoGrafo, 7)));
+                template = template.replaceAll("'", "\"");
+                break;
         }
         out += template;
         return out;
