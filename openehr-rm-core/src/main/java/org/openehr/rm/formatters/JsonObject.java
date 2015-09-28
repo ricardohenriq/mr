@@ -288,7 +288,8 @@ public class JsonObject implements ModeloDeReferencia {
 				//Não havia o break.
 				break;
 			case ITEM:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(ITEM));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -308,7 +309,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
 				break;
 			case ITEM_LIST:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'items':[#items]}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'items':[#items]}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(ITEM_LIST));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -338,7 +340,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
 				break;
 			case ITEM_SINGLE:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'item':#item}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'item':#item}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(ITEM_SINGLE));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -359,7 +362,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
 				break;
 			case ITEM_STRUCTURE:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(ITEM_STRUCTURE));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -379,7 +383,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
 				break;
 			case ITEM_TABLE:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'rows':[#rows]}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'rows':[#rows]}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(ITEM_TABLE));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -409,7 +414,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
 				break;
 			case ITEM_TREE:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'items':[#items]}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'items':[#items]}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(ITEM_TREE));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -439,13 +445,15 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
 				break;
 			case ELEMENT:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'value':#value, 'nullFlavour':#nullFlavour, 'terminologyService':#terminologyService}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'value':#value, 'nullFlavour':#nullFlavour, 'terminologyService':#terminologyService}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(ELEMENT));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
-				template = template.replaceAll("#feederAudit", buildJson(obtemInteiro(idNodoGrafo,3)));
+				template = template.replaceAll("#archetypeDetails", buildJson(obtemInteiro(idNodoGrafo,3)));
+				template = template.replaceAll("#feederAudit", buildJson(obtemInteiro(idNodoGrafo,4)));
 				
-				int idListaLinks = obtemInteiro(idNodoGrafo,4);
+				int idListaLinks = obtemInteiro(idNodoGrafo,5);
 				int tamanhoListaLinks = obtemTamanhoLista(idListaLinks);
 				String listaLinks = "";
 				for(int k = 0; k < tamanhoListaLinks; k++){
@@ -454,14 +462,15 @@ public class JsonObject implements ModeloDeReferencia {
                 }
 				
 				template = template.replaceAll("#links", listaLinks);
-				template = template.replaceAll("#parent", buildJson(obtemInteiro(idNodoGrafo,5)));
-				template = template.replaceAll("#value", buildJson(obtemInteiro(idNodoGrafo,6)));
-				template = template.replaceAll("#nullFlavour", buildJson(obtemInteiro(idNodoGrafo,7)));
-				template = template.replaceAll("#terminologyService", buildJson(obtemInteiro(idNodoGrafo,8)));
+				template = template.replaceAll("#parent", buildJson(obtemInteiro(idNodoGrafo,6)));
+				template = template.replaceAll("#value", buildJson(obtemInteiro(idNodoGrafo,7)));
+				template = template.replaceAll("#nullFlavour", buildJson(obtemInteiro(idNodoGrafo,8)));
+				template = template.replaceAll("#terminologyService", buildJson(obtemInteiro(idNodoGrafo,9)));
 				template = template.replaceAll("'", "\"");
 				break;
 			case CLUSTER:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'items':[#items]}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'items':[#items]}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(CLUSTER));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -491,7 +500,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
 				break;
 			case FOLDER:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'folders':[#folders], 'items':[#items]}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'folders':[#folders], 'items':[#items]}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(FOLDER));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -531,7 +541,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
 				break;
 			case PARTY_RELATIONSHIP:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'details':#details, 'timeValidity':#timeValidity, 'source':#source, 'target':#target}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'details':#details, 'timeValidity':#timeValidity, 'source':#source, 'target':#target}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(PARTY_RELATIONSHIP));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -555,7 +566,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
 				break;
 			case XFOLDER:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'folders':[#folders], 'compositions':[#compositions]}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'folders':[#folders], 'compositions':[#compositions]}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(XFOLDER));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -595,7 +607,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
 				break;
 			case COMPOSITION:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'content':[#content], 'language':#language, 'context':#context, 'composer':#composer, 'category':#category, 'territory':#territory, 'terminologyService':#terminologyService}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'content':[#content], 'language':#language, 'context':#context, 'composer':#composer, 'category':#category, 'territory':#territory, 'terminologyService':#terminologyService}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(COMPOSITION));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -631,7 +644,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
 				break;
 			case ADDRESS:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'details':#details}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'details':#details}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(ADDRESS));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -652,7 +666,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
 				break;
 			case PARTY:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'identities':[#identities], 'contacts':[#contacts], 'relationships':[#relationships], 'reverseRelationships':[#reverseRelationships], 'details':#details}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'identities':[#identities], 'contacts':[#contacts], 'relationships':[#relationships], 'reverseRelationships':[#reverseRelationships], 'details':#details}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(PARTY));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -713,7 +728,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
 				break;
 			case ROLE:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'identities':[#identities], 'contacts':[#contacts], 'relationships':[#relationships], 'reverseRelationships':[#reverseRelationships], 'details':#details, 'capabilities':[#capabilities], 'timeValidity':#timeValidity, 'performer':#performer}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'identities':[#identities], 'contacts':[#contacts], 'relationships':[#relationships], 'reverseRelationships':[#reverseRelationships], 'details':#details, 'capabilities':[#capabilities], 'timeValidity':#timeValidity, 'performer':#performer}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(ROLE));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -786,7 +802,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
 				break;
 			case ACTOR:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'identities':[#identities], 'contacts':[#contacts], 'relationships':[#relationships], 'reverseRelationships':[#reverseRelationships], 'details':#details, 'roles':#roles, 'languages':#languages}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'identities':[#identities], 'contacts':[#contacts], 'relationships':[#relationships], 'reverseRelationships':[#reverseRelationships], 'details':#details, 'roles':[#roles], 'languages':[#languages]}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(ACTOR));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -868,7 +885,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
 				break;
 			case PERSON:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'identities':[#identities], 'contacts':[#contacts], 'relationships':[#relationships], 'reverseRelationships':[#reverseRelationships], 'details':#details, 'roles':#roles, 'languages':#languages}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'identities':[#identities], 'contacts':[#contacts], 'relationships':[#relationships], 'reverseRelationships':[#reverseRelationships], 'details':#details, 'roles':[#roles], 'languages':[#languages]}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(PERSON));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -950,7 +968,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
 				break;
 			case AGENT:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'identities':[#identities], 'contacts':[#contacts], 'relationships':[#relationships], 'reverseRelationships':[#reverseRelationships], 'details':#details, 'roles':#roles, 'languages':#languages}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'identities':[#identities], 'contacts':[#contacts], 'relationships':[#relationships], 'reverseRelationships':[#reverseRelationships], 'details':#details, 'roles':[#roles], 'languages':[#languages]}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(AGENT));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -1032,7 +1051,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
 				break;
 			case ORGANISATION:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'identities':[#identities], 'contacts':[#contacts], 'relationships':[#relationships], 'reverseRelationships':[#reverseRelationships], 'details':#details, 'roles':#roles, 'languages':#languages}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'identities':[#identities], 'contacts':[#contacts], 'relationships':[#relationships], 'reverseRelationships':[#reverseRelationships], 'details':#details, 'roles':[#roles], 'languages':[#languages]}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(ORGANISATION));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -1114,7 +1134,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
 				break;
 			case EHR_STATUS:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'subject':#subject, 'isQueryable':#isQueryable, 'isModifiable':#isModifiable, 'otherDetails':#otherDetails}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'subject':#subject, 'isQueryable':#isQueryable, 'isModifiable':#isModifiable, 'otherDetails':#otherDetails}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(EHR_STATUS));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -1138,7 +1159,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
 				break;
 			case ACTIVITY:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'description':#description, 'timing':#timing, 'actionArchetypeId':'#actionArchetypeId'}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'description':#description, 'timing':#timing, 'actionArchetypeId':'#actionArchetypeId'}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(ACTIVITY));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -1161,7 +1183,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
 				break;
 			case EVENT:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'time':#time, 'data':#data, 'state':#state}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'time':#time, 'data':#data, 'state':#state}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(EVENT));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -1184,7 +1207,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
 				break;
 			case INTERVAL_EVENT:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'time':#time, 'data':#data, 'state':#state}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'time':#time, 'data':#data, 'state':#state, 'width':#width, 'mathFunction':#mathFunction, 'sampleCount':#sampleCount, 'terminologyService':#terminologyService}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(INTERVAL_EVENT));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -1211,7 +1235,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
 				break;
 			case POINT_EVENT:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'time':#time, 'data':#data, 'state':#state}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'time':#time, 'data':#data, 'state':#state}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(POINT_EVENT));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -1234,8 +1259,9 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
 				break;
 			case MESSAGE_CONTENT:
-				template = "{ 'uid' : #uid, 'archetypeNodeId' : #archetypeNodeId, 'originalArchetypeNodeId' : #originalArchetypeNodeId, 'name' : #name, 'archetypeDetails' : #archetypeDetails, " +
-                        "'feederAudit' : #feederAudit, 'links' : #links, 'parent' : #parent }";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid' : #uid, 'archetypeNodeId' : '#archetypeNodeId', 'originalArchetypeNodeId' : #originalArchetypeNodeId, 'name' : #name, 'archetypeDetails' : #archetypeDetails, " +
+                        "'feederAudit' : #feederAudit, 'links' : [#links], 'parent' : #parent }";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(MESSAGE_CONTENT));
                 template = template.replaceAll("#uid",buildJson(obtemInteiro(idNodoGrafo, 0)));
                 template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo, 1));
                 template = template.replaceAll("#originalArchetypeNodeId", obtemString(idNodoGrafo, 2));
@@ -1254,7 +1280,8 @@ public class JsonObject implements ModeloDeReferencia {
                 template = template.replaceAll("'", "\"");
                 break;
 			case EHR_ACCESS:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'settings':#settings}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'settings':#settings}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(EHR_ACCESS));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -1275,7 +1302,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
                 break;
 			case PARTY_IDENTITY:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'details':#details}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'details':#details}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(PARTY_IDENTITY));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -1296,8 +1324,9 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
                 break;
 			case CONTENT_ITEM:
-				template = "{ 'uid' : #uid, 'archetypeNodeId' : #archetypeNodeId, 'originalArchetypeNodeId' : #originalArchetypeNodeId, 'name' : #name, 'archetypeDetails' : #archetypeDetails, " +
-                        "'feederAudit' : #feederAudit, 'links' : #links, 'parent' : #parent }";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid' : #uid, 'archetypeNodeId' : '#archetypeNodeId', 'originalArchetypeNodeId' : #originalArchetypeNodeId, 'name' : #name, 'archetypeDetails' : #archetypeDetails, " +
+                        "'feederAudit' : #feederAudit, 'links' : [#links], 'parent' : #parent }";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(CONTENT_ITEM));
                 template = template.replaceAll("#uid",buildJson(obtemInteiro(idNodoGrafo, 0)));
                 template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo, 1));
                 template = template.replaceAll("#originalArchetypeNodeId", obtemString(idNodoGrafo, 2));
@@ -1316,7 +1345,8 @@ public class JsonObject implements ModeloDeReferencia {
                 template = template.replaceAll("'", "\"");
                 break;
 			case ADMIN_ENTRY:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'language':#language, 'encoding':#encoding, 'subject':#subject, 'provider':#provider, 'workflowId':#workflowId, 'otherParticipations':[#otherParticipations], 'data':#data, 'terminologyService':#terminologyService}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'language':#language, 'encoding':#encoding, 'subject':#subject, 'provider':#provider, 'workflowId':#workflowId, 'otherParticipations':[#otherParticipations], 'data':#data, 'terminologyService':#terminologyService}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(ADMIN_ENTRY));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -1348,14 +1378,15 @@ public class JsonObject implements ModeloDeReferencia {
                 }
 				
 				template = template.replaceAll("#otherParticipations", listaOtherParticipations);
-				template = template.replaceAll("#data", buildJson(obtemInteiro(idNodoGrafo,12)));
-				template = template.replaceAll("#terminologyService", buildJson(obtemInteiro(idNodoGrafo,13)));
+				template = template.replaceAll("#data", buildJson(obtemInteiro(idNodoGrafo,13)));
+				template = template.replaceAll("#terminologyService", buildJson(obtemInteiro(idNodoGrafo,14)));
 				template = template.replaceAll("'", "\"");
                 break;
 			case CARE_ENTRY:
-				template = "{ 'uid' : #uid, 'archetypeNodeId' : #archetypeNodeId, 'name' : #name, 'archetypeDetails' : #archetypeDetails, 'feederAudit' : #feederAudit, 'links' : #links, 'parent' : #parent," +
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid' : #uid, 'archetypeNodeId' : '#archetypeNodeId', 'name' : #name, 'archetypeDetails' : #archetypeDetails, 'feederAudit' : #feederAudit, 'links' : [#links], 'parent' : #parent," +
                         "'language' : #language, 'encoding' : #encoding, 'subject' : #subject, 'provider' : #provider, 'workflowId' : #workflowId, 'otherParticipations' : #otherParticipations, 'protocol':#protocol, 'guidelineId':#guidelineId,'terminologyService' : #terminologyService }";
-                template = template.replaceAll("#uid",buildJson(obtemByte(idNodoGrafo, 0)));
+                template = template.replaceAll("#globalTypeIdn", String.valueOf(CARE_ENTRY));
+				template = template.replaceAll("#uid",buildJson(obtemByte(idNodoGrafo, 0)));
                 template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo, 1));
                 template = template.replaceAll("#name", buildJson(obtemByte(idNodoGrafo, 2)));
                 template = template.replaceAll("#archetypeDetails", buildJson(obtemByte(idNodoGrafo, 3)));
@@ -1388,7 +1419,8 @@ public class JsonObject implements ModeloDeReferencia {
                 template = template.replaceAll("'", "\"");
                 break;
 			case OBSERVATION:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'language':#language, 'encoding':#encoding, 'subject':#subject, 'provider':#provider, 'workflowId':#workflowId, 'otherParticipations':[#otherParticipations], 'protocol':#protocol, 'guidelineId':#guidelineId, 'data':#data, 'state':#state, 'terminologyService':#terminologyService}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'language':#language, 'encoding':#encoding, 'subject':#subject, 'provider':#provider, 'workflowId':#workflowId, 'otherParticipations':[#otherParticipations], 'protocol':#protocol, 'guidelineId':#guidelineId, 'data':#data, 'state':#state, 'terminologyService':#terminologyService}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(OBSERVATION));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -1428,7 +1460,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
                 break;
 			case INSTRUCTION:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'language':#language, 'encoding':#encoding, 'subject':#subject, 'provider':#provider, 'workflowId':#workflowId, 'otherParticipations':[#otherParticipations], 'protocol':#protocol, 'guidelineId':#guidelineId, 'narrative':#narrative, 'activities':[#activities], 'expiryTime':#expiryTime, 'wfDefinition':#wfDefinition, 'terminologyService':#terminologyService}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'language':#language, 'encoding':#encoding, 'subject':#subject, 'provider':#provider, 'workflowId':#workflowId, 'otherParticipations':[#otherParticipations], 'protocol':#protocol, 'guidelineId':#guidelineId, 'narrative':#narrative, 'activities':[#activities], 'expiryTime':#expiryTime, 'wfDefinition':#wfDefinition, 'terminologyService':#terminologyService}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(INSTRUCTION));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -1479,7 +1512,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
                 break;
 			case ACTION:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'language':#language, 'encoding':#encoding, 'subject':#subject, 'provider':#provider, 'workflowId':#workflowId, 'otherParticipations':[#otherParticipations], 'protocol':#protocol, 'guidelineId':#guidelineId, 'time':#time, 'description':#description, 'ismTransition':#ismTransition, 'instructionDetails':#instructionDetails, 'terminologyService':#terminologyService}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'language':#language, 'encoding':#encoding, 'subject':#subject, 'provider':#provider, 'workflowId':#workflowId, 'otherParticipations':[#otherParticipations], 'protocol':#protocol, 'guidelineId':#guidelineId, 'time':#time, 'description':#description, 'ismTransition':#ismTransition, 'instructionDetails':#instructionDetails, 'terminologyService':#terminologyService}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(ACTION));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -1521,7 +1555,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
                 break;
 			case EVALUATION:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'language':#language, 'encoding':#encoding, 'subject':#subject, 'provider':#provider, 'workflowId':#workflowId, 'otherParticipations':[#otherParticipations], 'protocol':#protocol, 'guidelineId':#guidelineId, 'data':#data, 'state':#state, 'terminologyService':#terminologyService}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'language':#language, 'encoding':#encoding, 'subject':#subject, 'provider':#provider, 'workflowId':#workflowId, 'otherParticipations':[#otherParticipations], 'protocol':#protocol, 'guidelineId':#guidelineId, 'data':#data, 'terminologyService':#terminologyService}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(EVALUATION));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
@@ -1560,7 +1595,8 @@ public class JsonObject implements ModeloDeReferencia {
 				template = template.replaceAll("'", "\"");
                 break;
 			case SECTION:
-				template = "{'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'items':[#items]}";
+				template = "{'globalTypeIdn':'#globalTypeIdn', 'uid':#uid, 'archetypeNodeId':'#archetypeNodeId', 'name':#name, 'archetypeDetails':#archetypeDetails, 'feederAudit':#feederAudit, 'links':[#links], 'parent':#parent, 'items':[#items]}";
+				template = template.replaceAll("#globalTypeIdn", String.valueOf(SECTION));
 				template = template.replaceAll("#uid", buildJson(obtemInteiro(idNodoGrafo,0)));
 				template = template.replaceAll("#archetypeNodeId", obtemString(idNodoGrafo,1));
 				template = template.replaceAll("#name", buildJson(obtemInteiro(idNodoGrafo,2)));
