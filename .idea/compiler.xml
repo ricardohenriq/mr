@@ -43,7 +43,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
-        <module name="rm-persistencia" />
       </profile>
       <profile default="false" name="Annotation profile for openehr-rm-domain" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />

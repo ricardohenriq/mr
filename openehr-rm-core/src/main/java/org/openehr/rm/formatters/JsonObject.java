@@ -285,6 +285,81 @@ public class JsonObject implements ModeloDeReferencia {
                 template = template.replaceAll("#otherInputVersionUids",buildJson(obtemInteiro(idNodoGrafo,7)));
                 template = template.replaceAll("#attestations",buildJson(obtemInteiro(idNodoGrafo,8)));
                 //template = template.replaceAll("#isMerged",obtemBoolean(idNodoGrafo,9)); //TODO CRIAR METODO obtemBoolean(idNodoGrafo, posicao);
+                template = template.replaceAll("'", "\"");
+                break;
+            case DV_IDENTIFIER:
+                template = "{ 'issuer' : '#issuer', 'assigner': '#assigner', 'id' : '#id', 'type': '#type'}";
+                template = template.replaceAll("#issuer",obtemString(idNodoGrafo,0));
+                template = template.replaceAll("#assigner",obtemString(idNodoGrafo,1));
+                template = template.replaceAll("#id",obtemString(idNodoGrafo,2));
+                template = template.replaceAll("#type",obtemString(idNodoGrafo,3));
+                template = template.replaceAll("'", "\"");
+                break;
+            case DV_TEXT:
+                template = "{ 'value': '#value', 'mappings': [#mappings], 'formatting': '#formatting', 'hyperlink': #hyperlink, 'language': #language, 'encoding': #encoding}";
+                template = template.replaceAll("#value",obtemString(idNodoGrafo,0));
+
+                int idListaMappings_DvText = obtemInteiro(idNodoGrafo, 1);
+                int tamanhoListaMappings_DvText = obtemTamanhoLista(idListaMappings_DvText);
+                String listaMappings_DvText = "";
+                for(int k=0; k<tamanhoListaMappings_DvText; k++){
+                    int idObjetoLista = obtemInteiro(idListaMappings_DvText, k);
+                    listaMappings_DvText = (k == tamanhoListaMappings_DvText - 1) ? buildJson(idObjetoLista) + ", " : buildJson(idObjetoLista);
+                }
+                template = template.replaceAll("#mappings",listaMappings_DvText);
+
+                template = template.replaceAll("#formatting",buildJson(obtemInteiro(idNodoGrafo, 2)));
+                template = template.replaceAll("#hyperlink",buildJson(obtemInteiro(idNodoGrafo,3)));
+                template = template.replaceAll("#language",buildJson(obtemInteiro(idNodoGrafo,4)));
+                template = template.replaceAll("#language",buildJson(obtemInteiro(idNodoGrafo,5)));
+                template = template.replaceAll("'", "\"");
+                break;
+            case DV_CODED_TEXT:
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'value': '#value', 'mappings': [#mappings], 'formatting': '#formatting', 'hyperlink': #hyperlink, 'language': #language, 'charset': #charset, 'definingCode': #definingCode}";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(DV_CODED_TEXT));
+                template = template.replaceAll("#value",obtemString(idNodoGrafo,0));
+
+                int idListaMappings_DvCodedText = obtemInteiro(idNodoGrafo, 1);
+                int tamanhoListaMappings_DvCodedText = obtemTamanhoLista(idListaMappings_DvCodedText);
+                String listaMappings_DvCodedText = "";
+                for(int k=0; k<tamanhoListaMappings_DvCodedText; k++){
+                    int idObjetoLista = obtemInteiro(idListaMappings_DvCodedText, k);
+                    listaMappings_DvCodedText = (k == tamanhoListaMappings_DvCodedText - 1) ? buildJson(idObjetoLista) + ", " : buildJson(idObjetoLista);
+                }
+                template = template.replaceAll("#mappings",listaMappings_DvCodedText);
+
+                template = template.replaceAll("#formatting",obtemString(idNodoGrafo,2));
+                template = template.replaceAll("#hyperlink",buildJson(obtemInteiro(idNodoGrafo, 3)));
+                template = template.replaceAll("#language",buildJson(obtemInteiro(idNodoGrafo,4)));
+                template = template.replaceAll("#charset",buildJson(obtemInteiro(idNodoGrafo,5)));
+                template = template.replaceAll("#definingCode",buildJson(obtemInteiro(idNodoGrafo,6)));
+                template = template.replaceAll("'", "\"");
+                break;
+            case DV_PARAGRAPH:
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'items' : [#items]}";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(DV_PARAGRAPH));
+                int idListaItems_DvParagraph = obtemInteiro(idNodoGrafo,0);
+                int tamanhoListaItems_DvParagraph = obtemTamanhoLista(idListaItems_DvParagraph);
+                String listaItems_DvParagraph = "";
+                for(int k=0; k<tamanhoListaItems_DvParagraph; k++){
+                    int idObjetoLista = obtemInteiro(idListaItems_DvParagraph,k);
+                    listaItems_DvParagraph = (k == tamanhoListaItems_DvParagraph - 1) ? buildJson(idObjetoLista) + ", " : buildJson(idObjetoLista);
+                }
+                template = template.replaceAll("#items",listaItems_DvParagraph);
+                template = template.replaceAll("'", "\"");
+                break;
+            case DV_URI:
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'value' : '#value'}";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(DV_URI));
+                template = template.replaceAll("#value",obtemString(idNodoGrafo,0));
+                template = template.replaceAll("'", "\"");
+                break;
+            case DV_EHR_URI:
+                template = "{ 'globalTypeIdn' : #globalTypeIdn, 'value' : '#value'}";
+                template = template.replaceAll("#globalTypeIdn",String.valueOf(DV_EHR_URI));
+                template = template.replaceAll("#value",obtemString(idNodoGrafo,0));
+                template = template.replaceAll("'", "\"");
+                break;
         }
         out += template;
         return out;
