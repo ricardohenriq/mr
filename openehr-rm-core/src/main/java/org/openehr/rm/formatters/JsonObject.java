@@ -432,19 +432,148 @@ public class JsonObject implements ModeloDeReferencia {
 			int idParent = buildGraph(jsonObject["parent"]);
 			return adicionaContentItem(idUid, archetypeNodeId, originalArchetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent);
 		}else if(tipo == ADMIN_ENTRY){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			int idParent = buildGraph(jsonObject["parent"]);
+			int idLanguage = buildGraph(jsonObject["language"]);
+			int idEncoding = buildGraph(jsonObject["encoding"]);
+			int idSubject = buildGraph(jsonObject["subject"]);
+			int idProvider = buildGraph(jsonObject["provider"]);
+			int idWorkflowId = buildGraph(jsonObject["workflowId"]);
+			//Lista
+			int idOtherParticipations = buildGraph(jsonObject["otherParticipations"]);
+			int idData = buildGraph(jsonObject["data"]);
+			int idTerminologyService = buildGraph(jsonObject["terminologyService"]);
+			return adicionaAdminEntry(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idLanguage, idEncoding, idSubject, idProvider, idWorkflowId, idOtherParticipations, idData, idTerminologyService);
 		}else if(tipo == CARE_ENTRY){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			int idParent = buildGraph(jsonObject["parent"]);
+			int idLanguage = buildGraph(jsonObject["language"]);
+			int idEncoding = buildGraph(jsonObject["encoding"]);
+			int idSubject = buildGraph(jsonObject["subject"]);
+			int idProvider = buildGraph(jsonObject["provider"]);
+			int idWorkflowId = buildGraph(jsonObject["workflowId"]);
+			//Lista
+			int idOtherParticipations = buildGraph(jsonObject["otherParticipations"]);
+			int idProtocol = buildGraph(jsonObject["protocol"]);
+			int idGuidelineId = buildGraph(jsonObject["guidelineId"]);
+			int idTerminologyService = buildGraph(jsonObject["terminologyService"]);
+			return adicionaCareEntry(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idLanguage, idEncoding, idSubject, idProvider, idWorkflowId, idOtherParticipations, idProtocol, idGuidelineId, idTerminologyService);
 		}else if(tipo == OBSERVATION){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			int idParent = buildGraph(jsonObject["parent"]);
+			int idLanguage = buildGraph(jsonObject["language"]);
+			int idEncoding = buildGraph(jsonObject["encoding"]);
+			int idSubject = buildGraph(jsonObject["subject"]);
+			int idProvider = buildGraph(jsonObject["provider"]);
+			int idWorkflowId = buildGraph(jsonObject["workflowId"]);
+			//Lista
+			int idOtherParticipations = buildGraph(jsonObject["otherParticipations"]);
+			int idProtocol = buildGraph(jsonObject["protocol"]);
+			int idGuidelineId = buildGraph(jsonObject["guidelineId"]);
+			int idData = buildGraph(jsonObject["data"]);
+			int idState = buildGraph(jsonObject["state"]);
+			int idTerminologyService = buildGraph(jsonObject["terminologyService"]);
+			return adicionaObservation(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idLanguage, idEncoding, idSubject, idProvider, idWorkflowId, idOtherParticipations, idProtocol, idGuidelineId, idData, idState, idTerminologyService);
 		}else if(tipo == INSTRUCTION){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			int idParent = buildGraph(jsonObject["parent"]);
+			int idLanguage = buildGraph(jsonObject["language"]);
+			int idEncoding = buildGraph(jsonObject["encoding"]);
+			int idSubject = buildGraph(jsonObject["subject"]);
+			int idProvider = buildGraph(jsonObject["provider"]);
+			int idWorkflowId = buildGraph(jsonObject["workflowId"]);
+			//Lista
+			int idOtherParticipations = buildGraph(jsonObject["otherParticipations"]);
+			int idProtocol = buildGraph(jsonObject["protocol"]);
+			int idGuidelineId = buildGraph(jsonObject["guidelineId"]);
+			int idNarrative = buildGraph(jsonObject["narrative"]);
+			//Lista
+			int idActivities = buildGraph(jsonObject["activities"]);
+			int idExpiryTime = buildGraph(jsonObject["expiryTime"]);
+			int idWfDefinition = buildGraph(jsonObject["wfDefinition"]);
+			int idTerminologyService = buildGraph(jsonObject["terminologyService"]);
+			return adicionaInstruction(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idLanguage, idEncoding, idSubject, idProvider, idWorkflowId, idOtherParticipations, idProtocol, idGuidelineId, idNarrative, idActivities, idExpiryTime, idWfDefinition, idTerminologyService);
 		}else if(tipo == ACTION){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			int idParent = buildGraph(jsonObject["parent"]);
+			int idLanguage = buildGraph(jsonObject["language"]);
+			int idEncoding = buildGraph(jsonObject["encoding"]);
+			int idSubject = buildGraph(jsonObject["subject"]);
+			int idProvider = buildGraph(jsonObject["provider"]);
+			int idWorkflowId = buildGraph(jsonObject["workflowId"]);
+			//Lista
+			int idOtherParticipations = buildGraph(jsonObject["otherParticipations"]);
+			int idProtocol = buildGraph(jsonObject["protocol"]);
+			int idGuidelineId = buildGraph(jsonObject["guidelineId"]);
+			int idTime = buildGraph(jsonObject["time"]);
+			int idDescription = buildGraph(jsonObject["description"]);
+			int idIsmTransition = buildGraph(jsonObject["ismTransition"]);
+			int idInstructionDetails = buildGraph(jsonObject["instructionDetails"]);
+			int idTerminologyService = buildGraph(jsonObject["terminologyService"]);
+			return adicionaAction(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idLanguage, idEncoding, idSubject, idProvider, idWorkflowId, idOtherParticipations, idProtocol, idGuidelineId, idTime, idDescription, idIsmTransition, idInstructionDetails, idTerminologyService);
 		}else if(tipo == EVALUATION){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			int idParent = buildGraph(jsonObject["parent"]);
+			int idLanguage = buildGraph(jsonObject["language"]);
+			int idEncoding = buildGraph(jsonObject["encoding"]);
+			int idSubject = buildGraph(jsonObject["subject"]);
+			int idProvider = buildGraph(jsonObject["provider"]);
+			int idWorkflowId = buildGraph(jsonObject["workflowId"]);
+			//Lista
+			int idOtherParticipations = buildGraph(jsonObject["otherParticipations"]);
+			int idProtocol = buildGraph(jsonObject["protocol"]);
+			int idGuidelineId = buildGraph(jsonObject["guidelineId"]);
+			int idData = buildGraph(jsonObject["data"]);
+			int idTerminologyService = buildGraph(jsonObject["terminologyService"]);
+			return adicionaEvaluation(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idLanguage, idEncoding, idSubject, idProvider, idWorkflowId, idOtherParticipations, idProtocol, idGuidelineId, idData, idTerminologyService);
 		}else if(tipo == SECTION){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			int idParent = buildGraph(jsonObject["parent"]);
+			//Lista
+			int idItems = buildGraph(jsonObject["items"]);
+			return adicionaEvaluation(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idItems);
 		}
     }
 
