@@ -80,7 +80,7 @@ public class JsonObject implements ModeloDeReferencia {
 			int idParent = buildGraph(jsonObject["parent"]);
 			//Lista
 			int idRows = buildGraph(jsonObject["rows"]);
-			return adicionaItemList(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idRows);
+			return adicionaItemTable(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idRows);
 		}else if(tipo == ITEM_TREE){
 			int idUid = buildGraph(jsonObject["uid"]);
 			String archetypeNodeId = jsonObject["archetypeNodeId"];
@@ -92,7 +92,7 @@ public class JsonObject implements ModeloDeReferencia {
 			int idParent = buildGraph(jsonObject["parent"]);
 			//Lista
 			int idItems = buildGraph(jsonObject["items"]);
-			return adicionaItemList(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idItems);
+			return adicionaItemTree(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idItems);
 		}else if(tipo == ELEMENT){
 			int idUid = buildGraph(jsonObject["uid"]);
 			String archetypeNodeId = jsonObject["archetypeNodeId"];
@@ -105,7 +105,7 @@ public class JsonObject implements ModeloDeReferencia {
 			int idValue = buildGraph(jsonObject["value"]);
 			int idNullFlavour = buildGraph(jsonObject["nullFlavour"]);
 			int idTerminologyService = buildGraph(jsonObject["terminologyService"]);
-			return adicionaItemList(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idValue, idNullFlavour, idTerminologyService);
+			return adicionaElement(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idValue, idNullFlavour, idTerminologyService);
 		}else if(tipo == CLUSTER){
 			int idUid = buildGraph(jsonObject["uid"]);
 			String archetypeNodeId = jsonObject["archetypeNodeId"];
@@ -117,7 +117,7 @@ public class JsonObject implements ModeloDeReferencia {
 			int idParent = buildGraph(jsonObject["parent"]);
 			//Lista
 			int idItems = buildGraph(jsonObject["items"]);
-			return adicionaItemList(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idItems);
+			return adicionaCluster(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idItems);
 		}else if(tipo == FOLDER){
 			int idUid = buildGraph(jsonObject["uid"]);
 			String archetypeNodeId = jsonObject["archetypeNodeId"];
@@ -131,7 +131,7 @@ public class JsonObject implements ModeloDeReferencia {
 			int idFolders = buildGraph(jsonObject["folders"]);
 			//Lista
 			int idItems = buildGraph(jsonObject["items"]);
-			return adicionaItemList(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idFolders, idItems);
+			return adicionaFolder(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idFolders, idItems);
 		}else if(tipo == PARTY_RELATIONSHIP){
 			int idUid = buildGraph(jsonObject["uid"]);
 			String archetypeNodeId = jsonObject["archetypeNodeId"];
@@ -145,11 +145,39 @@ public class JsonObject implements ModeloDeReferencia {
 			int idTimeValidity = buildGraph(jsonObject["timeValidity"]);
 			int idSource = buildGraph(jsonObject["source"]);
 			int idTarget = buildGraph(jsonObject["target"]);
-			return adicionaItemList(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idDetails, idTimeValidity, idSource, idTarget);
+			return adicionaPartyRelationship(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idDetails, idTimeValidity, idSource, idTarget);
 		}else if(tipo == XFOLDER){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			int idParent = buildGraph(jsonObject["parent"]);
+			//Lista
+			int idFolders = buildGraph(jsonObject["folders"]);
+			//Lista
+			int idCompositions = buildGraph(jsonObject["compositions"]);
+			return adicionaXFolder(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idFolders, idCompositions);
 		}else if(tipo == COMPOSITION){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			int idParent = buildGraph(jsonObject["parent"]);
+			//Lista
+			int idContent = buildGraph(jsonObject["content"]);
+			int idLanguage = buildGraph(jsonObject["language"]);
+			int idContext = buildGraph(jsonObject["context"]);
+			int idComposer = buildGraph(jsonObject["composer"]);
+			int idCategory = buildGraph(jsonObject["category"]);
+			int idTerritory = buildGraph(jsonObject["territory"]);
+			int idTerminologyService = buildGraph(jsonObject["terminologyService"]);
+			return adicionaXFolder(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idContent, idLanguage, idContext, idComposer, idCategory, idTerritory, idTerminologyService);
 		}else if(tipo == ADDRESS){
 		
 		}else if(tipo == PARTY){
