@@ -177,39 +177,260 @@ public class JsonObject implements ModeloDeReferencia {
 			int idCategory = buildGraph(jsonObject["category"]);
 			int idTerritory = buildGraph(jsonObject["territory"]);
 			int idTerminologyService = buildGraph(jsonObject["terminologyService"]);
-			return adicionaXFolder(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idContent, idLanguage, idContext, idComposer, idCategory, idTerritory, idTerminologyService);
+			return adicionaComposition(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idContent, idLanguage, idContext, idComposer, idCategory, idTerritory, idTerminologyService);
 		}else if(tipo == ADDRESS){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			int idParent = buildGraph(jsonObject["parent"]);
+			int idDetails = buildGraph(jsonObject["details"]);
+			return adicionaAddress(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idDetails);
 		}else if(tipo == PARTY){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			//Lista
+			int idIdentities = buildGraph(jsonObject["identities"]);
+			//Lista
+			int idContacts = buildGraph(jsonObject["contacts"]);
+			//Lista
+			int idRelationships = buildGraph(jsonObject["relationships"]);
+			//Lista
+			int idReverseRelationships = buildGraph(jsonObject["reverseRelationships"]);
+			int idDetails = buildGraph(jsonObject["details"]);
+			return adicionaParty(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idIdentities, idContacts, idRelationships, idDetails);
 		}else if(tipo == ROLE){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			//Lista
+			int idIdentities = buildGraph(jsonObject["identities"]);
+			//Lista
+			int idContacts = buildGraph(jsonObject["contacts"]);
+			//Lista
+			int idRelationships = buildGraph(jsonObject["relationships"]);
+			//Lista
+			int idReverseRelationships = buildGraph(jsonObject["reverseRelationships"]);
+			int idDetails = buildGraph(jsonObject["details"]);
+			//Lista
+			int idCapabilities = buildGraph(jsonObject["capabilities"]);
+			int idTimeValidity = buildGraph(jsonObject["timeValidity"]);
+			int idPerformer = buildGraph(jsonObject["performer"]);
+			return adicionaRole(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idIdentities, idContacts, idRelationships, idReverseRelationships, idDetails, idCapabilities, idTimeValidity, idPerformer);
 		}else if(tipo == ACTOR){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			//Lista
+			int idIdentities = buildGraph(jsonObject["identities"]);
+			//Lista
+			int idContacts = buildGraph(jsonObject["contacts"]);
+			//Lista
+			int idRelationships = buildGraph(jsonObject["relationships"]);
+			//Lista
+			int idReverseRelationships = buildGraph(jsonObject["reverseRelationships"]);
+			int idDetails = buildGraph(jsonObject["details"]);
+			//Lista
+			int idRoles = buildGraph(jsonObject["roles"]);
+			//Lista
+			int idLanguages = buildGraph(jsonObject["languages"]);
+			return adicionaActor(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idIdentities, idContacts, idRelationships, idReverseRelationships, idDetails, idRoles, idLanguages);
 		}else if(tipo == PERSON){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			//Lista
+			int idIdentities = buildGraph(jsonObject["identities"]);
+			//Lista
+			int idContacts = buildGraph(jsonObject["contacts"]);
+			//Lista
+			int idRelationships = buildGraph(jsonObject["relationships"]);
+			//Lista
+			int idReverseRelationships = buildGraph(jsonObject["reverseRelationships"]);
+			int idDetails = buildGraph(jsonObject["details"]);
+			//Lista
+			int idRoles = buildGraph(jsonObject["roles"]);
+			//Lista
+			int idLanguages = buildGraph(jsonObject["languages"]);
+			return adicionaPerson(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idIdentities, idContacts, idRelationships, idReverseRelationships, idDetails, idRoles, idLanguages);
 		}else if(tipo == AGENT){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			//Lista
+			int idIdentities = buildGraph(jsonObject["identities"]);
+			//Lista
+			int idContacts = buildGraph(jsonObject["contacts"]);
+			//Lista
+			int idRelationships = buildGraph(jsonObject["relationships"]);
+			//Lista
+			int idReverseRelationships = buildGraph(jsonObject["reverseRelationships"]);
+			int idDetails = buildGraph(jsonObject["details"]);
+			//Lista
+			int idRoles = buildGraph(jsonObject["roles"]);
+			//Lista
+			int idLanguages = buildGraph(jsonObject["languages"]);
+			return adicionaAgent(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idIdentities, idContacts, idRelationships, idReverseRelationships, idDetails, idRoles, idLanguages);
 		}else if(tipo == ORGANISATION){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			//Lista
+			int idIdentities = buildGraph(jsonObject["identities"]);
+			//Lista
+			int idContacts = buildGraph(jsonObject["contacts"]);
+			//Lista
+			int idRelationships = buildGraph(jsonObject["relationships"]);
+			//Lista
+			int idReverseRelationships = buildGraph(jsonObject["reverseRelationships"]);
+			int idDetails = buildGraph(jsonObject["details"]);
+			//Lista
+			int idRoles = buildGraph(jsonObject["roles"]);
+			//Lista
+			int idLanguages = buildGraph(jsonObject["languages"]);
+			return adicionaOrganisation(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idIdentities, idContacts, idRelationships, idReverseRelationships, idDetails, idRoles, idLanguages);
 		}else if(tipo == EHR_STATUS){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			int idParent = buildGraph(jsonObject["parent"]);
+			int idSubject = buildGraph(jsonObject["subject"]);
+			boolean idIsQueryable = jsonObject["isQueryable"];
+			boolean idIsModifiable = jsonObject["isModifiable"];
+			int idOtherDetails = buildGraph(jsonObject["otherDetails"]);
+			return adicionaEHRStatus(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idSubject, idIsQueryable, idIsModifiable, idOtherDetails);
 		}else if(tipo == ACTIVITY){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			int idParent = buildGraph(jsonObject["parent"]);
+			int idDescription = buildGraph(jsonObject["description"]);
+			int idTiming = buildGraph(jsonObject["timing"]);
+			int idActionArchetypeId = buildGraph(jsonObject["actionArchetypeId"]);
+			return adicionaActivity(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idDescription, idTiming, idActionArchetypeId);
 		}else if(tipo == EVENT){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			int idParent = buildGraph(jsonObject["parent"]);
+			int idTime = buildGraph(jsonObject["time"]);
+			int idData = buildGraph(jsonObject["data"]);
+			int idState = buildGraph(jsonObject["state"]);
+			return adicionaEvent(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idTime, idData, idState);
 		}else if(tipo == INTERVAL_EVENT){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			int idParent = buildGraph(jsonObject["parent"]);
+			int idTime = buildGraph(jsonObject["time"]);
+			int idData = buildGraph(jsonObject["data"]);
+			int idState = buildGraph(jsonObject["state"]);
+			int idWidth = buildGraph(jsonObject["width"]);
+			int idMathFunction = buildGraph(jsonObject["mathFunction"]);
+			int idSampleCount = buildGraph(jsonObject["sampleCount"]);
+			int idTerminologyService = buildGraph(jsonObject["terminologyService"]);
+			return adicionaIntervalEvent(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idTime, idData, idState, idWidth, idMathFunction, idSampleCount, idTerminologyService);
 		}else if(tipo == POINT_EVENT){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			int idParent = buildGraph(jsonObject["parent"]);
+			int idTime = buildGraph(jsonObject["time"]);
+			int idData = buildGraph(jsonObject["data"]);
+			int idState = buildGraph(jsonObject["state"]);
+			return adicionaPointEvent(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idTime, idData, idState);
 		}else if(tipo == MESSAGE_CONTENT){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			String originalArchetypeNodeId = jsonObject["originalArchetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			int idParent = buildGraph(jsonObject["parent"]);
+			return adicionaMessageContent(idUid, archetypeNodeId, originalArchetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent);
 		}else if(tipo == EHR_ACCESS){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			int idParent = buildGraph(jsonObject["parent"]);
+			int idSettings = buildGraph(jsonObject["settings"]);
+			return adicionaEHRAccess(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idSettings);
 		}else if(tipo == PARTY_IDENTITY){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			int idParent = buildGraph(jsonObject["parent"]);
+			int idDetails = buildGraph(jsonObject["details"]);
+			return adicionaPartyIdentity(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idDetails);
 		}else if(tipo == CONTENT_ITEM){
-		
+			int idUid = buildGraph(jsonObject["uid"]);
+			String archetypeNodeId = jsonObject["archetypeNodeId"];
+			String originalArchetypeNodeId = jsonObject["originalArchetypeNodeId"];
+			int idName = buildGraph(jsonObject["name"]);
+			int idArchetypeDetails = buildGraph(jsonObject["archetypeDetails"]);
+			int idFeederAudit = buildGraph(jsonObject["feederAudit"]);
+			//Lista
+			int idLinks = buildGraph(jsonObject["links"]);
+			int idParent = buildGraph(jsonObject["parent"]);
+			return adicionaContentItem(idUid, archetypeNodeId, originalArchetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent);
 		}else if(tipo == ADMIN_ENTRY){
 		
 		}else if(tipo == CARE_ENTRY){
