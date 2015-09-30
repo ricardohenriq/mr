@@ -360,6 +360,174 @@ public class JsonObject implements ModeloDeReferencia {
                 template = template.replaceAll("#value",obtemString(idNodoGrafo,0));
                 template = template.replaceAll("'", "\"");
                 break;
+            case DV_TIME:
+                template = "{ 'globalTypeIdn': #globalTypeIdn, 'otherReferenceRanges': [#otherReferenceRanges], 'normalRange': #normalRange, 'normalStatus': #normalStatus, 'accuracy': #accuracy, 'magnitudeStatus': '#magnitudeStatus', 'value': '#value'}";
+                template = template.replaceAll("#globalTypeIdn", String.valueOf(DV_TIME));
+
+                int idListaOtherReferenceRanges_DvTime = obtemInteiro(idNodoGrafo,0);
+                int tamanhoListaOtherReferenceRanges_DvTime = obtemTamanhoLista(idListaOtherReferenceRanges_DvTime);
+                String listaOtherReferenceRanges_DvTime = "";
+                for(int k=0; k<tamanhoListaOtherReferenceRanges_DvTime; k++){
+                    int idObjetoLista = obtemInteiro(idListaOtherReferenceRanges_DvTime, k);
+                    listaOtherReferenceRanges_DvTime = (k == tamanhoListaOtherReferenceRanges_DvTime - 1) ? buildJson(idObjetoLista) + ", " : buildJson(idObjetoLista);
+                }
+                template = template.replaceAll("#otherReferenceRanges", listaOtherReferenceRanges_DvTime);
+
+                template = template.replaceAll("#normalRange", buildJson(obtemInteiro(idNodoGrafo, 1)));
+                template = template.replaceAll("#normalStatus", buildJson(obtemInteiro(idNodoGrafo, 2)));
+                template = template.replaceAll("#accuracy", buildJson(obtemInteiro(idNodoGrafo, 3)));
+                template = template.replaceAll("#magnitudeStatus", obtemString(idNodoGrafo, 4));
+                template = template.replaceAll("#value", obtemString(idNodoGrafo, 5));
+                template = template.replaceAll("'", "\"");
+                break;
+            case DV_DATE_TIME:
+                template = "{ 'globalTypeIdn': #globalTypeIdn, 'otherReferenceRanges': [#otherReferenceRanges], 'normalRange': #normalRange, 'normalStatus': #normalStatus, 'accuracy': #accuracy, 'magnitudeStatus': '#magnitudeStatus', 'value': '#value'}";
+                template = template.replaceAll("#globalTypeIdn", String.valueOf(DV_DATE_TIME));
+
+                int idListaOtherReferenceRanges_DvDateTime = obtemInteiro(idNodoGrafo,0);
+                int tamanhoListaOtherReferenceRanges_DvDateTime = obtemTamanhoLista(idListaOtherReferenceRanges_DvDateTime);
+                String listaOtherReferenceRanges_DvDateTime = "";
+                for(int k=0; k<tamanhoListaOtherReferenceRanges_DvDateTime; k++){
+                    int idObjetoLista = obtemInteiro(idListaOtherReferenceRanges_DvDateTime, k);
+                    listaOtherReferenceRanges_DvDateTime = (k == tamanhoListaOtherReferenceRanges_DvDateTime - 1) ? buildJson(idObjetoLista) + ", " : buildJson(idObjetoLista);
+                }
+                template = template.replaceAll("#otherReferenceRanges", listaOtherReferenceRanges_DvDateTime);
+
+                template = template.replaceAll("#normalRange", buildJson(obtemInteiro(idNodoGrafo, 1)));
+                template = template.replaceAll("#normalStatus", buildJson(obtemInteiro(idNodoGrafo, 2)));
+                template = template.replaceAll("#accuracy", buildJson(obtemInteiro(idNodoGrafo, 3)));
+                template = template.replaceAll("#magnitudeStatus", obtemString(idNodoGrafo, 4));
+                template = template.replaceAll("#value", obtemString(idNodoGrafo, 5));
+                template = template.replaceAll("'", "\"");
+                break;
+            case DV_DATE:
+                template = "{ 'globalTypeIdn': #globalTypeIdn, 'otherReferenceRanges': [#otherReferenceRanges], 'normalRange': #normalRange, 'normalStatus': #normalStatus, 'accuracy': #accuracy, 'magnitudeStatus': '#magnitudeStatus', 'value': '#value'}";
+                template = template.replaceAll("#globalTypeIdn", String.valueOf(DV_DATE));
+
+                int idListaOtherReferenceRanges_DvDate = obtemInteiro(idNodoGrafo,0);
+                int tamanhoListaOtherReferenceRanges_DvDate = obtemTamanhoLista(idListaOtherReferenceRanges_DvDate);
+                String listaOtherReferenceRanges_DvDate = "";
+                for(int k=0; k<tamanhoListaOtherReferenceRanges_DvDate; k++){
+                    int idObjetoLista = obtemInteiro(idListaOtherReferenceRanges_DvDate, k);
+                    listaOtherReferenceRanges_DvDate = (k == tamanhoListaOtherReferenceRanges_DvDate - 1) ? buildJson(idObjetoLista) + ", " : buildJson(idObjetoLista);
+                }
+                template = template.replaceAll("#otherReferenceRanges", listaOtherReferenceRanges_DvDate);
+
+                template = template.replaceAll("#normalRange", buildJson(obtemInteiro(idNodoGrafo, 1)));
+                template = template.replaceAll("#normalStatus", buildJson(obtemInteiro(idNodoGrafo, 2)));
+                template = template.replaceAll("#accuracy", buildJson(obtemInteiro(idNodoGrafo, 3)));
+                template = template.replaceAll("#magnitudeStatus", obtemString(idNodoGrafo, 4));
+                template = template.replaceAll("#value", obtemString(idNodoGrafo, 5));
+                template = template.replaceAll("'", "\"");
+                break;
+            case DV_ORDINAL:
+                template = "{ 'globalTypeIdn': #globalTypeIdn, 'otherReferenceRanges': [#otherReferenceRanges], 'normalRange': #normalRange, 'value': #value, 'symbol': #symbol}";
+                template = template.replaceAll("#globalTypeIdn", String.valueOf(DV_ORDINAL));
+
+                int idListaOtherReferenceRanges_DvOrdinal = obtemInteiro(idNodoGrafo,0);
+                int tamanhoListaOtherReferenceRanges_DvOrdinal = obtemTamanhoLista(idListaOtherReferenceRanges_DvOrdinal);
+                String listaOtherReferenceRanges_DvOrdinal = "";
+                for(int k=0; k<tamanhoListaOtherReferenceRanges_DvOrdinal; k++){
+                    int idObjetoLista = obtemInteiro(idListaOtherReferenceRanges_DvOrdinal, k);
+                    listaOtherReferenceRanges_DvOrdinal = (k == tamanhoListaOtherReferenceRanges_DvOrdinal - 1) ? buildJson(idObjetoLista) + ", " : buildJson(idObjetoLista);
+                }
+                template = template.replaceAll("#otherReferenceRanges", listaOtherReferenceRanges_DvOrdinal);
+
+                template = template.replaceAll("#normalRange", buildJson(obtemInteiro(idNodoGrafo, 1)));
+                template = template.replaceAll("#value", String.valueOf(obtemInteiro(idNodoGrafo, 2)));
+                template = template.replaceAll("#symbol", buildJson(obtemInteiro(idNodoGrafo, 3)));
+                template = template.replaceAll("'", "\"");
+                break;
+            case DV_DURATION:
+                template = "{ 'globalTypeIdn': #globalTypeIdn, 'otherReferenceRanges': [#otherReferenceRanges], 'normalRange': #normalRange, 'normalStatus': #normalStatus, 'accuracy': #accuracy, 'accuracyPercent': #accuracyPercent, 'magnitudeStatus': '#magnitudeStatus', 'value': '#value'}";
+                template = template.replaceAll("#globalTypeIdn", String.valueOf(DV_DURATION));
+
+                int idListaOtherReferenceRanges_DvDuration = obtemInteiro(idNodoGrafo,0);
+                int tamanhoListaOtherReferenceRanges_DvDuration = obtemTamanhoLista(idListaOtherReferenceRanges_DvDuration);
+                String listaOtherReferenceRanges_DvDuration = "";
+                for(int k=0; k<tamanhoListaOtherReferenceRanges_DvDuration; k++){
+                    int idObjetoLista = obtemInteiro(idListaOtherReferenceRanges_DvDuration, k);
+                    listaOtherReferenceRanges_DvDuration = (k == tamanhoListaOtherReferenceRanges_DvDuration - 1) ? buildJson(idObjetoLista) + ", " : buildJson(idObjetoLista);
+                }
+                template = template.replaceAll("#otherReferenceRanges", listaOtherReferenceRanges_DvDuration);
+
+                template = template.replaceAll("#normalRange", buildJson(obtemInteiro(idNodoGrafo, 1)));
+                template = template.replaceAll("#normalStatus", buildJson(obtemInteiro(idNodoGrafo, 2)));
+                template = template.replaceAll("#accuracy", String.valueOf(obtemDouble(idNodoGrafo, 3)));
+                template = template.replaceAll("#accuracyPercent", String.valueOf(obtemValorLogico(idNodoGrafo, 4)));
+                template = template.replaceAll("#magnitudeStatus", obtemString(idNodoGrafo, 5));
+                template = template.replaceAll("#value", obtemString(idNodoGrafo, 6));
+                template = template.replaceAll("'", "\"");
+                break;
+            case DV_QUANTITY:
+                template = "{ 'globalTypeIdn': #globalTypeIdn, 'otherReferenceRanges': [#otherReferenceRanges], 'normalRange': #normalRange, 'normalStatus': #normalStatus, 'accuracy': #accuracy, 'accuracyPercent': #accuracyPercent, 'magnitudeStatus': '#magnitudeStatus', 'units': '#units', 'magnitude': #magnitude, 'precision': #precision, 'measurementService': #measurementService}";
+                template = template.replaceAll("#globalTypeIdn", String.valueOf(DV_QUANTITY));
+
+                int idListaOtherReferenceRanges_DvQuantity = obtemInteiro(idNodoGrafo,0);
+                int tamanhoListaOtherReferenceRanges_DvQuantity = obtemTamanhoLista(idListaOtherReferenceRanges_DvQuantity);
+                String listaOtherReferenceRanges_DvQuantity = "";
+                for(int k=0; k<tamanhoListaOtherReferenceRanges_DvQuantity; k++){
+                    int idObjetoLista = obtemInteiro(idListaOtherReferenceRanges_DvQuantity, k);
+                    listaOtherReferenceRanges_DvQuantity = (k == tamanhoListaOtherReferenceRanges_DvQuantity - 1) ? buildJson(idObjetoLista) + ", " : buildJson(idObjetoLista);
+                }
+                template = template.replaceAll("#otherReferenceRanges", listaOtherReferenceRanges_DvQuantity);
+
+                template = template.replaceAll("#normalRange", buildJson(obtemInteiro(idNodoGrafo, 1)));
+                template = template.replaceAll("#normalStatus", buildJson(obtemInteiro(idNodoGrafo, 2)));
+                template = template.replaceAll("#accuracy", String.valueOf(obtemDouble(idNodoGrafo, 3)));
+                template = template.replaceAll("#accuracyPercent", String.valueOf(obtemValorLogico(idNodoGrafo, 4)));
+                template = template.replaceAll("#magnitudeStatus", obtemString(idNodoGrafo, 5));
+                template = template.replaceAll("#units", obtemString(idNodoGrafo, 6));
+                template = template.replaceAll("#magnitude", String.valueOf(obtemDouble(idNodoGrafo, 7)));
+                template = template.replaceAll("#precision", String.valueOf(obtemInteiro(idNodoGrafo, 8)));
+                template = template.replaceAll("#measurementService", buildJson(obtemInteiro(idNodoGrafo, 9)));
+                template = template.replaceAll("'", "\"");
+                break;
+            case DV_PROPORTION:
+                template = "{ 'globalTypeIdn': #globalTypeIdn, 'otherReferenceRanges': [#otherReferenceRanges], 'normalRange': #normalRange, 'normalStatus': #normalStatus, 'accuracy': #accuracy, 'accuracyPercent': #accuracyPercent, 'magnitudeStatus': '#magnitudeStatus', 'numerator': #numerator, 'denominator': #denominator, 'type': #type, 'precision': #precision}";
+                template = template.replaceAll("#globalTypeIdn", String.valueOf(DV_PROPORTION));
+
+                int idListaOtherReferenceRanges_DvProportion = obtemInteiro(idNodoGrafo,0);
+                int tamanhoListaOtherReferenceRanges_DvProportion = obtemTamanhoLista(idListaOtherReferenceRanges_DvProportion);
+                String listaOtherReferenceRanges_DvProportion = "";
+                for(int k=0; k<tamanhoListaOtherReferenceRanges_DvProportion; k++){
+                    int idObjetoLista = obtemInteiro(idListaOtherReferenceRanges_DvProportion, k);
+                    listaOtherReferenceRanges_DvProportion = (k == tamanhoListaOtherReferenceRanges_DvProportion - 1) ? buildJson(idObjetoLista) + ", " : buildJson(idObjetoLista);
+                }
+                template = template.replaceAll("#otherReferenceRanges", listaOtherReferenceRanges_DvProportion);
+
+                template = template.replaceAll("#normalRange", buildJson(obtemInteiro(idNodoGrafo, 1)));
+                template = template.replaceAll("#normalStatus", buildJson(obtemInteiro(idNodoGrafo, 2)));
+                template = template.replaceAll("#accuracy", String.valueOf(obtemDouble(idNodoGrafo, 3)));
+                template = template.replaceAll("#accuracyPercent", String.valueOf(obtemValorLogico(idNodoGrafo, 4)));
+                template = template.replaceAll("#magnitudeStatus", obtemString(idNodoGrafo, 5));
+                template = template.replaceAll("#numerator", String.valueOf(obtemDouble(idNodoGrafo, 6)));
+                template = template.replaceAll("#denominator", String.valueOf(obtemDouble(idNodoGrafo, 7)));
+                template = template.replaceAll("#type", buildJson(obtemInteiro(idNodoGrafo, 8)));
+                template = template.replaceAll("#precision", String.valueOf(obtemInteiro(idNodoGrafo, 9)));
+                template = template.replaceAll("'", "\"");
+                break;
+            case DV_COUNT:
+                template = "{ 'globalTypeIdn': #globalTypeIdn, 'otherReferenceRanges': [#otherReferenceRanges], 'normalRange': #normalRange, 'normalStatus': #normalStatus, 'accuracy': #accuracy, 'accuracyPercent': #accuracyPercent, 'magnitudeStatus': '#magnitudeStatus', 'magnitude': #magnitude}";
+                template = template.replaceAll("#globalTypeIdn", String.valueOf(DV_COUNT));
+
+                int idListaOtherReferenceRanges_DvCount = obtemInteiro(idNodoGrafo,0);
+                int tamanhoListaOtherReferenceRanges_DvCount = obtemTamanhoLista(idListaOtherReferenceRanges_DvCount);
+                String listaOtherReferenceRanges_DvCount = "";
+                for(int k=0; k<tamanhoListaOtherReferenceRanges_DvCount; k++){
+                    int idObjetoLista = obtemInteiro(idListaOtherReferenceRanges_DvCount, k);
+                    listaOtherReferenceRanges_DvCount = (k == tamanhoListaOtherReferenceRanges_DvCount - 1) ? buildJson(idObjetoLista) + ", " : buildJson(idObjetoLista);
+                }
+                template = template.replaceAll("#otherReferenceRanges", listaOtherReferenceRanges_DvCount);
+
+                template = template.replaceAll("#normalRange", buildJson(obtemInteiro(idNodoGrafo, 1)));
+                template = template.replaceAll("#normalStatus", buildJson(obtemInteiro(idNodoGrafo, 2)));
+                template = template.replaceAll("#accuracy", String.valueOf(obtemDouble(idNodoGrafo, 3)));
+                template = template.replaceAll("#accuracyPercent", String.valueOf(obtemValorLogico(idNodoGrafo, 4)));
+                template = template.replaceAll("#magnitudeStatus", obtemString(idNodoGrafo, 5));
+                template = template.replaceAll("#magnitude", String.valueOf(obtemInteiro(idNodoGrafo, 6)));
+                template = template.replaceAll("'", "\"");
+                break;
         }
         out += template;
         return out;
