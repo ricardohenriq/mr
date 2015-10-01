@@ -206,7 +206,7 @@ public class JsonObject implements ModeloDeReferencia {
 			//Lista
 			int idReverseRelationships = buildGraph(jsonObject["reverseRelationships"]);
 			int idDetails = buildGraph(jsonObject["details"]);
-			return adicionaParty(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idIdentities, idContacts, idRelationships, idDetails);
+			return adicionaParty(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idIdentities, idContacts, idRelationships, idReverseRelationships, idDetails);
 		}else if(tipo == ROLE){
 			int idUid = buildGraph(jsonObject["uid"]);
 			String archetypeNodeId = jsonObject["archetypeNodeId"];
@@ -327,10 +327,10 @@ public class JsonObject implements ModeloDeReferencia {
 			int idLinks = buildGraph(jsonObject["links"]);
 			int idParent = buildGraph(jsonObject["parent"]);
 			int idSubject = buildGraph(jsonObject["subject"]);
-			boolean idIsQueryable = jsonObject["isQueryable"];
-			boolean idIsModifiable = jsonObject["isModifiable"];
+			boolean isQueryable = jsonObject["isQueryable"];
+			boolean isModifiable = jsonObject["isModifiable"];
 			int idOtherDetails = buildGraph(jsonObject["otherDetails"]);
-			return adicionaEHRStatus(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idSubject, idIsQueryable, idIsModifiable, idOtherDetails);
+			return adicionaEHRStatus(idUid, archetypeNodeId, idName, idArchetypeDetails, idFeederAudit, idLinks, idParent, idSubject, isQueryable, isModifiable, idOtherDetails);
 		}else if(tipo == ACTIVITY){
 			int idUid = buildGraph(jsonObject["uid"]);
 			String archetypeNodeId = jsonObject["archetypeNodeId"];
