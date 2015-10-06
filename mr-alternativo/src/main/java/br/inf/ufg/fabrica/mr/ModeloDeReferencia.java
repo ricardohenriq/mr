@@ -67,40 +67,55 @@ package br.inf.ufg.fabrica.mr;
  */
 public interface ModeloDeReferencia extends Serializacao, Campo, Identification {
 
-    /**
-     * Identificador do tipo DV_BOOLEAN.
-     */
-    final int DV_BOOLEAN = 0;
 
-    /**
-     * Identificador do tipo DV_IDENTIFIER.
-     */
+    final int RMO_OBJECT = 26;
+    final int DATA_VALUE = 27;
+    final int DV_INTERVAL = 28;
+    final int DV_STATE = 29;
+    final int TERM_MAPPING =30;
     final int DV_IDENTIFIER = 1;
+    final int REFERENCE_RANGE = 31;
+    final int DV_TIME_ESPECIFICATION = 32;
+    final int DV_PERIODIC_TIME_SPECIFICATION = 23;
+    final int DV_GENERAL_TIME_SPECIFICATION = 24;
+    final int CODE_PHRASE = 25;
+    final int DV_ENCAPSULATED = 20;
+    final int DV_PARSABLE = 21;
+    final int DV_MULTIMEDIA = 22;
+    final int DV_PARAGRAPH = 19;
+    final int DV_BOOLEAN = 33;
+    final int DV_URI = 18;
+    final int DV_EHR_URI = 15;
+    final int DV_TEXT = 17;
+    final int DV_CODED_TEXT = 14;
+    final int DV_ORDERED = 16;
+    final int DV_ORDINAL = 7;
+    final int DV_QUANTIFIED = 6;
+    final int DV_ABSOLUTE_QUANTITY = 5;
+    final int DV_TEMPORAL = 4;
     final int DV_DATE = 2;
     final int DV_DATE_TIME = 3;
-    final int DV_TEMPORAL = 4;
-    final int DV_ABSOLUTE_QUANTITY = 5;
-    final int DV_QUANTIFIED = 6;
-    final int DV_ORDINAL = 7;
+    final int DV_TIME = 13;
     final int DV_AMOUNT = 8;
     final int DV_DURATION = 9;
     final int DV_QUANTITY = 10;
     final int DV_PROPORTION = 11;
     final int DV_COUNT = 12;
-    final int DV_TIME = 13;
-    final int DV_CODED_TEXT = 14;
-    final int DV_EHR_URI = 15;
-    final int DV_ORDERED = 16;
-    final int DV_TEXT = 17;
-    final int DV_URI = 18;
-    final int DV_PARAGRAPH = 19;
-    final int DV_ENCAPSULATED = 20;
-    final int DV_PARSABLE = 21;
-    final int DV_MULTIMEDIA = 22;
-    final int DV_PERIODIC_TIME_SPECIFICATION = 23;
-    final int DV_GENERAL_TIME_SPECIFICATION = 24;
-    final int DV_INTERVAL = 25;
-
+    final int FEEDER_AUDIT_DETAILS = 34;
+    final int CONTRIBUTION = 35;
+    final int INSTRUCTION_DETAILS = 36;
+    final int EVENT_CONTEXT = 37;
+    final int VERSIONED_OBJECT = 38;
+    final int VERSIONED_PARTY = 39;
+    final int VERSIONED_FOLDER = 40;
+    final int VERSIONED_COMPOSITION = 41;
+    final int VERSIONED_EHR_STATUS = 42;
+    final int VERSIONED_EHR_ACCESS = 43;
+    final int PARTICIPATION = 44;
+    final int ARCHETYPED = 45;
+    final int MESSAGE = 46;
+    final int INITIATOR = 47;
+    
     final int AUTHORED_RESOURCE = 100;
     final int REVISION_HISTORY_ITEM = 101;
     final int REVISION_HISTORY = 102;
