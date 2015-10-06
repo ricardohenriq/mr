@@ -1,8 +1,8 @@
 package org.openehr.rm.formatters;
 
 import br.inf.ufg.fabrica.mr.ModeloDeReferencia;
-import org.openehr.rm.RMObject;
-import org.openehr.rm.support.identification.TerminologyID;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -16,20 +16,30 @@ public class JsonObject implements ModeloDeReferencia {
     }
 
     public int fromJSON(String json) {
-        int idRaizGrafo = buildGraph(json);
-        return idRaizGrafo;
+        try {
+            JSONObject jsonObject = new JSONObject(json);
+            int idRaizGrafo = buildGraph(jsonObject);
+            return idRaizGrafo;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
-    public int buildGraph(JsonObject jsonObject){
-        int tipo = jsonObject["globalTypeIdn"];
-        if(tipo == TERMINOLOGY_ID){
-            return adicionaTerminologyId(jsonObject["name"],jsonObject["value"]);
-        }else if(tipo == CODE_PHRASE){
-            int idTerminologyID = buildGraph(jsonObject["terminologyId"]);
-            return adicionaCodePhrase(idTerminologyID,jsonObject["codeString"]);
+    public int buildGraph(JSONObject jsonObject){
+        int tipo = 0;
+        try {
+            tipo = jsonObject.getInt("globalTypeIdn");
+            if(tipo == TERMINOLOGY_ID){
+                return adicionaTerminologyId(jsonObject.getString("name"),jsonObject.getString("value"));
+            }else if(tipo == CODE_PHRASE){
+                int idTerminologyID = buildGraph(jsonObject.getJSONObject("terminologyId"));
+                return adicionaCodePhrase(idTerminologyID,jsonObject.getString("codeString"));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-
-
+        return tipo;
     }
 
     private String buildJson(int idNodoGrafo) {
