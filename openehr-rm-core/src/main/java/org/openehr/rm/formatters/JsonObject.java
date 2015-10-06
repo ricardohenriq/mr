@@ -22,7 +22,6 @@ public class JsonObject implements ModeloDeReferencia {
 
     public int buildGraph(JsonObject jsonObject){
         int tipo = jsonObject["globalTypeIdn"];
-
         if(tipo == TERMINOLOGY_ID){
             return adicionaTerminologyId(jsonObject["name"],jsonObject["value"]);
         }else if(tipo == CODE_PHRASE){
@@ -216,17 +215,25 @@ public class JsonObject implements ModeloDeReferencia {
                 break;
             case ATTESTATION:
                 template = "{ 'globalTypeIdn' : #globalTypeIdn, 'systemId' : '#systemId', 'committer' : #committer, 'timeCommitted' : #timeCommitted, 'changeType' : #changeType," +
-                        "'description' : #description, 'attestedView' : attestedView#, 'proof' : '#proof', 'items' : items#, 'reason' : reason#, 'isPending' : isPending# }";
+                        "'description' : #description, 'attestedView' : #attestedView, 'proof' : '#proof', 'items' : [#items], 'reason' : #reason, 'isPending' : #isPending }";
                 template = template.replaceAll("#globalTypeIdn",String.valueOf(ATTESTATION));
                 template = template.replaceAll("#systemId",obtemString(idNodoGrafo,0));
                 template = template.replaceAll("#committer",buildJson(obtemInteiro(idNodoGrafo, 1)));
                 template = template.replaceAll("#timeCommitted",buildJson(obtemInteiro(idNodoGrafo, 2)));
                 template = template.replaceAll("#changeType",buildJson(obtemInteiro(idNodoGrafo, 3)));
                 template = template.replaceAll("#description",buildJson(obtemInteiro(idNodoGrafo, 4)));
-
                 template = template.replaceAll("#attestedView",buildJson(obtemInteiro(idNodoGrafo, 5)));
                 template = template.replaceAll("#proof",obtemString(idNodoGrafo,6));
-                //template = template.replaceAll("#items",buildJson(obtemInteiro(idNodoGrafo, 7))); Items é um SET (DvEHRURI) checar como proceder.
+
+                int idListaItens = obtemInteiro(idNodoGrafo,7);
+                int tamanhoListaItens = obtemTamanhoLista(idListaItens);
+                String listaItens = "";
+                for(int k = 0; k < tamanhoListaItens; k++){
+                    int idObjetoLista = obtemInteiro(idListaItens,k);
+                    listaItens = (k == tamanhoListaItens - 1) ? '{' + buildJson(idObjetoLista) + "}," : '{' + buildJson(idObjetoLista) + '}';
+                }
+                template = template.replaceAll("#items",listaItens);
+
                 template = template.replaceAll("#reason",buildJson(obtemInteiro(idNodoGrafo, 8)));
                 template = template.replaceAll("#isPending",String.valueOf(obtemValorLogico(idNodoGrafo,9)));
                 template = template.replaceAll("'", "\"");
