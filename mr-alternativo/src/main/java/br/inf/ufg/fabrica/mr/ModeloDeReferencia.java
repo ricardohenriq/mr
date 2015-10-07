@@ -1,8 +1,5 @@
 package br.inf.ufg.fabrica.mr;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-
 /**
  * Fábrica de objetos baseados no Modelo de Referência
  * do openEHR.
@@ -68,7 +65,7 @@ import java.io.OutputStream;
  * não ocorre por campo, mas por toda a coleção de valores
  * que formam um objeto.</p>
  */
-public interface ModeloDeReferencia {
+public interface ModeloDeReferencia extends Serializacao, Campo, Identification {
 
     /**
      * Identificador do tipo DV_BOOLEAN.
@@ -83,7 +80,7 @@ public interface ModeloDeReferencia {
     // TODO acrescente uma constante para todos os demais tipos
 
     /**
-     * Retorna o tamanho, em bytes, de um campo em um objeto.
+     * Retorna o tamanho, em bytes, de um campo de um objeto.
      * 
      * @param id O identificador único do objeto.
      * @param campo A ordem do campo, iniciada por 0.
@@ -116,12 +113,12 @@ public interface ModeloDeReferencia {
     byte[] obtemBytes(int id, int campo, int ini, int fim);
 
     /**
-     * Recupera o campo completo do objeto.
+     * Recupera o campo do objeto.
      *  
      * @param id O identificador único do objeto.
      * @param campo A ordem do campo, iniciada por 0.
      *
-     * @return Campo completo do objeto.
+     * @return Sequência de bytes correspondente ao campo.
      *
      * @throws IllegalArgumentException Nos seguintes casos:
      * (a) o objeto não existe;
@@ -129,104 +126,7 @@ public interface ModeloDeReferencia {
      */
     byte[] obtemBytes(int id, int campo);
 
-    
     /**
-     * Dados propriamente ditos correspondentes a objetos
-     * compatíveis com o Modelo de Referência.
-     *
-     * <p>Este vetor de bytes mantém os dados correspondentes
-     * a um grafo de objetos, baseados no Modelo de Referência,
-     * conforme o modelo de dados estabelecido pela
-     * implementação da presente interface.</p>
-     *
-     * <p>Um acréscimo de um elemento de dado é
-     * serializado neste vetor. Metainformações
-     * correspondentes devem ser registradas em
-     * outra estrutura.</p>
-     *
-     * <p>A estrutura desta sequência de bytes é
-     * obtida por {@code #estrutura}.</p>
-     *
-     * <p>O retorno deste método, em geral, é persistido.
-     * Quando uma consulta aos dados correspondentes
-     * for necessária, será "consumido" pelo
-     * método {@link #fromBytes(InputStream)}.</p>
-     *
-     * @return Stream de bytes contendo uma instância
-     * do Modelo de Referência (MR) devidamente serializada.
-     *
-     * @see #fromBytes(byte[])
-     * @see #toJSON()
-     * @see #toXML()
-     */
-    OutputStream toBytes();
-
-    /**
-     * Realiza processo inverso à serialização, geralmente
-     * empregado para permitir busca sobre os dados em
-     * conformidade com o Modelo de Referência.
-     *
-     * @param bytes Stream de bytes serializados por meio
-     *              do método {@link #toBytes()}.
-     */
-    void fromBytes(InputStream bytes);
-
-    /**
-     * Serializa as informações do presente objeto, baseado
-     * no MR, em um documento XML.
-     *
-     * <p>O documento XML produzido pelo presente método,
-     * sequência de caracteres, deve estar em conformidade
-     * com os esquemas adotados pelo openEHR.</p>
-     *
-     * @return Documento XML correspondente ao grafo
-     * de objetos.
-     */
-    String toXML();
-
-    /**
-     * Cria um grafo de objetos, em conformidade com o
-     * Modelo de Referência, correspondente ao documento
-     * XML fornecido.
-     *
-     * @param xml Documento XML contendo grafo de objetos
-     *            baseados no Modelo de Referência.
-     */
-    void fromXML(String xml);
-
-    /**
-     * Serializa a instância em uma sequência de caracteres
-     * no formato JSON.
-     *
-     * @see #fromJSON(String)
-     * @see #toBytes()
-     * @see #toXML()
-     *
-     * @return Sequência de caracteres, no formato JSON,
-     * correspondente à serialização do presente objeto.
-     */
-    String toJSON();
-
-    /**
-     * Cria o grafo de objetos, representado pelo presente
-     * objeto, em conformidade com o Modelo de Referência e
-     * serializado em JSON.
-     *
-     * <p>Este método faz o processo inverso ao do método
-     * {@see #toJSON}.</p>
-     *
-     * @see #toJSON()
-     * @see #fromXML(String)
-     * @see #fromBytes(byte[])
-     *
-     * @param json Sequência de caracteres, no formato JSON,
-     *             correspondentes a um grafo de objetos
-     *             serializado do Modelo de Referência do
-     *             openEHR.
-     */
-    void fromJSON(String json);
-    
-    /** 
      * Define a raiz do presente objeto.
      * 
      * <p>Uma instância desta interface é um grafo com uma
@@ -291,154 +191,6 @@ public interface ModeloDeReferencia {
      * objeto.
      */
     int obtemTipo(int id);
-    
-    /**
-     * Recupera o byte do campo do objeto.
-     *
-     * @param id O identificador único do objeto.
-     * @param campo A ordem do campo, iniciada por 0, para o
-     *              campo cujo valor é um byte.
-     * @return Valor do byte (campo do objeto).
-     *
-     * @throws IllegalArgumentException Se pelo menos uma das
-     * condições abaixo for verificada:
-     * (a) o campo não é do tipo byte; (b) o campo não existe;
-     * (c) o objeto não existe.
-     *
-     * @see #obtemTipo(int)
-     * @see #obtemTexto(int, int)
-     * @see #obtemVetorBytes(int, int)
-     */
-    byte obtemByte(int id, int campo);
-
-    /**
-     * Recupera a String do campo do objeto.
-     *
-     * @param id O identificador único do objeto.
-     * @param campo A ordem do campo, iniciada por 0, para o
-     *              campo cujo valor é uma String.
-     * @return String do campo do objeto.
-     *
-     * @throws IllegalArgumentException Se pelo menos uma das
-     * condições abaixo for verificada:
-     * (a) o campo não é do tipo String; (b) o campo não existe;
-     * (c) o objeto não existe.
-     *
-     * @see #obtemTipo(int)
-     * @see #obtemTexto(int, int)
-     * @see #obtemVetorBytes(int, int)
-     */
-    String obtemString(int id, int campo);
-
-    /**
-     * Recupera o valor lógico do objeto.
-     *
-     * @param id O identificador único do objeto.
-     * @param campo A ordem do campo, iniciada por 0, para o
-     *              campo cujo valor lógico é desejado.
-     * @return Valor lógico do campo do objeto.
-     *
-     * @throws IllegalArgumentException Se pelo menos uma das
-     * condições abaixo for verificada:
-     * (a) o campo não é do tipo lógico; (b) o campo não existe;
-     * (c) o objeto não existe.
-     *
-     * @see #obtemTipo(int)
-     * @see #obtemTexto(int, int)
-     * @see #obtemVetorBytes(int, int)
-     */
-    boolean obtemLogico(int id, int campo);
-
-    /**
-     * Recupera inteiro.
-     *
-     * @param id O identificador único do objeto.
-     * @param campo A ordem do campo, iniciada por 0, para o
-     *              campo cujo valor inteiro é desejado.
-     * @return Valor inteiro (campo do objeto).
-     *
-     * @throws IllegalArgumentException Se pelo menos uma das
-     * condições abaixo for verificada:
-     * (a) o campo não é do tipo inteiro; (b) o campo não existe;
-     * (c) o objeto não existe.
-     *
-     * @see #obtemTipo(int)
-     * @see #obtemTexto(int, int)
-     * @see #obtemVetorBytes(int, int)
-     */
-    int obtemInteiro(int id, int campo);
-
-    /**
-     * Recupera o valor de precisão simples (ponto
-     * flutuante).
-     *
-     * @param id O identificador único do objeto.
-     * @param campo A ordem do campo, iniciada por 0, para o
-     *              campo cujo valor {@code float} é desejado.
-     * @return Valor {@code float} do campo do objeto.
-     *
-     * @throws IllegalArgumentException Se pelo menos uma das
-     * condições abaixo for verificada:
-     * (a) o campo não é do tipo float; (b) o campo não existe;
-     * (c) o objeto não existe.
-     *
-     * @see #obtemTipo(int)
-     * @see #obtemTexto(int, int)
-     * @see #obtemVetorBytes(int, int)
-     */
-    float obtemFloat(int id, int campo);
-
-    /**
-     * Recupera valor de precisão dupla (ponto flutuante).
-     *
-     * @param id O identificador único do objeto.
-     * @param campo A ordem do campo, iniciada por 0, para o
-     *              campo cujo valor é um {@code double}.
-     * @return Valor {@code double} do campo do objeto.
-     *
-     * @throws IllegalArgumentException Se pelo menos uma das
-     * condições abaixo for verificada:
-     * (a) o campo não é do tipo double; (b) o campo não existe;
-     * (c) o objeto não existe.
-     *
-     * @see #obtemTipo(int)
-     * @see #obtemTexto(int, int)
-     * @see #obtemVetorBytes(int, int)
-     */
-    double obtemDouble(int id, int campo);
-
-    /**
-     * Recupera texto do objeto.
-     *
-     * @param id O identificador único do objeto.
-     * @param campo A ordem do campo, iniciada por 0, para o
-     *              campo cuja sequência de caracteres
-     *              correspondente é desejada.
-     * @return Sequência de caracteres correspondente ao
-     * campo do objeto.
-     *
-     * @throws IllegalArgumentException Nos seguintes casos:
-     * (a) o campo não é texto; (b) o campo não existe;
-     * (c) o objeto não existe.
-     */
-    String obtemTexto(int id, int campo);
-
-    /**
-     * Recupera vetor de bytes (valor do campo do objeto).
-     *
-     * @param id O identificador único do objeto.
-     * @param campo A ordem do campo, iniciada por 0, cujo
-     *              valor, um vetor de bytes, é desejado.
-     * @return Valor do campo do objeto.
-     *
-     * @throws IllegalArgumentException Nos seguintes casos:
-     * (a) o campo não é um vetor de bytes; (b) o campo não existe;
-     * (c) o objeto não existe.
-     *
-     * @see #obtemTexto(int, int)
-     * @see #obtemTipo(int)
-     */
-    byte[] obtemVetorBytes(int id, int campo);
 
     /**
      * Cria uma lista de objetos.
@@ -673,91 +425,5 @@ public interface ModeloDeReferencia {
             int hDvMultimediaThumbnail,
             String dvUri,
             byte[] dado);
-    
-    /**
-     * Adiciona um Identificador de Objeto da
-     * ISO/IEC 8824) ({@code ISO_OID}).
-     *
-     * @param valor Sequência de caracteres que é uma
-     *              serialização de um ISO_OID.
-     * @return O identificador único na estrutura deste
-     *          identificador de objeto da ISO.
-     */
-    int adicionaIsoOid(String valor);
-    
-    /**
-     * Adiciona um Identificador Único Universal DCE 
-     * ({@code UUID}).
-     *
-     * @param valor Sequência de caracteres que é uma
-     *              serialização de um UUID.
-     * @return O identificador único na estrutura do UUID.
-     */
-    int adicionaUuid(String valor);
-    
-    /**
-     * Adiciona um identificador de domínio
-     * da internet invertido ({@code INTERNET_ID}).
-     *
-     * @param valor Sequência de caracteres que é uma
-     *              serialização de um identificador de domínio.
-     * @return O identificador único na estrutura 
-     *          do identificador de internet.
-     */
-    int adicionaInternetId(String valor);
-
-    /**
-     * Adiciona um identificador de hierarquia
-     * ({@code HIER_OBJECT_ID}).
-     *
-     * @param valor Sequência de caracteres que é uma
-     *              serialização de um identificador de
-     *              hierarquia ({HIER_OBJECT_ID}).
-     * @return O identificador único na estrutura deste
-     *         identificador de hierarquia.
-     */
-    int adicionaHierObjectId(String valor);
-    
-    /**
-     * Adiciona um identificador de hierarquia
-     * ({@code HIER_OBJECT_ID}).
-     *
-     * @param raiz identificador único permanente de 
-     *          entidade (@code UID).
-     * @param extensão identificador local do objeto.
-     * @return O identificador único na estrutura do 
-     * identificador de hierarquia.
-     */
-    int adicionaHierObjectId(String raiz, String extensao);
-
-    /**
-     * Adiciona um identificador único global para uma
-     * versão de um objeto ({@code OBJECT_VERSION_ID}).
-     *
-     * @param valor Sequência de caracteres que é uma
-     *              serialização de um identificador de uma
-     *              versão de um objeto ({OBJECT_VERSION_ID}).
-     * @return O identificador único na estrutura deste
-     *          identificador de versão de objeto.
-     */
-    int adicionaObjectVersionId(String valor);
-    
-    /**
-     * Adiciona um identificador único global para uma
-     * versão de um objeto ({@code OBJECT_VERSION_ID}).
-     *
-     * @param objectId identificador único para
-     *                  objeto lógico (@code UID).
-     * @param versionTreeId identificador da versão
-     *                      com relação aos outros de sua 
-     *                      árvore (@code VERSION_TREE_ID).
-     * @param creatingSystemId identificador do sistema
-     *                      criador da versão (@code UID).
-     * @return O identificador único na estrutura do 
-     *          identificador de versão de objeto.
-     */
-    int adicionaObjectVersionId(String objectId,
-            String versionTreeId,
-            String creatingSystemId);
 
 }
