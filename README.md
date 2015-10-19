@@ -11,7 +11,10 @@ AOS DEVIDOS AUTORES.
 
 O presente "fork" inclui apenas parte do disponível na
 URL acima, denominada de Modelo de Referência do openEHR,
-doravante apenas MR.
+doravante apenas MR. Tal "fork" é estendido com uma
+proposta de implementação alternativa do MR. O código
+do "fork" é utilizado como referência para facilitar a
+verificação e validação da implementação alternativa.
 
 O objetivo é facilitar a experimentação de estratégias 
 de persistência de informações registradas segundo o
