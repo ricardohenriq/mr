@@ -46,5 +46,15 @@
 			<artifactId>rm-alternativo</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20150729</version>
+		</dependency>
+		<dependency>
+			<groupId>openehr</groupId>
+			<artifactId>mini-termserv</artifactId>
+			<version>1.0.11-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 </project>

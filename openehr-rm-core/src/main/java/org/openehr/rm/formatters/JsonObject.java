@@ -1,4 +1,4 @@
-package org.openehr.rm.formatters;
+/*package org.openehr.rm.formatters;
 
 import br.inf.ufg.fabrica.mr.ModeloDeReferencia;
 import org.json.JSONException;
@@ -725,3 +725,4 @@ public class JsonObject implements ModeloDeReferencia {
     }
 }
 
+*/

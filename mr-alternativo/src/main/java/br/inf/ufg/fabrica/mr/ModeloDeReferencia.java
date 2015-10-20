@@ -191,6 +191,7 @@ public interface ModeloDeReferencia extends Serializacao, Campo, Identification 
     final int FEEDER_AUDIT = 172;
     final int EHR = 173;
     final int VERSION_TREE_ID = 174;
+    final int MATCH = 175;
 
     // TODO acrescente uma constante para todos os demais tipos
 
@@ -470,7 +471,7 @@ public interface ModeloDeReferencia extends Serializacao, Campo, Identification 
      * @param codeString A sequência correspondente ao código.
      * @return O identificador único do código na estrutura.
      */
-    int adicionaCodePhrase(String terminologyId, String codeString);
+    int adicionaCodePhrase(int terminologyId, String codeString);
 
     /**
      * Adiciona dado encapsulado em uma sequência de caracteres
@@ -540,5 +541,14 @@ public interface ModeloDeReferencia extends Serializacao, Campo, Identification 
             int hDvMultimediaThumbnail,
             String dvUri,
             byte[] dado);
+
+
+
+
+    int adicionaMatch(String valor);
+    void adicionaALista(int idLista, int chave);
+    int adicionaDvCodedText(String valor,int listaTermMappins, String formatting, int hyperlink, int language, int encoding, int definingCode);
+    int adicionaDvText(String value, int idListaTermMapping, String formatting, int idDvURI, int idLanguage, int idEncoding);
+    int adicionaTermMapping(int target, int match, int purpose);
 
 }
