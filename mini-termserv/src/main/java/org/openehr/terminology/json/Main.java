@@ -14,6 +14,6 @@ public class Main {
         JsonParser jsonParser = new JsonParser();
         System.out.println(jsonParser.toJson());
         jsonParser.fromJson(jsonParser.toJson());
-        System.out.println(jsonParser.toJson());
+        System.out.println("DONE!!!");
     }
 }

@@ -9,9 +9,9 @@ import java.lang.String;
 
 
 import br.inf.ufg.fabrica.mr.ModeloDeReferencia;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.openehr.rm.datatypes.text.Match;
 
 
 public class JsonParser implements ModeloDeReferencia{
@@ -27,7 +27,6 @@ public class JsonParser implements ModeloDeReferencia{
         try {
             JSONObject jsonObject = new JSONObject(json);
             int idRaizGrafo = buildGraph(jsonObject);
-            System.out.println(idRaizGrafo);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -45,13 +44,20 @@ public class JsonParser implements ModeloDeReferencia{
                 return adicionaTerminologyId(jsonObject.getString("name"),jsonObject.getString("version"));
             }else if(type == DV_TEXT){
                 String value = jsonObject.getString("value");
+
                 int idListaTermMapping = adicionaLista(jsonObject.getJSONArray("mappings").length());
 
-                int tamanhoLista = jsonObject.getJSONArray("mappings").length();
-                while(jsonObject.getJSONArray("mappings").iterator().hasNext()){
-                    JSONObject now = (JSONObject) jsonObject.getJSONArray("mappings").iterator().next();
-                    int idTermMapping = buildGraph(now);
-                    adicionaALista(idListaTermMapping,idTermMapping);
+
+                if(jsonObject.getJSONArray("mappings").length() > 0){
+
+                    idListaTermMapping = adicionaLista(jsonObject.getJSONArray("mappings").length());
+                    int tamanhoLista = jsonObject.getJSONArray("mappings").length();
+                    for(int k = 0; k < tamanhoLista; k++){
+                        JSONObject now = (JSONObject) jsonObject.getJSONArray("mappings").get(k);
+                        int idTermMapping = buildGraph(now);
+                        adicionaALista(idListaTermMapping,idTermMapping);
+                    }
+
                 }
 
                 String formatting = jsonObject.getString("formatting");
@@ -70,10 +76,17 @@ public class JsonParser implements ModeloDeReferencia{
             }else if(type == DV_CODED_TEXT){
                 String value = jsonObject.getString("value");
                 int idListaTermMapping = adicionaLista(jsonObject.getJSONArray("mappings").length());
-                while(jsonObject.getJSONArray("mappings").iterator().hasNext()){
-                    JSONObject now = (JSONObject) jsonObject.getJSONArray("mappings").iterator().next();
-                    int idTermMapping = buildGraph(now);
-                    adicionaALista(idListaTermMapping,idTermMapping);
+
+
+                if(jsonObject.getJSONArray("mappings").length() > 0){
+                    idListaTermMapping = adicionaLista(jsonObject.getJSONArray("mappings").length());
+                    int tamanhoLista = jsonObject.getJSONArray("mappings").length();
+                    for(int k = 0; k < tamanhoLista; k++){
+                        JSONObject now = (JSONObject) jsonObject.getJSONArray("mappings").get(k);
+                        int idTermMapping = buildGraph(now);
+                        adicionaALista(idListaTermMapping,idTermMapping);
+                    }
+
                 }
 
                 String formatting = jsonObject.getString("formatting");
@@ -119,7 +132,7 @@ public class JsonParser implements ModeloDeReferencia{
             String template = "{'globalTypeIdn' : #globalTypeIdn, 'name' : '#name', 'version' : '#version' }";
             template = template.replaceAll("#globalTypeIdn",String.valueOf(TERMINOLOGY_ID));
             template = template.replaceAll("#name",obtemString(idNodo,0));
-            template = template.replaceAll("#version",obtemString(idNodo,1));
+            template = template.replaceAll("#version",obtemString(idNodo,1) == null ? "" : obtemString(idNodo,1));
             template = template.replaceAll("'", "\"");
             return template;
         }else if(nodeType == DV_TEXT){
@@ -189,72 +202,98 @@ public class JsonParser implements ModeloDeReferencia{
     }
 
     public int obtemChave(int id, int campo) {
+
         if(id == 1000){
-            if(campo == 0) return 1001;
+            if(campo == 1) return 1004;
+            if(campo == 3) return 1001;
+            if(campo == 4) return 1002;
+            if(campo == 5) return 1003;
         }
-        else if(id == 1001){ return 0;}
-        else if(id == 1002){
-            if(campo == 1) return 1008;
-            if(campo == 3) return 1007;
-            if(campo == 4) return 1000;
-            if(campo == 5) return 1000;
+        if(id == 1002){
+            if(campo == 0) return 1011;
         }
-        else if(id == 1003){ return 0;}
-        else if(id == 1004){
-            if(campo == 0) return 1000;
-            if(campo == 1) return 1003;
-            if(campo == 2) return 1005;
+        if(id == 1003){
+            if(campo == 0) return 1012;
         }
-        else if(id == 1005){
-            if(campo == 3) return 1007;
-            if(campo == 4) return 1000;
-            if(campo == 5) return 1000;
-            if(campo == 6) return 1000;
-            return 0;
+        if(id == 1004){
+            return 1005;
         }
-        else if(id == 1006){ return 0;}
-        else if(id == 1007){ return 0;}
-        else if(id == 1008){ return 1004;}
+        if(id == 1005){
+            if(campo == 0) return 1009;
+            if(campo == 1) return 1013;
+            if(campo == 2) return 1008;
+        }
+        if(id == 1008){
+            if(campo == 6) return 1009;
+            if(campo != 1) return obtemChave(1000,campo);
+        }
+        if(id == 1009){
+            if(campo == 0) return 1010;
+        }
         return 0;
     }
 
 
     public String obtemString(int id, int campo) {
         if(id == 1000){
-            if(campo == 1) return mock.getCodePhraseMock().getCodeString();
-        }
-        else if(id == 1001){
-            if(campo == 0) return mock.getTerminologyIDMock().name();
-            if(campo == 1) return mock.getTerminologyIDMock().versionID();
-        }
-        else if(id == 1002){
             if(campo == 0) return mock.getDvTextMock().getValue();
             if(campo == 2) return mock.getDvTextMock().getFormatting();
         }
-        else if(id == 1003){
-            if(campo == 0) return mock.getMatchMock().getValue();
-        }
-        else if(id == 1007){
+        if(id == 1001){
             if(campo == 0) return mock.getDvURIMock().getValue().toString();
+        }
+        if(id == 1002){
+            if(campo == 0) return mock.getDvTextMock().getLanguage().getCodeString();
+        }
+        if(id == 1003){
+            if(campo == 0) return mock.getDvTextMock().getEncoding().getCodeString();
+        }
+        if(id == 1008){
+            if(campo == 0) return mock.getDvCodedTextMock().getValue();
+            return obtemString(1000,campo);
+        }
+        if(id == 1009){
+            if(campo == 1) return mock.getCodePhraseMock().getCodeString();
+        }
+        if(id == 1010){
+            if(campo == 0) return mock.getCodePhraseMock().getTerminologyId().name();
+            if(campo == 1)  return mock.getCodePhraseMock().getTerminologyId().versionID();
+        }
+        if(id == 1011){
+            if(campo == 0) return mock.getDvTextMock().getLanguage().getTerminologyId().name();
+            if(campo == 1)  return mock.getDvTextMock().getLanguage().getTerminologyId().versionID();
+        }
+        if(id == 1012){
+            if(campo == 0) return mock.getDvTextMock().getEncoding().getTerminologyId().name();
+            if(campo == 1)  return mock.getDvTextMock().getEncoding().getTerminologyId().versionID();
+        }
+        if(id == 1013){
+            if(campo == 0) return mock.getMatchMock().getValue();
         }
         return "";
     }
 
     public int obtemTipo(int id) {
-        if(id == 1000) return CODE_PHRASE;
-        if(id == 1001) return TERMINOLOGY_ID;
-        if(id == 1002) return DV_TEXT;
-        if(id == 1003) return MATCH;
+        if(id == 1000) return DV_TEXT;
+        if(id == 1001) return DV_URI;
+        if(id == 1002) return CODE_PHRASE;
+        if(id == 1003) return CODE_PHRASE;
         if(id == 1004) return TERM_MAPPING;
-        if(id == 1005) return DV_CODED_TEXT;
-        //if(id == 1006) return DV_TEXT;
-        if(id == 1007) return DV_URI;
+        if(id == 1005) return TERM_MAPPING;
+        if(id == 1006) return TERM_MAPPING;
+        if(id == 1007) return TERM_MAPPING;
+        if(id == 1008) return DV_CODED_TEXT;
+        if(id == 1009) return CODE_PHRASE;
+        if(id == 1010) return TERMINOLOGY_ID;
+        if(id == 1011) return TERMINOLOGY_ID;
+        if(id == 1012) return TERMINOLOGY_ID;
+        if(id == 1013) return MATCH;
         return 0;
     }
 
     public int obtemTamanhoLista(int lista) {
-        if(lista == 1008){
-            return 3;
+        if(lista == 1004){
+            return 5;
         }
         return 0;
     }
@@ -262,7 +301,7 @@ public class JsonParser implements ModeloDeReferencia{
 
 
     public int obtemRaiz() {
-        return 1002;
+        return 1000;
     }
 
 

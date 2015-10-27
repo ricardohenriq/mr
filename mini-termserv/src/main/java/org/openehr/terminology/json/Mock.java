@@ -13,7 +13,6 @@ import java.util.Set;
 
 public class Mock{
     private CodePhrase codePhraseMock; // idNodo 1000
-    private TerminologyID terminologyIDMock; // idNodo 1001
     private DvText dvTextMock; // idNodo 1002
     private Match matchMock; // idNodo 1003
     private TermMapping termMappingMock; // idNodo 1004
@@ -31,12 +30,6 @@ public class Mock{
         }
 
         Set<CodePhrase> en = simpleTerminologyServiceMock.terminology(TerminologyService.OPENEHR).codesForGroupName("term mapping purpose", "en");
-
-        //terminologyIDMock = new TerminologyID("ISO_639-1","1.0");
-        //codePhraseMock = new CodePhrase(terminologyIDMock,"es-cl");
-
-        terminologyIDMock = new TerminologyID("openehr","1.0");
-        //codePhraseMock = new CodePhrase(terminologyIDMock,"671");
         codePhraseMock = en.iterator().next();
 
         matchMock = Match.BROADER;
@@ -44,17 +37,19 @@ public class Mock{
 
 
         termMappingMock = new TermMapping(codePhraseMock,matchMock,dvCodedTextMock,simpleTerminologyServiceMock);
-        dvURIMock = new DvURI("valueMock");
+
+        dvURIMock = new DvURI("inf.ufg.br");
 
         List<TermMapping> termMappingList = new ArrayList();
         termMappingList.add(termMappingMock);
         termMappingList.add(termMappingMock);
-        //termMappingList.add(termMappingMock);
+        termMappingList.add(termMappingMock);
+        termMappingList.add(termMappingMock);
+        termMappingList.add(termMappingMock);
 
 
         CodePhrase next = simpleTerminologyServiceMock.codeSetForId(OpenEHRCodeSetIdentifiers.LANGUAGES).allCodes().iterator().next();
         CodePhrase charSet = simpleTerminologyServiceMock.codeSetForId(OpenEHRCodeSetIdentifiers.CHARACTER_SETS).allCodes().iterator().next();
-
         dvTextMock = new DvText("valueMock",termMappingList,"formattingMock",dvURIMock,next,charSet,simpleTerminologyServiceMock);
 
     }
@@ -62,10 +57,6 @@ public class Mock{
 
     public CodePhrase getCodePhraseMock() {
         return codePhraseMock;
-    }
-
-    public TerminologyID getTerminologyIDMock() {
-        return terminologyIDMock;
     }
 
     public DvText getDvTextMock() {
