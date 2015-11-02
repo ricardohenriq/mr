@@ -41,12 +41,11 @@ public class JsonParser implements ModeloDeReferencia{
                 int idTerminologyID = buildGraph(jsonObject.getJSONObject("terminologyId"));
                 return adicionaCodePhrase(idTerminologyID,jsonObject.getString("codeString"));
             }else if(type == TERMINOLOGY_ID){
-                return adicionaTerminologyId(jsonObject.getString("name"),jsonObject.getString("version"));
+                return adicionaTerminologyId(jsonObject.getString("name"),jsonObject.get("version").toString());
             }else if(type == DV_TEXT){
                 String value = jsonObject.getString("value");
 
                 int idListaTermMapping = adicionaLista(jsonObject.getJSONArray("mappings").length());
-
 
                 if(jsonObject.getJSONArray("mappings").length() > 0){
 
@@ -57,9 +56,7 @@ public class JsonParser implements ModeloDeReferencia{
                         int idTermMapping = buildGraph(now);
                         adicionaALista(idListaTermMapping,idTermMapping);
                     }
-
                 }
-
                 String formatting = jsonObject.getString("formatting");
                 int idDvURI = buildGraph(jsonObject.getJSONObject("hyperlink"));
                 int idLanguage = buildGraph(jsonObject.getJSONObject("language"));
@@ -122,23 +119,23 @@ public class JsonParser implements ModeloDeReferencia{
     private String buildJson(int idNodo){
         int nodeType = obtemTipo(idNodo);
         if(nodeType == CODE_PHRASE){
-            String template = "{'globalTypeIdn' : #globalTypeIdn, 'codeString' : '#codeString', 'terminologyId' : #terminologyId }";
+            String template = "{'globalTypeIdn' : #globalTypeIdn, 'codeString' : #codeString, 'terminologyId' : #terminologyId }";
             template = template.replaceAll("#globalTypeIdn",String.valueOf(CODE_PHRASE));
             template = template.replaceAll("#terminologyId",buildJson(obtemChave(idNodo,0)));
-            template = template.replaceAll("#codeString",obtemString(idNodo,1));
+            template = template.replaceAll("#codeString",formataString(obtemString(idNodo, 1)));
             template = template.replaceAll("'", "\"");
             return template;
         }else if(nodeType == TERMINOLOGY_ID){
-            String template = "{'globalTypeIdn' : #globalTypeIdn, 'name' : '#name', 'version' : '#version' }";
+            String template = "{'globalTypeIdn' : #globalTypeIdn, 'name' : #name, 'version' : #version }";
             template = template.replaceAll("#globalTypeIdn",String.valueOf(TERMINOLOGY_ID));
-            template = template.replaceAll("#name",obtemString(idNodo,0));
-            template = template.replaceAll("#version",obtemString(idNodo,1) == null ? "" : obtemString(idNodo,1));
+            template = template.replaceAll("#name", formataString(obtemString(idNodo,0)));
+            template = template.replaceAll("#version", formataString(obtemString(idNodo,1)));
             template = template.replaceAll("'", "\"");
             return template;
         }else if(nodeType == DV_TEXT){
-            String template = "{'globalTypeIdn' : #globalTypeIdn, 'value' : '#value', 'mappings' : [#mappings], 'formatting' : '#formatting', 'hyperlink' : #hyperlink, 'language' : #language, 'encoding' : #encoding }";
+            String template = "{'globalTypeIdn' : #globalTypeIdn, 'value' : #value, 'mappings' : [#mappings], 'formatting' : #formatting, 'hyperlink' : #hyperlink, 'language' : #language, 'encoding' : #encoding }";
             template = template.replaceAll("#globalTypeIdn",String.valueOf(DV_TEXT));
-            template = template.replaceAll("#value",obtemString(idNodo,0));
+            template = template.replaceAll("#value", formataString(obtemString(idNodo,0)));
 
             int idTermMappingList = obtemChave(idNodo,1);
             int termMappingListSize = obtemTamanhoLista(idTermMappingList);
@@ -149,7 +146,7 @@ public class JsonParser implements ModeloDeReferencia{
             }
             template = template.replaceAll("#mappings", termMappingList);
 
-            template = template.replaceAll("#formatting",obtemString(idNodo,2));
+            template = template.replaceAll("#formatting", formataString(obtemString(idNodo,2)));
             template = template.replaceAll("#hyperlink",buildJson(obtemChave(idNodo,3)));
             template = template.replaceAll("#language",buildJson(obtemChave(idNodo,4)));
             template = template.replaceAll("#encoding",buildJson(obtemChave(idNodo,5)));
@@ -164,15 +161,15 @@ public class JsonParser implements ModeloDeReferencia{
             template = template.replaceAll("'", "\"");
             return template;
         }else if(nodeType == MATCH){
-            String template = "{'globalTypeIdn' : #globalTypeIdn, 'value' : '#value'}";
+            String template = "{'globalTypeIdn' : #globalTypeIdn, 'value' : #value}";
             template = template.replaceAll("#globalTypeIdn",String.valueOf(MATCH));
-            template = template.replaceAll("#value",obtemString(idNodo, 0));
+            template = template.replaceAll("#value", formataString(obtemString(idNodo, 0)));
             template = template.replaceAll("'", "\"");
             return template;
         }else if(nodeType == DV_CODED_TEXT){
-            String template = "{'globalTypeIdn' : #globalTypeIdn, 'value' : '#value', 'mappings' : [#mappings], 'formatting' : '#formatting', 'hyperlink' : #hyperlink, 'language' : #language, 'encoding' : #encoding, 'definingCode' : #definingCode}";
+            String template = "{'globalTypeIdn' : #globalTypeIdn, 'value' : #value, 'mappings' : [#mappings], 'formatting' : #formatting, 'hyperlink' : #hyperlink, 'language' : #language, 'encoding' : #encoding, 'definingCode' : #definingCode}";
             template = template.replaceAll("#globalTypeIdn",String.valueOf(DV_CODED_TEXT));
-            template = template.replaceAll("#value",obtemString(idNodo,0));
+            template = template.replaceAll("#value",formataString(obtemString(idNodo, 0)));
 
             int idTermMappingList = obtemChave(idNodo,1);
             int termMappingListSize = obtemTamanhoLista(idTermMappingList);
@@ -183,7 +180,7 @@ public class JsonParser implements ModeloDeReferencia{
             }
             template = template.replaceAll("#mappings", termMappingList);
 
-            template = template.replaceAll("#formatting",obtemString(idNodo,2));
+            template = template.replaceAll("#formatting", formataString(obtemString(idNodo,2)));
             template = template.replaceAll("#hyperlink",buildJson(obtemChave(idNodo,3)));
             template = template.replaceAll("#language",buildJson(obtemChave(idNodo, 4)));
             template = template.replaceAll("#encoding",buildJson(obtemChave(idNodo, 5)));
@@ -191,9 +188,9 @@ public class JsonParser implements ModeloDeReferencia{
             template = template.replaceAll("'", "\"");
             return template;
         }else if(nodeType == DV_URI){
-            String template = "{'globalTypeIdn' : #globalTypeIdn, 'value' : '#value'}";
+            String template = "{'globalTypeIdn' : #globalTypeIdn, 'value' : #value}";
             template = template.replaceAll("#globalTypeIdn",String.valueOf(DV_URI));
-            template = template.replaceAll("#value",obtemString(idNodo,0));
+            template = template.replaceAll("#value",formataString(obtemString(idNodo,0)));
             template = template.replaceAll("'", "\"");
             return template;
         }
@@ -298,10 +295,18 @@ public class JsonParser implements ModeloDeReferencia{
         return 0;
     }
 
-
-
     public int obtemRaiz() {
         return 1000;
+    }
+
+    public String formataString(String string){
+        if(string == null){
+            return "null";
+        }else if(string.equals("")){
+            return "''";
+        }else{
+            return "'" + string + "'";
+        }
     }
 
 
