@@ -20,3 +20,28 @@ verificação e validação da implementação alternativa.
 O objetivo é facilitar a experimentação de estratégias 
 de persistência de informações registradas segundo o
 MR. 
+
+##DOCUMENTAÇÂO
+
+#toJson()
+	A seguir segue modelo de implementação que no geral irá servir para a construção da implementação to método toJson() de qualquer classe do modelo de referência.
+Exemplo 1
+```
+private String buildJson(int idNodoGrafo){
+   String out = "";
+   switch (obtemTipo(idNodoGrafo)){
+	...
+       case 5:
+           String template = "{'globalTypeIdn' : '#globalTypeIdn, 'atributo0' : '#atributo0','atributo1' : '#atributo1','atributo2' : '#atributo2'}";
+           template = template.replaceAll("#globalTypeIdn",5); // 5 é o id da classe
+           template = template.replaceAll("#atributo0",obtemTexto(idNodoGrafo,0));
+           template = template.replaceAll("#atributo1",String.valueOf(obtemValorLogico(idNodoGrafo,1)));
+           template = template.replaceAll("#atributo2",buildJson(obtemChave(idNodoGrafo,2)));
+           template = template.replaceAll("'", "\"");
+           break;
+	...
+   }
+   out += template;
+   return out;
+}
+```
