@@ -34,4 +34,15 @@ MR.
   1.2. Obtenção do tipo do nó
   
     Já dentro do método buildJson e com o inteiro idNodo que representa o nodo no grafo em mãos é preciso identificar de qual tipo é esse inteiro. Essa identificação é feita com o método obtemTipo para qual repassamos um inteiro idNodo e nos é retornado um outro inteiro chamado tipoNodo que representa o tipo de nodo com o qual estamos lidando. Como é sabido, o modelo de referência do openEHR tem por volta de 150 classes e com isso teremos um total de 150 inteiros únicos que identificam cada tipo de nodo possível.
+    
+  1.3. Montagens dos templates
+  
+  A terceira etapa é a construção dos templates para os 150 tipos diferentes de classes, porém, antes de tudo é necessário adicionar um atributo com o nome de globalTypeIdn. Esse atributo é um inteiro referente ao tipo do nodo com o qual estamos lidando. Exemplo: { “globalTypeIdn” : 23 } onde o inteiro 23 referência o tipo do nodo obtido atráves do método obtemTipo.
+  
+  Em relação aos atributos do nodo propriamente dito, os mesmos podem ser:
+
+  * Um dos tipos nativos do Java que são int, float, double, long, boolean e String;
+  * Um outro nodo.
+
+
 
