@@ -47,3 +47,11 @@ private String buildJson(int idNodoGrafo){
    return out;
 }
 ```
+
+Esse primeiro exemplo, case 5, contempla as principais meios de implementar a solução do toJson(), segue as definições e regras para implementação.
+
+* A construção da String template deverá ser feita de acordo com o nome dos atributos do modelo de referência, ou seja, os nomes dos campos no Json seguem estritamente os nomes dos atributos contidos nas classes do modelo de referência, portanto nada de usar nome de classes.
+* O método utilizado para substituir as strings “placeholders” será o .replaceAll(). Este método também deverá ser invocado ao final para substituir todas as ocorrências de ‘ ou “ de acordo com o padrão Json;
+* Para qualquer o atributo que não for primitivo(String, int, float, double ou boolean) o método obtemChave(idNodoGrafo,numeroAtributo) deverá ser invocado para retornando a chave do atributo não primitivo que o localiza no grafo. Essa chave deverá ser utiliza para reinvocar o método buildJson(chaveNodo) e assim caracterizando a recursão;
+* O número do atributo citado no item 3 deverá ser um inteiro incrementado um a um começando do 0. Este número representa e identifica o atributo da classe no modelo de referência. Por exemplo, se uma classe tiver 5 atributos sejam eles primitivos ou não, esses atributos serão identificados de 0 a 4 e dispostos de acordo com a implementação do modelo de referência; 
+* Os atributos primitivos serão recuperados com os métodos de acordo com a interface ModeloDeReferencia.
