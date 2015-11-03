@@ -46,7 +46,7 @@ MR.
 
   Em todo os casos colocamos o nome do atributo json exatamente igual ao nome do atributo do nodo. Por exemplo, um nodo tem uma String chamada version, logo o template terá um atributo chamado { “version” : #version } onde o #version será substituído pelo valor da String version.
 
-Exemplo de template com base da classe DvText:
+  Exemplo de template com base da classe DvText:
 ```
 {
     'globalTypeIdn': #globalTypeIdn,
@@ -59,4 +59,6 @@ Exemplo de template com base da classe DvText:
 }
 ```
 Nesse exemplo acima como podemos ver, a classe DvText possuí seis atributos e no caso do atributo mappings 	foi adicionado colchetes [ ] pois o mesmo se trata de uma lista que ao ser convertido para json se tornará um 	Json Array.
+
+    1.4. Recuperação dos atributos
 
