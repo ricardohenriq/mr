@@ -3,12 +3,11 @@ package org.openehr.terminology.json;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.String;
-
-
-
+import java.util.Base64;
 
 
 import br.inf.ufg.fabrica.mr.ModeloDeReferencia;
+import com.sun.xml.internal.rngom.parse.host.Base;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -307,6 +306,14 @@ public class JsonParser implements ModeloDeReferencia{
         }else{
             return "'" + string + "'";
         }
+    }
+
+    public String arrayBytesToBase64(byte[] arrayBytes) {
+        return new String(Base64.getEncoder().encode(arrayBytes));
+    }
+
+    public byte[] base64ToArrayBytes(String strBase64) {
+        return Base64.getDecoder().decode(strBase64);
     }
 
 
