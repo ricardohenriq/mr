@@ -49,12 +49,7 @@
 		<dependency>
 			<groupId>org.json</groupId>
 			<artifactId>json</artifactId>
-			<version>20150729</version>
-		</dependency>
-		<dependency>
-			<groupId>openehr</groupId>
-			<artifactId>mini-termserv</artifactId>
-			<version>1.0.11-SNAPSHOT</version>
+			<version>20080701</version>
 		</dependency>
 	</dependencies>
 </project>
