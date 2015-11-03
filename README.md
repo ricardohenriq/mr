@@ -23,8 +23,10 @@ MR.
 
 ##DOCUMENTAÇÂO
 
-#toJson()
-	A seguir segue modelo de implementação que no geral irá servir para a construção da implementação to método toJson() de qualquer classe do modelo de referência.
+# toJson()
+
+A seguir segue modelo de implementação que no geral irá servir para a construção da implementação to método toJson() de qualquer classe do modelo de referência.
+
 Exemplo 1
 ```
 private String buildJson(int idNodoGrafo){
