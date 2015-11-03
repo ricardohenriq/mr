@@ -14,8 +14,6 @@
  */
 package org.openehr.rm;
 
-import org.openehr.rm.formatters.JsonObject;
-
 /**
  * Root class of all reference model classes
  *
