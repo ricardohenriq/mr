@@ -55,3 +55,32 @@ Esse primeiro exemplo, case 5, contempla as principais meios de implementar a so
 * Para qualquer o atributo que não for primitivo(String, int, float, double ou boolean) o método obtemChave(idNodoGrafo,numeroAtributo) deverá ser invocado para retornando a chave do atributo não primitivo que o localiza no grafo. Essa chave deverá ser utiliza para reinvocar o método buildJson(chaveNodo) e assim caracterizando a recursão;
 * O número do atributo citado no item 3 deverá ser um inteiro incrementado um a um começando do 0. Este número representa e identifica o atributo da classe no modelo de referência. Por exemplo, se uma classe tiver 5 atributos sejam eles primitivos ou não, esses atributos serão identificados de 0 a 4 e dispostos de acordo com a implementação do modelo de referência; 
 * Os atributos primitivos serão recuperados com os métodos de acordo com a interface ModeloDeReferencia.
+
+Exemplo 2
+```
+private String buildJson(int idNodoGrafo){
+   String out = "";
+   switch (obtemTipo(idNodoGrafo)){
+	...
+case 3:
+   template = "{'atributoLista': [#atributoLista]}";
+   int idLista = obtemChave(idNodoGrafo,0);
+   int k = 0;
+   String lista = "";
+   for(int k = 0; k < obtemTamanhoLista(idList);k++){
+       int idObjetoLista = obtemChave(idLista,k);
+       lista = lista + buildJson(idObjetoLista) + ",";
+   }
+   template = template.replaceAll("#atributoLista",lista);
+   template = template.replaceAll("'", "\"");
+   break;
+	...
+   }
+   out += template;
+   return out;
+}
+```
+
+Nesse segundo exemplo vemos um caso onde a classe do modelo de referência possui um atributo do tipo lista.
+* Para atributos do tipo lista serão utilizados o método obtemTamanhoLista() para recuperar o tamanho da lista e com essa informação iterar sobre todos os elementos da lista.
+
