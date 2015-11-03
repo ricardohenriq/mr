@@ -60,14 +60,16 @@ MR.
 ```
 Nesse exemplo acima como podemos ver, a classe DvText possuí seis atributos e no caso do atributo mappings 	foi adicionado colchetes [ ] pois o mesmo se trata de uma lista que ao ser convertido para json se tornará um 	Json Array.
 
-    1.4. Recuperação dos atributos
-
-
 2.0 fromJson
 
-	O método fromJson visa reconstruir o grafo uma vez serializado em Json de volta ao seu estado normal. O fluxo principal desse método começa com a criação de um JSONObject (http://www.json.org/java/index.html) que é repassado ao método buildGraph que de fato constroí o grafo retornando ao final de sua execução o inteiro chave que identifica o nodo raiz do grafo.
+O método fromJson visa reconstruir o grafo uma vez serializado em Json de volta ao seu estado normal. O fluxo principal desse método começa com a criação de um JSONObject (http://www.json.org/java/index.html) que é repassado ao método buildGraph que de fato constroí o grafo retornando ao final de sua execução o inteiro chave que identifica o nodo raiz do grafo.
 	
-	O método fromJson faz uso dos diversos métodos “adiciona” também definidos na interface do projeto. A ideia é que para cada um dos diferentes tipos de objetos serializados em json, o método buildGraph seja chamado em recursividade fazendo a checagem inicial quanto ao tipo do objeto persistido no json (e que agora será reconstruído) e instanciando-o para a montagem do grafo de objetos de acordo com o atributo globalTypeIdn definido no json. A construção do grafo de objetos utiliza a abordagem bottom-up, em que são instanciados primeiramente aqueles elementos folha do grafo e então, gradativamente, são construídos os nodos que dependem de alguma forma destes mais externos.
+O método fromJson faz uso dos diversos métodos “adiciona” também definidos na interface do projeto. A ideia é que para cada um dos diferentes tipos de objetos serializados em json, o método buildGraph seja chamado em recursividade fazendo a checagem inicial quanto ao tipo do objeto persistido no json (e que agora será reconstruído) e instanciando-o para a montagem do grafo de objetos de acordo com o atributo globalTypeIdn definido no json. A construção do grafo de objetos utiliza a abordagem bottom-up, em que são instanciados primeiramente aqueles elementos folha do grafo e então, gradativamente, são construídos os nodos que dependem de alguma forma destes mais externos.
+
+
+
+
+
 
 
 
