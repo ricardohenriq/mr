@@ -41,7 +41,7 @@ MR.
   
   Em relação aos atributos do nodo propriamente dito, os mesmos podem ser:
 
-  * Um dos tipos nativos do Java que são int, float, double, long, boolean e String;
+  * Um dos tipos nativos do Java que são int, float, double, long, boolean, byte e String;
   * Um outro nodo.
 
   Em todo os casos colocamos o nome do atributo json exatamente igual ao nome do atributo do nodo. Por exemplo, um nodo tem uma String chamada version, logo o template terá um atributo chamado { “version” : #version } onde o #version será substituído pelo valor da String version.
