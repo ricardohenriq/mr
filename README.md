@@ -23,5 +23,6 @@ MR.
 
 ##DOCUMENTAÇÂO
 
-Nesse segundo exemplo vemos um caso onde a classe do modelo de referência possui um atributo do tipo lista.
-Para atributos do tipo lista serão utilizados o método obtemTamanhoLista() para recuperar o tamanho da lista e com essa informação iterar sobre todos os elementos da lista.
+1. toJson
+
+  O método toJson visa serializar no formato Json um grafo contendo nodos dispostos de forma hierárquica. O fluxo principal do método começa com a obtenção de um inteiro que representa o nodo raiz do grafo o qual é repassado ao método buildJson que de fato constrói o Json e que será invocado de forma recursiva retornando ao final uma String que representa fielmente o grafo em formato Json válido.
